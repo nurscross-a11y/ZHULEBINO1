@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#0b0f14">
 
 <title>Club Manager</title>
 
@@ -15,31 +13,19 @@
 html,body{
 margin:0;
 padding:0;
-width:100%;
-min-height:100%;
 background:#0b0f14;
 color:#fff;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 -webkit-tap-highlight-color:transparent;
 }
 
-body{
-padding-bottom:78px;
-}
+body{padding-bottom:75px}
 
-button,input,select{
-font:inherit;
-}
+button,input,select{font:inherit}
 
-button{
-cursor:pointer;
-}
+button{cursor:pointer}
 
-.hidden{
-display:none!important;
-}
-
-/* HEADER */
+.hidden{display:none!important}
 
 .header{
 height:60px;
@@ -51,211 +37,192 @@ align-items:center;
 justify-content:space-between;
 position:sticky;
 top:0;
-z-index:50;
+z-index:50
 }
 
 .logo{
 font-size:20px;
-font-weight:800;
+font-weight:800
 }
 
-.logo span{
-color:#42d392;
-}
+.logo span{color:#42d392}
 
 .status{
 font-size:12px;
-color:#42d392;
+color:#42d392
 }
-
-/* CONTAINER */
 
 .container{
 width:100%;
 max-width:1200px;
 margin:auto;
-padding:12px;
+padding:10px
 }
-
-/* STATS */
 
 .stats{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:8px;
-margin-bottom:12px;
+margin-bottom:10px
 }
 
 .stat{
 background:#131922;
 border:1px solid #293340;
 border-radius:14px;
-padding:12px;
+padding:11px
 }
 
 .stat-title{
 font-size:11px;
-color:#8d98a6;
+color:#8d98a6
 }
 
 .stat-value{
-font-size:20px;
+font-size:19px;
 font-weight:800;
-margin-top:4px;
+margin-top:3px
 }
 
-/* TABLES */
+/* СТОЛЫ */
 
 .tables-grid{
 display:grid;
 grid-template-columns:repeat(2,minmax(0,1fr));
-gap:10px;
+gap:9px
 }
 
 .card{
 background:#131922;
 border:1px solid #293340;
 border-radius:15px;
-padding:12px;
-min-width:0;
+padding:10px;
+min-width:0
 }
 
-.table.busy{
-border-color:#e4a33d;
+.card.busy{
+border-color:#e4a33d
 }
 
 .head{
 display:flex;
 justify-content:space-between;
 gap:5px;
-align-items:flex-start;
+align-items:flex-start
 }
 
 .name{
-font-size:16px;
-font-weight:800;
+font-size:15px;
+font-weight:800
 }
 
 .muted{
 color:#8d98a6;
-font-size:11px;
+font-size:11px
 }
 
-.green{
-color:#42d392;
-}
-
-.orange{
-color:#e4a33d;
-}
-
-.red{
-color:#ff6262;
-}
+.green{color:#42d392}
+.orange{color:#e4a33d}
+.red{color:#ff6262}
 
 .input{
 width:100%;
-margin-top:8px;
+margin-top:7px;
 background:#0b0f14;
 color:#fff;
 border:1px solid #303a47;
 border-radius:8px;
 padding:8px;
-font-size:13px;
+font-size:12px
 }
 
 .timer{
 text-align:center;
-font-size:25px;
+font-size:23px;
 font-weight:800;
-margin-top:10px;
-font-variant-numeric:tabular-nums;
-letter-spacing:-1px;
+margin-top:8px;
+font-variant-numeric:tabular-nums
 }
 
 .price{
 text-align:center;
-font-size:16px;
+font-size:15px;
 font-weight:800;
 color:#42d392;
-margin-top:2px;
+margin-top:2px
 }
 
 .rate{
 text-align:center;
 font-size:10px;
-color:#8d98a6;
-margin-top:2px;
+color:#8d98a6
 }
-
-/* BUTTONS */
 
 .buttons{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:6px;
-margin-top:10px;
+gap:5px;
+margin-top:8px
 }
 
 .btn{
 border:0;
 border-radius:8px;
-padding:9px 5px;
-font-size:12px;
-font-weight:700;
-min-width:0;
+padding:8px 4px;
+font-size:11px;
+font-weight:700
 }
 
 .start{
 background:#42d392;
-color:#06120c;
+color:#06120c
 }
 
 .blue{
 background:#4e8cff;
-color:#fff;
+color:white
 }
 
 .orange-btn{
 background:#e4a33d;
-color:#151006;
+color:#151006
 }
 
 .gray{
 background:#303a47;
-color:#fff;
+color:white
 }
 
 .red-btn{
 background:#d94b4b;
-color:#fff;
+color:white
 }
 
-/* PANELS */
+/* ПАНЕЛИ */
 
 .panel{
 background:#131922;
 border:1px solid #293340;
 border-radius:15px;
-padding:15px;
-margin-bottom:12px;
+padding:14px;
+margin-bottom:10px
 }
 
 .panel h2{
-font-size:18px;
-margin:0 0 12px;
+font-size:17px;
+margin:0 0 11px
 }
 
 .row{
 display:flex;
 gap:8px;
 flex-wrap:wrap;
-align-items:center;
+align-items:center
 }
 
 .row>*{
 flex:1;
-min-width:120px;
+min-width:110px
 }
 
 input,select{
@@ -263,72 +230,70 @@ background:#0b0f14;
 color:#fff;
 border:1px solid #303a47;
 border-radius:9px;
-padding:10px;
+padding:9px
 }
 
-/* PRODUCTS */
+/* БАР */
 
 .grid{
 display:grid;
 grid-template-columns:repeat(2,minmax(0,1fr));
-gap:10px;
+gap:9px
+}
+
+.stock{
+font-size:21px;
+font-weight:800;
+margin:7px 0
+}
+
+.product-price{
+font-size:17px;
+color:#42d392;
+font-weight:800
 }
 
 .product-actions{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:6px;
-margin-top:10px;
+gap:5px;
+margin-top:8px
 }
 
-.stock{
-font-size:22px;
-font-weight:800;
-margin:8px 0;
-}
-
-.product-price{
-font-size:18px;
-color:#42d392;
-font-weight:800;
-}
-
-/* TABLE */
+/* ТАБЛИЦЫ */
 
 .table-wrap{
-overflow-x:auto;
+overflow-x:auto
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-font-size:12px;
+font-size:12px
 }
 
 th,td{
-padding:9px 5px;
+padding:8px 5px;
 border-bottom:1px solid #293340;
 text-align:left;
-white-space:nowrap;
+white-space:nowrap
 }
 
-th{
-color:#8d98a6;
-}
+th{color:#8d98a6}
 
-/* HISTORY */
+/* ИСТОРИЯ */
 
 .operation{
 display:flex;
 gap:8px;
 align-items:center;
-padding:11px 0;
-border-bottom:1px solid #293340;
+padding:10px 0;
+border-bottom:1px solid #293340
 }
 
 .operation-info{
 flex:1;
-min-width:0;
+min-width:0
 }
 
 .danger-small{
@@ -338,40 +303,28 @@ border:0;
 border-radius:7px;
 padding:7px 8px;
 font-size:11px;
-white-space:nowrap;
+white-space:nowrap
 }
 
-.success-box,
 .warning-box{
 padding:10px;
 border-radius:9px;
-margin-bottom:12px;
+margin-bottom:10px;
 font-size:12px;
-}
-
-.success-box{
-background:#10271d;
-border:1px solid #245c43;
-color:#42d392;
-}
-
-.warning-box{
 background:#2b2110;
 border:1px solid #6b5120;
-color:#e4a33d;
+color:#e4a33d
 }
 
-/* BIG */
-
 .big{
-font-size:32px;
+font-size:30px;
 font-weight:800;
 text-align:center;
 color:#42d392;
-margin:12px 0;
+margin:10px 0
 }
 
-/* BOTTOM NAVIGATION */
+/* НИЖНЕЕ МЕНЮ */
 
 .bottom-nav{
 position:fixed;
@@ -379,12 +332,11 @@ left:0;
 right:0;
 bottom:0;
 height:68px;
-background:rgba(19,25,34,.97);
+background:rgba(19,25,34,.98);
 border-top:1px solid #293340;
 display:grid;
 grid-template-columns:repeat(4,1fr);
-z-index:200;
-padding-bottom:env(safe-area-inset-bottom);
+z-index:200
 }
 
 .bottom-nav button{
@@ -397,19 +349,18 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-gap:3px;
+gap:3px
 }
 
 .bottom-nav button.active{
-color:#42d392;
+color:#42d392
 }
 
 .nav-icon{
-font-size:21px;
-line-height:21px;
+font-size:21px
 }
 
-/* MORE MENU */
+/* ЕЩЁ */
 
 .more-menu{
 position:fixed;
@@ -420,8 +371,8 @@ background:#151c25;
 border:1px solid #303a47;
 border-radius:15px;
 padding:6px;
-z-index:190;
-box-shadow:0 10px 40px rgba(0,0,0,.5);
+z-index:300;
+box-shadow:0 10px 40px rgba(0,0,0,.5)
 }
 
 .more-menu button{
@@ -430,13 +381,8 @@ padding:12px;
 background:transparent;
 border:0;
 border-radius:9px;
-color:#fff;
-text-align:left;
-font-size:14px;
-}
-
-.more-menu button:active{
-background:#293340;
+color:white;
+text-align:left
 }
 
 /* MODAL */
@@ -449,130 +395,93 @@ display:none;
 align-items:center;
 justify-content:center;
 z-index:500;
-padding:15px;
+padding:15px
 }
 
 .modal.show{
-display:flex;
+display:flex
 }
 
 .modal-box{
 width:100%;
-max-width:450px;
+max-width:430px;
 max-height:90vh;
 overflow:auto;
 background:#151c25;
 border:1px solid #303a47;
 border-radius:18px;
-padding:18px;
+padding:18px
 }
 
 .modal-box h2{
-margin-top:0;
+margin-top:0
 }
 
 .modal-box input,
 .modal-box select{
 width:100%;
-margin-top:8px;
+margin-top:8px
 }
 
 .modal-buttons{
 display:flex;
 gap:8px;
-margin-top:15px;
+margin-top:15px
 }
 
 .modal-buttons button{
-flex:1;
+flex:1
 }
-
-/* DESKTOP */
 
 @media(min-width:700px){
 
-body{
-padding-bottom:0;
-}
-
-.header{
-height:70px;
-padding:0 25px;
-}
-
-.container{
-padding:22px;
-}
-
 .tables-grid{
 grid-template-columns:repeat(3,minmax(0,1fr));
-gap:18px;
+gap:15px
 }
 
 .grid{
-grid-template-columns:repeat(3,minmax(0,1fr));
+grid-template-columns:repeat(3,minmax(0,1fr))
 }
 
 .timer{
-font-size:34px;
+font-size:30px
 }
 
 .bottom-nav{
-position:fixed;
 left:50%;
+right:auto;
 transform:translateX(-50%);
-bottom:15px;
 width:420px;
 border:1px solid #293340;
 border-radius:15px;
-overflow:hidden;
+bottom:15px;
+overflow:hidden
 }
-
 }
-
-/* VERY SMALL PHONES */
 
 @media(max-width:360px){
 
-.container{
-padding:8px;
+.tables-grid{
+gap:6px
 }
 
 .card{
-padding:9px;
+padding:8px
 }
 
 .name{
-font-size:14px;
+font-size:13px
 }
 
 .timer{
-font-size:22px;
-}
-
-.price{
-font-size:14px;
+font-size:20px
 }
 
 .btn{
 font-size:10px;
-padding:8px 3px;
+padding:7px 2px
 }
-
-}
-
-/* LANDSCAPE */
-
-@media(max-height:500px) and (orientation:landscape){
-
-.tables-grid{
-grid-template-columns:repeat(3,minmax(0,1fr));
-}
-
-body{
-padding-bottom:65px;
-}
-
 }
 </style>
 </head>
@@ -580,15 +489,8 @@ padding-bottom:65px;
 <body>
 
 <header class="header">
-
-<div class="logo">
-🎱 <span>Club Manager</span>
-</div>
-
-<div class="status">
-● Открыт
-</div>
-
+<div class="logo">🎱 <span>Club Manager</span></div>
+<div class="status">● Открыт</div>
 </header>
 
 <div class="container">
@@ -658,7 +560,7 @@ padding-bottom:65px;
 
 <div class="row">
 
-<input id="search" placeholder="🔎 Поиск товара" oninput="renderBar()">
+<input id="search" placeholder="🔎 Поиск" oninput="renderBar()">
 
 <button class="btn start" onclick="productModal()">
 + Новый товар
@@ -709,13 +611,9 @@ padding-bottom:65px;
 
 <div class="row">
 
-<button class="btn start" onclick="openShift()">
-▶ Открыть
-</button>
+<button class="btn start" onclick="openShift()">▶ Открыть</button>
 
-<button class="btn red-btn" onclick="closeShift()">
-🔒 Закрыть
-</button>
+<button class="btn red-btn" onclick="closeShift()">🔒 Закрыть</button>
 
 </div>
 
@@ -725,9 +623,7 @@ padding-bottom:65px;
 
 <h2>💰 Итоговая касса</h2>
 
-<div class="big" id="cashTotal">
-0 ₽
-</div>
+<div class="big" id="cashTotal">0 ₽</div>
 
 <div class="muted" style="text-align:center">
 Наличные + карта
@@ -754,9 +650,7 @@ padding-bottom:65px;
 
 <input id="purchaseCost" type="number" placeholder="Цена">
 
-<button class="btn start" onclick="makePurchase()">
-Добавить
-</button>
+<button class="btn start" onclick="makePurchase()">Добавить</button>
 
 </div>
 
@@ -794,9 +688,7 @@ padding-bottom:65px;
 
 </select>
 
-<button class="btn red-btn" onclick="addExpense()">
-Добавить
-</button>
+<button class="btn red-btn" onclick="addExpense()">Добавить</button>
 
 </div>
 
@@ -845,9 +737,7 @@ padding-bottom:65px;
 
 </div>
 
-<div class="big" id="netProfit">
-0 ₽
-</div>
+<div class="big" id="netProfit">0 ₽</div>
 
 <div class="muted" style="text-align:center">
 Чистая прибыль
@@ -863,32 +753,6 @@ padding-bottom:65px;
 
 </div>
 
-<div class="panel">
-
-<h2>💾 Резервная копия</h2>
-
-<div class="row">
-
-<button class="btn start" onclick="backup()">
-⬇️ Скачать
-</button>
-
-<button class="btn blue" onclick="document.getElementById('restore').click()">
-⬆️ Восстановить
-</button>
-
-</div>
-
-<input
-id="restore"
-type="file"
-accept=".json"
-style="display:none"
-onchange="restore(event)"
->
-
-</div>
-
 </section>
 
 
@@ -901,7 +765,7 @@ onchange="restore(event)"
 <h2>📋 История</h2>
 
 <div class="warning-box">
-Ошибочную операцию можно отменить. После отмены она останется в истории как <b>ОШИБКА</b>.
+Ошибочную операцию можно отменить.
 </div>
 
 <div id="historyList"></div>
@@ -917,38 +781,30 @@ onchange="restore(event)"
 
 <nav class="bottom-nav">
 
-<button class="active" onclick="page('tables',this);closeMore()">
-
+<button class="active" onclick="page('tables',this)">
 <span class="nav-icon">🎱</span>
 <span>Столы</span>
-
 </button>
 
-<button onclick="page('bar',this);closeMore()">
-
+<button onclick="page('bar',this)">
 <span class="nav-icon">🍫</span>
 <span>Бар</span>
-
 </button>
 
-<button onclick="page('cash',this);closeMore()">
-
+<button onclick="page('cash',this)">
 <span class="nav-icon">💰</span>
 <span>Касса</span>
-
 </button>
 
 <button onclick="toggleMore()">
-
 <span class="nav-icon">☰</span>
 <span>Ещё</span>
-
 </button>
 
 </nav>
 
 
-<!-- МЕНЮ ЕЩЁ -->
+<!-- ЕЩЁ -->
 
 <div id="moreMenu" class="more-menu hidden">
 
@@ -982,11 +838,9 @@ onchange="restore(event)"
 <input id="pName" placeholder="Название">
 
 <select id="pCategory">
-
 <option>Напитки</option>
 <option>Снеки</option>
 <option>Другое</option>
-
 </select>
 
 <input id="pCost" type="number" placeholder="Цена закупки">
@@ -999,13 +853,9 @@ onchange="restore(event)"
 
 <div class="modal-buttons">
 
-<button class="btn gray" onclick="closeProduct()">
-Отмена
-</button>
+<button class="btn gray" onclick="closeProduct()">Отмена</button>
 
-<button class="btn start" onclick="saveProduct()">
-Сохранить
-</button>
+<button class="btn start" onclick="saveProduct()">Сохранить</button>
 
 </div>
 
@@ -1033,19 +883,13 @@ onchange="restore(event)"
 
 </select>
 
-<div class="big" id="saleTotal">
-0 ₽
-</div>
+<div class="big" id="saleTotal">0 ₽</div>
 
 <div class="modal-buttons">
 
-<button class="btn gray" onclick="closeSale()">
-Отмена
-</button>
+<button class="btn gray" onclick="closeSale()">Отмена</button>
 
-<button class="btn start" onclick="sellProduct()">
-Продать
-</button>
+<button class="btn start" onclick="sellProduct()">Продать</button>
 
 </div>
 
@@ -1060,13 +904,11 @@ onchange="restore(event)"
 
 <div class="modal-box">
 
-<h2>💳 Оплата</h2>
+<h2>💳 Оплата стола</h2>
 
 <div id="tablePaymentInfo"></div>
 
-<div class="big" id="tablePaymentTotal">
-0 ₽
-</div>
+<div class="big" id="tablePaymentTotal">0 ₽</div>
 
 <select id="tablePaymentMethod">
 
@@ -1077,13 +919,9 @@ onchange="restore(event)"
 
 <div class="modal-buttons">
 
-<button class="btn gray" onclick="closeTablePayment()">
-Отмена
-</button>
+<button class="btn gray" onclick="closeTablePayment()">Отмена</button>
 
-<button class="btn start" onclick="payTable()">
-Оплачено
-</button>
+<button class="btn start" onclick="payTable()">Оплачено</button>
 
 </div>
 
@@ -1094,16 +932,16 @@ onchange="restore(event)"
 
 <script>
 
-/* ================= ДАННЫЕ ================= */
+const KEY="club_manager_v2";
 
-const KEY="club_manager_v1";
+/* 4 РУССКИХ + 1 АМЕРИКАНКА */
 
 const tableInfo=[
 {id:1,name:"Стол №1",type:"Русский бильярд",rate:600},
 {id:2,name:"Стол №2",type:"Русский бильярд",rate:600},
 {id:3,name:"Стол №3",type:"Русский бильярд",rate:600},
 {id:4,name:"Стол №4",type:"Русский бильярд",rate:600},
-{id:5,name:"Американка",type:"Американский пул",rate:500}
+{id:5,name:"Стол №5",type:"Американский пул",rate:500}
 ];
 
 const defaultData={
@@ -1155,73 +993,55 @@ let data;
 
 try{
 data=JSON.parse(localStorage.getItem(KEY));
-if(!data)data=structuredClone(defaultData);
 }catch(e){
-data=structuredClone(defaultData);
+data=null;
 }
 
-/* ================= МИГРАЦИЯ ================= */
+if(!data){
+data=JSON.parse(JSON.stringify(defaultData));
+}
 
-function migrate(){
+/* СОЗДАНИЕ СТОЛОВ */
 
-if(!Array.isArray(data.tables))data.tables=[];
-if(!Array.isArray(data.products))data.products=[];
-if(!Array.isArray(data.tableSales))data.tableSales=[];
-if(!Array.isArray(data.barSales))data.barSales=[];
-if(!Array.isArray(data.purchases))data.purchases=[];
-if(!Array.isArray(data.expenses))data.expenses[];
+function initTables(){
 
-data.products.forEach(p=>{
-if(p.min===undefined)p.min=5;
-if(p.sold===undefined)p.sold=0;
-});
+data.tables=tableInfo.map(info=>{
 
-if(!data.tables.length){
+let old=data.tables.find(t=>t.id===info.id);
 
-data.tables=tableInfo.map(t=>({
-id:t.id,
+return old||{
+id:info.id,
 seconds:0,
 running:false,
 customer:"",
 startedAt:null
-}));
+};
 
-}else{
-
-data.tables.forEach(t=>{
-if(t.seconds===undefined)t.seconds=0;
-if(t.running===undefined)t.running=false;
-if(t.customer===undefined)t.customer="";
-if(t.startedAt===undefined)t.startedAt=null;
 });
 
 }
 
-save();
-
-}
-
-/* ================= СОХРАНЕНИЕ ================= */
+/* СОХРАНЕНИЕ */
 
 function save(){
 localStorage.setItem(KEY,JSON.stringify(data));
 }
 
-/* ================= УТИЛИТЫ ================= */
+/* УТИЛИТЫ */
 
-function table(id){
-return data.tables.find(x=>x.id===id);
+function getTable(id){
+return data.tables.find(t=>t.id===id);
 }
 
-function info(id){
-return tableInfo.find(x=>x.id===id);
+function getInfo(id){
+return tableInfo.find(t=>t.id===id);
 }
 
 function money(n){
 return Math.round(Number(n)||0).toLocaleString("ru-RU")+" ₽";
 }
 
-function time(sec){
+function formatTime(sec){
 
 sec=Math.max(0,Math.floor(sec));
 
@@ -1239,59 +1059,32 @@ function getSeconds(t){
 
 let seconds=Number(t.seconds)||0;
 
-if(t.running&&t.startedAt){
+if(t.running && t.startedAt){
 
-let diff=Math.floor(
-(Date.now()-Number(t.startedAt))/1000
-);
-
-return seconds+Math.max(0,diff);
+return seconds+
+Math.floor((Date.now()-t.startedAt)/1000);
 
 }
 
 return seconds;
-
 }
 
 function tablePrice(t){
 
-let i=info(t.id);
 let seconds=getSeconds(t);
 
 if(seconds<=0)return 0;
 
-return Math.ceil(seconds/3600*i.rate);
-
+return Math.ceil(
+seconds/3600
+)*getInfo(t.id).rate;
 }
 
-function escapeHTML(s){
-
-return String(s??"")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
-
-}
-
-function formatDate(value){
-
-if(!value)return"";
-
-let d=new Date(value);
-
-if(isNaN(d.getTime()))return String(value);
-
-return d.toLocaleString("ru-RU");
-
-}
-
-/* ================= СТОЛЫ ================= */
+/* СТОЛЫ */
 
 function renderTables(){
 
-let grid=document.getElementById("tablesGrid");
+const grid=document.getElementById("tablesGrid");
 
 grid.innerHTML="";
 
@@ -1301,24 +1094,28 @@ data.tables.forEach(t=>{
 
 if(t.running)busy++;
 
-let i=info(t.id);
-let seconds=getSeconds(t);
+const i=getInfo(t.id);
 
-let card=document.createElement("div");
+const card=document.createElement("div");
 
-card.className="card table "+(t.running?"busy":"");
+card.className="card"+(t.running?" busy":"");
 
 card.innerHTML=`
 
 <div class="head">
 
 <div>
+
 <div class="name">${i.name}</div>
+
 <div class="muted">${i.type}</div>
+
 </div>
 
 <div class="${t.running?"orange":"green"}">
+
 ${t.running?"● Занят":"● Свободен"}
+
 </div>
 
 </div>
@@ -1326,15 +1123,14 @@ ${t.running?"● Занят":"● Свободен"}
 <input
 class="input"
 placeholder="Имя клиента"
-value="${escapeHTML(t.customer)}"
-onchange="setCustomer(${t.id},this.value)"
+value="${t.customer||""}"
 >
 
-<div class="timer" id="timer${t.id}">
-${time(seconds)}
+<div class="timer">
+${formatTime(getSeconds(t))}
 </div>
 
-<div class="price" id="price${t.id}">
+<div class="price">
 ${money(tablePrice(t))}
 </div>
 
@@ -1345,27 +1141,38 @@ ${i.rate} ₽ / час
 <div class="buttons">
 
 <button class="btn start"
-onclick="startTable(${t.id})">
+data-action="start"
+data-id="${t.id}">
 ▶ Старт
 </button>
 
 <button class="btn orange-btn"
-onclick="pauseTable(${t.id})">
+data-action="pause"
+data-id="${t.id}">
 ${t.running?"Ⅱ Пауза":"▶ Продолжить"}
 </button>
 
 <button class="btn blue"
-onclick="openTablePayment(${t.id})">
+data-action="pay"
+data-id="${t.id}">
 💳 Оплата
 </button>
 
 <button class="btn gray"
-onclick="resetTable(${t.id})">
+data-action="reset"
+data-id="${t.id}">
 ↻ Сброс
 </button>
 
 </div>
 `;
+
+const input=card.querySelector("input");
+
+input.addEventListener("change",function(){
+t.customer=this.value;
+save();
+});
 
 grid.appendChild(card);
 
@@ -1376,32 +1183,44 @@ data.tables.length-busy;
 
 document.getElementById("busyTables").textContent=busy;
 
-document.getElementById("tableRevenue").textContent=
-money(
-data.tableSales
+const revenue=data.tableSales
 .filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.amount||0),0)
-);
+.reduce((a,x)=>a+Number(x.amount||0),0);
+
+document.getElementById("tableRevenue").textContent=money(revenue);
 
 }
 
-function setCustomer(id,value){
+/* КНОПКИ СТОЛОВ */
 
-let t=table(id);
+document.getElementById("tablesGrid").addEventListener("click",function(e){
 
-if(!t)return;
+const btn=e.target.closest("button");
 
-t.customer=value;
+if(!btn)return;
 
-save();
+const id=Number(btn.dataset.id);
 
-}
+if(btn.dataset.action==="start")startTable(id);
+
+if(btn.dataset.action==="pause")pauseTable(id);
+
+if(btn.dataset.action==="pay")openTablePayment(id);
+
+if(btn.dataset.action==="reset")resetTable(id);
+
+});
 
 function startTable(id){
 
-let t=table(id);
+const t=getTable(id);
 
-if(!t||t.running)return;
+if(!t)return;
+
+if(t.running){
+alert("Стол уже запущен.");
+return;
+}
 
 t.running=true;
 t.startedAt=Date.now();
@@ -1413,7 +1232,7 @@ renderTables();
 
 function pauseTable(id){
 
-let t=table(id);
+const t=getTable(id);
 
 if(!t)return;
 
@@ -1437,11 +1256,11 @@ renderTables();
 
 function resetTable(id){
 
-let t=table(id);
+const t=getTable(id);
 
 if(!t)return;
 
-if(!confirm("Сбросить стол?\n\nВремя и клиент будут удалены."))return;
+if(!confirm("Сбросить стол?"))return;
 
 t.seconds=0;
 t.running=false;
@@ -1453,37 +1272,52 @@ renderTables();
 
 }
 
-/* ================= ТАЙМЕР ================= */
+/* ТАЙМЕР */
 
-setInterval(()=>{
+setInterval(function(){
 
 data.tables.forEach(t=>{
 
-let timer=document.getElementById("timer"+t.id);
-let price=document.getElementById("price"+t.id);
+const cards=document.querySelectorAll("#tablesGrid .card");
 
-if(timer)timer.textContent=time(getSeconds(t));
+cards.forEach(card=>{
+
+const name=card.querySelector(".name");
+
+if(!name)return;
+
+if(name.textContent===getInfo(t.id).name){
+
+const timer=card.querySelector(".timer");
+const price=card.querySelector(".price");
+
+if(timer)timer.textContent=formatTime(getSeconds(t));
+
 if(price)price.textContent=money(tablePrice(t));
+
+}
 
 });
 
-},500);
+});
 
-/* ================= ОПЛАТА СТОЛА ================= */
+},1000);
+
+
+/* ОПЛАТА */
 
 let activeTable=null;
 
 function openTablePayment(id){
 
-let t=table(id);
+const t=getTable(id);
 
 if(!t)return;
 
-let seconds=getSeconds(t);
+if(getSeconds(t)<=0){
 
-if(seconds<=0){
+alert("Сначала запусти стол.");
 
-alert("Стол ещё не запускался.");
 return;
 
 }
@@ -1491,7 +1325,7 @@ return;
 activeTable=t;
 
 document.getElementById("tablePaymentInfo").textContent=
-info(id).name+" · "+(t.customer||"Без имени");
+getInfo(id).name+" · "+(t.customer||"Без имени");
 
 document.getElementById("tablePaymentTotal").textContent=
 money(tablePrice(t));
@@ -1510,30 +1344,36 @@ activeTable=null;
 
 function payTable(){
 
-let t=activeTable;
+if(!activeTable)return;
 
-if(!t)return;
+const t=activeTable;
 
-let amount=tablePrice(t);
+const amount=tablePrice(t);
 
-if(amount<=0)return;
+const method=document.getElementById("tablePaymentMethod").value;
 
-let method=document.getElementById("tablePaymentMethod").value;
-
-if(method==="Наличные")data.cash+=amount;
-else data.card+=amount;
+if(method==="Наличные"){
+data.cash+=amount;
+}else{
+data.card+=amount;
+}
 
 data.tableSales.unshift({
 
 id:Date.now(),
-type:"Бильярд",
-table:info(t.id).name,
+
+table:getInfo(t.id).name,
+
 customer:t.customer||"Без имени",
-amount,
-method,
+
+amount:amount,
+
+method:method,
+
 seconds:getSeconds(t),
+
 date:new Date().toISOString(),
-displayDate:new Date().toLocaleString("ru-RU"),
+
 cancelled:false
 
 });
@@ -1546,29 +1386,32 @@ t.customer="";
 save();
 
 closeTablePayment();
+
 renderAll();
 
 }
 
-/* ================= БАР ================= */
+
+/* БАР */
 
 let activeProduct=null;
 
 function renderBar(){
 
-let grid=document.getElementById("productsGrid");
+const grid=document.getElementById("productsGrid");
 
 grid.innerHTML="";
 
-let search=(document.getElementById("search").value||"").toLowerCase();
+const search=
+(document.getElementById("search").value||"").toLowerCase();
 
 data.products
-.filter(p=>String(p.name).toLowerCase().includes(search))
+.filter(p=>p.name.toLowerCase().includes(search))
 .forEach(p=>{
 
-let low=Number(p.qty)<=Number(p.min||5);
+const low=p.qty<=p.min;
 
-let card=document.createElement("div");
+const card=document.createElement("div");
 
 card.className="card";
 
@@ -1577,8 +1420,11 @@ card.innerHTML=`
 <div class="head">
 
 <div>
-<div class="name">${escapeHTML(p.name)}</div>
-<div class="muted">${escapeHTML(p.category)}</div>
+
+<div class="name">${p.name}</div>
+
+<div class="muted">${p.category}</div>
+
 </div>
 
 <div class="${low?"red":"green"}">
@@ -1600,10 +1446,6 @@ ${money(p.price)}
 </div>
 
 <div class="muted">
-Прибыль: ${money(p.price-p.cost)}
-</div>
-
-<div class="muted" style="margin-top:7px">
 Продано: ${p.sold||0} шт.
 </div>
 
@@ -1630,48 +1472,43 @@ onclick="deleteProduct(${p.id})">
 </button>
 
 </div>
-
 `;
 
 grid.appendChild(card);
 
 });
 
-let revenue=data.barSales
-.filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.total||0),0);
+const sales=data.barSales.filter(x=>!x.cancelled);
 
-let profit=data.barSales
-.filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.profit||0),0);
+document.getElementById("barRevenue").textContent=
+money(sales.reduce((a,x)=>a+x.total,0));
 
-let sold=data.barSales
-.filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.qty||0),0);
+document.getElementById("barProfit").textContent=
+money(sales.reduce((a,x)=>a+x.profit,0));
 
-document.getElementById("barRevenue").textContent=money(revenue);
-document.getElementById("barProfit").textContent=money(profit);
-document.getElementById("barSold").textContent=sold;
+document.getElementById("barSold").textContent=
+sales.reduce((a,x)=>a+x.qty,0);
 
 document.getElementById("lowStock").textContent=
-data.products.filter(
-p=>Number(p.qty)<=Number(p.min||5)
-).length;
+data.products.filter(p=>p.qty<=p.min).length;
 
 updatePurchaseProducts();
 
 }
 
+
+/* ТОВАР */
+
 function productModal(){
 
 activeProduct=null;
 
-document.getElementById("pName").value="";
+["pName","pCost","pPrice","pQty"].forEach(id=>{
+document.getElementById(id).value="";
+});
+
 document.getElementById("pCategory").value="Напитки";
-document.getElementById("pCost").value="";
-document.getElementById("pPrice").value="";
-document.getElementById("pQty").value="";
-document.getElementById("pMin").value="5";
+document.getElementById("pMin").value=5;
 
 document.getElementById("productModalBox").classList.add("show");
 
@@ -1679,18 +1516,16 @@ document.getElementById("productModalBox").classList.add("show");
 
 function editProduct(id){
 
-let p=data.products.find(x=>x.id===id);
+activeProduct=data.products.find(p=>p.id===id);
 
-if(!p)return;
+if(!activeProduct)return;
 
-activeProduct=p;
-
-document.getElementById("pName").value=p.name;
-document.getElementById("pCategory").value=p.category;
-document.getElementById("pCost").value=p.cost;
-document.getElementById("pPrice").value=p.price;
-document.getElementById("pQty").value=p.qty;
-document.getElementById("pMin").value=p.min||5;
+document.getElementById("pName").value=activeProduct.name;
+document.getElementById("pCategory").value=activeProduct.category;
+document.getElementById("pCost").value=activeProduct.cost;
+document.getElementById("pPrice").value=activeProduct.price;
+document.getElementById("pQty").value=activeProduct.qty;
+document.getElementById("pMin").value=activeProduct.min;
 
 document.getElementById("productModalBox").classList.add("show");
 
@@ -1706,28 +1541,31 @@ activeProduct=null;
 
 function saveProduct(){
 
-let name=document.getElementById("pName").value.trim();
-let category=document.getElementById("pCategory").value;
-let cost=Number(document.getElementById("pCost").value)||0;
-let price=Number(document.getElementById("pPrice").value)||0;
-let qty=Number(document.getElementById("pQty").value)||0;
-let min=Number(document.getElementById("pMin").value)||0;
+const name=document.getElementById("pName").value.trim();
+
+const category=document.getElementById("pCategory").value;
+
+const cost=Number(document.getElementById("pCost").value)||0;
+
+const price=Number(document.getElementById("pPrice").value)||0;
+
+const qty=Number(document.getElementById("pQty").value)||0;
+
+const min=Number(document.getElementById("pMin").value)||0;
 
 if(!name||price<=0){
 
-alert("Заполни название и цену продажи.");
+alert("Заполни название и цену.");
+
 return;
 
 }
 
 if(activeProduct){
 
-activeProduct.name=name;
-activeProduct.category=category;
-activeProduct.cost=cost;
-activeProduct.price=price;
-activeProduct.qty=qty;
-activeProduct.min=min;
+Object.assign(activeProduct,{
+name,category,cost,price,qty,min
+});
 
 }else{
 
@@ -1761,32 +1599,31 @@ renderBar();
 
 }
 
-/* ================= ПРОДАЖА ================= */
+
+/* ПРОДАЖА */
 
 function openSale(id){
 
-let p=data.products.find(x=>x.id===id);
+activeProduct=data.products.find(p=>p.id===id);
 
-if(!p)return;
+if(!activeProduct)return;
 
-if(Number(p.qty)<=0){
+if(activeProduct.qty<=0){
 
 alert("Товар закончился.");
+
 return;
 
 }
 
-activeProduct=p;
-
 document.getElementById("saleName").textContent=
-p.name+" · "+money(p.price);
+activeProduct.name;
 
 document.getElementById("saleQty").value=1;
-document.getElementById("saleQty").max=p.qty;
-
-updateSale();
 
 document.getElementById("saleModal").classList.add("show");
+
+updateSale();
 
 }
 
@@ -1796,13 +1633,9 @@ function updateSale(){
 
 if(!activeProduct)return;
 
-let q=Math.max(
-1,
-Math.min(
-Number(activeProduct.qty),
-parseInt(document.getElementById("saleQty").value)||1
-)
-);
+let q=Number(document.getElementById("saleQty").value)||1;
+
+q=Math.max(1,Math.min(q,activeProduct.qty));
 
 document.getElementById("saleQty").value=q;
 
@@ -1821,42 +1654,43 @@ activeProduct=null;
 
 function sellProduct(){
 
-let p=activeProduct;
+if(!activeProduct)return;
 
-if(!p)return;
+const q=Number(document.getElementById("saleQty").value);
 
-let q=Number(document.getElementById("saleQty").value);
+if(q<=0||q>activeProduct.qty){
 
-if(q<=0||q>Number(p.qty)){
+alert("Недостаточно товара.");
 
-alert("Недостаточное количество.");
 return;
 
 }
 
-let total=Number(p.price)*q;
-let profit=(Number(p.price)-Number(p.cost))*q;
+const total=activeProduct.price*q;
 
-let method=document.getElementById("salePayment").value;
+const profit=(activeProduct.price-activeProduct.cost)*q;
 
-if(method==="Наличные")data.cash+=total;
-else data.card+=total;
+const method=document.getElementById("salePayment").value;
 
-p.qty-=q;
-p.sold=Number(p.sold||0)+q;
+if(method==="Наличные"){
+data.cash+=total;
+}else{
+data.card+=total;
+}
+
+activeProduct.qty-=q;
+activeProduct.sold+=q;
 
 data.barSales.unshift({
 
 id:Date.now(),
-type:"Бар",
-product:p.name,
-productId:p.id,
+product:activeProduct.name,
+productId:activeProduct.id,
 qty:q,
 total,
 profit,
 method,
 date:new Date().toISOString(),
-displayDate:new Date().toLocaleString("ru-RU"),
 cancelled:false
 
 });
@@ -1864,27 +1698,25 @@ cancelled:false
 save();
 
 closeSale();
+
 renderAll();
 
-if(p.qty<=p.min){
-alert("⚠️ Мало товара: "+p.name);
 }
 
-}
 
-/* ================= ПОПОЛНЕНИЕ ================= */
+/* ПОПОЛНЕНИЕ */
 
 function addStock(id){
 
-let p=data.products.find(x=>x.id===id);
+const p=data.products.find(x=>x.id===id);
 
 if(!p)return;
 
-let q=Number(prompt("Количество:","10"));
+const q=Number(prompt("Количество:","10"));
 
 if(!q||q<=0)return;
 
-let cost=Number(prompt("Цена закупки за штуку:",p.cost));
+const cost=Number(prompt("Цена закупки:",p.cost));
 
 if(isNaN(cost)||cost<0)return;
 
@@ -1899,22 +1731,21 @@ productId:p.id,
 qty:q,
 cost,
 total:q*cost,
-date:new Date().toISOString(),
-displayDate:new Date().toLocaleString("ru-RU")
+date:new Date().toISOString()
 
 });
 
 save();
-
 renderAll();
 
 }
 
-/* ================= ЗАКУПКИ ================= */
+
+/* ЗАКУПКИ */
 
 function updatePurchaseProducts(){
 
-let select=document.getElementById("purchaseProduct");
+const select=document.getElementById("purchaseProduct");
 
 if(!select)return;
 
@@ -1922,7 +1753,7 @@ select.innerHTML="";
 
 data.products.forEach(p=>{
 
-let option=document.createElement("option");
+const option=document.createElement("option");
 
 option.value=p.id;
 option.textContent=p.name;
@@ -1935,15 +1766,24 @@ select.appendChild(option);
 
 function makePurchase(){
 
-let id=Number(document.getElementById("purchaseProduct").value);
-let q=Number(document.getElementById("purchaseQty").value);
-let cost=Number(document.getElementById("purchaseCost").value);
+const id=Number(
+document.getElementById("purchaseProduct").value
+);
 
-let p=data.products.find(x=>x.id===id);
+const q=Number(
+document.getElementById("purchaseQty").value
+);
 
-if(!p||q<=0||cost<0){
+const cost=Number(
+document.getElementById("purchaseCost").value
+);
+
+const p=data.products.find(x=>x.id===id);
+
+if(!p||q<=0){
 
 alert("Заполни данные.");
+
 return;
 
 }
@@ -1959,81 +1799,77 @@ productId:p.id,
 qty:q,
 cost,
 total:q*cost,
-date:new Date().toISOString(),
-displayDate:new Date().toLocaleString("ru-RU")
+date:new Date().toISOString()
 
 });
 
+save();
+
+renderAll();
+
 document.getElementById("purchaseQty").value="";
 document.getElementById("purchaseCost").value="";
-
-save();
-renderAll();
 
 }
 
 function renderPurchases(){
 
-let box=document.getElementById("purchaseHistory");
+const box=document.getElementById("purchaseHistory");
 
 if(!data.purchases.length){
 
 box.innerHTML='<p class="muted">Закупок пока нет</p>';
+
 return;
 
 }
 
-box.innerHTML=`
+box.innerHTML=data.purchases.map(x=>`
 
-<div class="table-wrap">
+<div class="operation">
 
-<table>
+<div class="operation-info">
 
-<tr>
-<th>Дата</th>
-<th>Товар</th>
-<th>Кол-во</th>
-<th>Цена</th>
-<th>Сумма</th>
-</tr>
+<b>${x.product}</b>
 
-${data.purchases.map(x=>`
-
-<tr>
-<td>${x.displayDate||formatDate(x.date)}</td>
-<td>${escapeHTML(x.product)}</td>
-<td>${x.qty}</td>
-<td>${money(x.cost)}</td>
-<td>${money(x.total)}</td>
-</tr>
-
-`).join("")}
-
-</table>
+<div class="muted">
+${x.qty} шт. · ${money(x.total)}
+</div>
 
 </div>
 
-`;
+</div>
+
+`).join("");
 
 }
 
-/* ================= РАСХОДЫ ================= */
+
+/* РАСХОДЫ */
 
 function addExpense(){
 
-let name=document.getElementById("expenseName").value.trim();
-let amount=Number(document.getElementById("expenseAmount").value);
-let method=document.getElementById("expensePayment").value;
+const name=document.getElementById("expenseName").value.trim();
+
+const amount=Number(
+document.getElementById("expenseAmount").value
+);
+
+const method=document.getElementById("expensePayment").value;
 
 if(!name||amount<=0){
 
 alert("Заполни расход.");
+
 return;
 
 }
 
-if(method==="Наличные")data.cash-=amount;
-else data.card-=amount;
+if(method==="Наличные"){
+data.cash-=amount;
+}else{
+data.card-=amount;
+}
 
 data.expenses.unshift({
 
@@ -2042,120 +1878,65 @@ name,
 amount,
 method,
 date:new Date().toISOString(),
-displayDate:new Date().toLocaleString("ru-RU"),
 cancelled:false
 
 });
 
-document.getElementById("expenseName").value="";
-document.getElementById("expenseAmount").value="";
-
 save();
+
 renderAll();
 
 }
 
 function renderExpenses(){
 
-let box=document.getElementById("expenseHistory");
+const box=document.getElementById("expenseHistory");
 
 if(!data.expenses.length){
 
 box.innerHTML='<p class="muted">Расходов пока нет</p>';
+
 return;
 
 }
 
-box.innerHTML=`
+box.innerHTML=data.expenses.map(x=>`
 
-<div class="table-wrap">
+<div class="operation">
 
-<table>
+<div class="operation-info">
 
-<tr>
-<th>Дата</th>
-<th>Расход</th>
-<th>Сумма</th>
-<th>Оплата</th>
-<th></th>
-</tr>
+<b>${x.name}</b>
 
-${data.expenses.map(x=>`
-
-<tr>
-
-<td>${x.displayDate||formatDate(x.date)}</td>
-
-<td>${escapeHTML(x.name)}</td>
-
-<td>${money(x.amount)}</td>
-
-<td>${x.method}</td>
-
-<td>
-
-${x.cancelled
-?
-'<span class="red">ОШИБКА</span>'
-:
-`<button class="danger-small"
-onclick="cancelOperation('expense',${x.id})">
-Отменить
-</button>`
-}
-
-</td>
-
-</tr>
-
-`).join("")}
-
-</table>
+<div class="muted">
+${money(x.amount)} · ${x.method}
+</div>
 
 </div>
 
-`;
+</div>
+
+`).join("");
 
 }
 
-/* ================= ОТМЕНА РАСХОДА ================= */
 
-function cancelExpense(id){
-
-let expense=data.expenses.find(x=>x.id===id);
-
-if(!expense||expense.cancelled)return;
-
-if(!confirm(
-"Отменить расход?\n\n"+
-expense.name+"\n"+
-money(expense.amount)
-))return;
-
-if(expense.method==="Наличные")
-data.cash+=Number(expense.amount);
-else
-data.card+=Number(expense.amount);
-
-expense.cancelled=true;
-
-save();
-renderAll();
-
-}
-
-/* ================= КАССА ================= */
+/* КАССА */
 
 function openShift(){
 
 if(data.shift){
 
 alert("Смена уже открыта.");
+
 return;
 
 }
 
-let admin=prompt("Имя администратора:","Администратор");
+const admin=prompt(
+"Имя администратора:",
+"Администратор"
+);
 
 if(!admin)return;
 
@@ -2173,16 +1954,14 @@ function closeShift(){
 if(!data.shift){
 
 alert("Смена не открыта.");
+
 return;
 
 }
 
-let total=data.cash+data.card;
-
 if(!confirm(
-"Закрыть смену?\n\n"+
-"Администратор: "+data.admin+
-"\nКасса: "+money(total)
+"Закрыть смену?\nКасса: "+
+money(data.cash+data.card)
 ))return;
 
 data.shift=false;
@@ -2190,231 +1969,96 @@ data.shift=false;
 save();
 renderCash();
 
-alert("Смена закрыта.");
-
 }
 
 function renderCash(){
 
-let tableRev=data.tableSales
+const tableRev=data.tableSales
 .filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.amount||0),0);
+.reduce((a,x)=>a+x.amount,0);
 
-let barRev=data.barSales
+const barRev=data.barSales
 .filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.total||0),0);
+.reduce((a,x)=>a+x.total,0);
 
-let expenses=data.expenses
+const expenses=data.expenses
 .filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.amount||0),0);
+.reduce((a,x)=>a+x.amount,0);
 
-document.getElementById("cashMoney").textContent=money(data.cash);
-document.getElementById("cardMoney").textContent=money(data.card);
-document.getElementById("totalRevenue").textContent=money(tableRev+barRev);
-document.getElementById("totalExpenses").textContent=money(expenses);
-document.getElementById("cashTotal").textContent=money(data.cash+data.card);
+document.getElementById("cashMoney").textContent=
+money(data.cash);
+
+document.getElementById("cardMoney").textContent=
+money(data.card);
+
+document.getElementById("totalRevenue").textContent=
+money(tableRev+barRev);
+
+document.getElementById("totalExpenses").textContent=
+money(expenses);
+
+document.getElementById("cashTotal").textContent=
+money(data.cash+data.card);
 
 document.getElementById("shiftStatus").innerHTML=
-
 data.shift
 ?
-`
-<p class="green">
+`<p class="green">
 ● Смена открыта<br>
-Администратор: <b>${escapeHTML(data.admin)}</b><br>
-Начало: ${formatDate(data.shiftStart)}
-</p>
-`
+Администратор: <b>${data.admin}</b>
+</p>`
 :
-`
-<p class="red">
-● Смена закрыта
-</p>
-`;
+`<p class="red">● Смена закрыта</p>`;
 
 }
 
-/* ================= ОТЧЁТЫ ================= */
+
+/* ОТЧЁТЫ */
 
 function renderReports(){
 
-let tables=data.tableSales
+const tables=data.tableSales
 .filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.amount||0),0);
+.reduce((a,x)=>a+x.amount,0);
 
-let bar=data.barSales
+const bar=data.barSales
 .filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.total||0),0);
+.reduce((a,x)=>a+x.total,0);
 
-let purchases=data.purchases
-.reduce((a,x)=>a+Number(x.total||0),0);
+const purchases=data.purchases
+.reduce((a,x)=>a+x.total,0);
 
-let expenses=data.expenses
+const expenses=data.expenses
 .filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.amount||0),0);
+.reduce((a,x)=>a+x.amount,0);
 
-let barProfit=data.barSales
+const barProfit=data.barSales
 .filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.profit||0),0);
-
-let profit=tables+barProfit-purchases-expenses;
+.reduce((a,x)=>a+x.profit,0);
 
 document.getElementById("rTables").textContent=money(tables);
-document.getElementById("rBar").textContent=money(bar);
-document.getElementById("rPurchases").textContent=money(purchases);
-document.getElementById("rExpenses").textContent=money(expenses);
-document.getElementById("netProfit").textContent=money(profit);
 
-let top=[...data.products]
-.sort((a,b)=>Number(b.sold||0)-Number(a.sold||0))
-.slice(0,10);
+document.getElementById("rBar").textContent=money(bar);
+
+document.getElementById("rPurchases").textContent=money(purchases);
+
+document.getElementById("rExpenses").textContent=money(expenses);
+
+document.getElementById("netProfit").textContent=
+money(tables+barProfit-purchases-expenses);
 
 document.getElementById("topProducts").innerHTML=
-
-top.length
-?
-top.map((p,i)=>`
+data.products
+.sort((a,b)=>b.sold-a.sold)
+.slice(0,10)
+.map((p,i)=>`
 
 <div class="row"
-style="padding:10px 0;border-bottom:1px solid #293340">
+style="padding:9px 0;border-bottom:1px solid #293340">
 
-<div>🏆 ${i+1}. ${escapeHTML(p.name)}</div>
-<div>${p.sold||0} шт.</div>
-<div>${money(Number(p.sold||0)*Number(p.price||0))}</div>
+<div>🏆 ${i+1}. ${p.name}</div>
 
-</div>
-
-`).join("")
-:
-'<p class="muted">Продаж пока нет</p>';
-
-}
-
-/* ================= ИСТОРИЯ ================= */
-
-function renderHistory(){
-
-let operations=[];
-
-data.tableSales.forEach(x=>{
-
-operations.push({
-
-id:x.id,
-kind:"table",
-date:x.date,
-displayDate:x.displayDate||formatDate(x.date),
-type:"Бильярд",
-description:(x.table||"Стол")+" · "+(x.customer||"Без имени"),
-amount:x.amount,
-method:x.method,
-cancelled:x.cancelled
-
-});
-
-});
-
-data.barSales.forEach(x=>{
-
-operations.push({
-
-id:x.id,
-kind:"bar",
-date:x.date,
-displayDate:x.displayDate||formatDate(x.date),
-type:"Бар",
-description:(x.product||"Товар")+" · "+x.qty+" шт.",
-amount:x.total,
-method:x.method,
-cancelled:x.cancelled
-
-});
-
-});
-
-data.expenses.forEach(x=>{
-
-operations.push({
-
-id:x.id,
-kind:"expense",
-date:x.date,
-displayDate:x.displayDate||formatDate(x.date),
-type:"Расход",
-description:x.name,
-amount:-x.amount,
-method:x.method,
-cancelled:x.cancelled
-
-});
-
-});
-
-operations.sort((a,b)=>new Date(b.date)-new Date(a.date));
-
-let box=document.getElementById("historyList");
-
-if(!operations.length){
-
-box.innerHTML='<p class="muted">История пока пустая</p>';
-return;
-
-}
-
-box.innerHTML=operations.map(x=>`
-
-<div class="operation">
-
-<div class="operation-info">
-
-<div>
-
-<strong>${escapeHTML(x.type)}</strong>
-
-${x.cancelled
-?
-'<span class="red"> · ⚠️ ОШИБКА</span>'
-:
-''
-}
-
-</div>
-
-<div class="muted">
-
-${escapeHTML(x.description)}
-
-<br>
-
-${x.displayDate}
-
-<br>
-
-${x.method}
-
-</div>
-
-<div class="${x.amount>=0?"green":"red"}"
-style="margin-top:4px">
-
-${x.amount>=0?"+":""}${money(x.amount)}
-
-</div>
-
-</div>
-
-${x.cancelled
-?
-`<button class="danger-small"
-onclick="deleteOperation('${x.kind}',${x.id})">
-Удалить
-</button>`
-:
-`<button class="danger-small"
-onclick="cancelOperation('${x.kind}',${x.id})">
-Отменить
-</button>`
-}
+<div>${p.sold} шт.</div>
 
 </div>
 
@@ -2422,135 +2066,93 @@ onclick="cancelOperation('${x.kind}',${x.id})">
 
 }
 
-/* ================= ОТМЕНА ================= */
 
-function cancelOperation(kind,id){
+/* ИСТОРИЯ */
 
-if(kind==="table")cancelTableSale(id);
-if(kind==="bar")cancelBarSale(id);
-if(kind==="expense")cancelExpense(id);
+function renderHistory(){
 
-}
+const box=document.getElementById("historyList");
 
-/* ================= ОТМЕНА БИЛЬЯРДА ================= */
+let list=[];
 
-function cancelTableSale(id){
+data.tableSales.forEach(x=>{
 
-let sale=data.tableSales.find(x=>x.id===id);
+list.push({
+date:x.date,
+type:"🎱 Бильярд",
+name:x.table,
+amount:x.amount,
+method:x.method
+});
 
-if(!sale||sale.cancelled)return;
+});
 
-if(!confirm(
-"Отменить оплату стола?\n\n"+
-sale.table+"\n"+
-money(sale.amount)
-))return;
+data.barSales.forEach(x=>{
 
-if(sale.method==="Наличные")
-data.cash-=Number(sale.amount);
-else
-data.card-=Number(sale.amount);
+list.push({
+date:x.date,
+type:"🍫 Бар",
+name:x.product+" · "+x.qty+" шт.",
+amount:x.total,
+method:x.method
+});
 
-sale.cancelled=true;
+});
 
-let number=Number(
-String(sale.table).replace(/\D/g,"")
-);
+data.expenses.forEach(x=>{
 
-let t=data.tables.find(x=>x.id===number);
+list.push({
+date:x.date,
+type:"💸 Расход",
+name:x.name,
+amount:-x.amount,
+method:x.method
+});
 
-if(t){
+});
 
-t.seconds=Number(sale.seconds)||0;
-t.running=false;
-t.startedAt=null;
-t.customer=sale.customer||"";
+list.sort((a,b)=>new Date(b.date)-new Date(a.date));
 
-}
+if(!list.length){
 
-save();
-renderAll();
+box.innerHTML='<p class="muted">История пока пустая</p>';
 
-}
-
-/* ================= ОТМЕНА БАРА ================= */
-
-function cancelBarSale(id){
-
-let sale=data.barSales.find(x=>x.id===id);
-
-if(!sale||sale.cancelled)return;
-
-if(!confirm(
-"Отменить продажу?\n\n"+
-sale.product+"\n"+
-sale.qty+" шт.\n"+
-money(sale.total)
-))return;
-
-if(sale.method==="Наличные")
-data.cash-=Number(sale.total);
-else
-data.card-=Number(sale.total);
-
-let product=data.products.find(
-p=>p.id===sale.productId
-);
-
-if(product){
-
-product.qty+=Number(sale.qty);
-
-product.sold=Math.max(
-0,
-Number(product.sold||0)-Number(sale.qty)
-);
+return;
 
 }
 
-sale.cancelled=true;
+box.innerHTML=list.map(x=>`
 
-save();
-renderAll();
+<div class="operation">
 
-}
+<div class="operation-info">
 
-/* ================= УДАЛЕНИЕ ОШИБКИ ================= */
+<b>${x.type}</b>
 
-function deleteOperation(kind,id){
+<div class="muted">
+${x.name}<br>
+${new Date(x.date).toLocaleString("ru-RU")}<br>
+${x.method}
+</div>
 
-if(!confirm(
-"Удалить эту ошибочную запись из истории?"
-))return;
+<div class="${x.amount>=0?"green":"red"}">
+${x.amount>=0?"+":""}${money(x.amount)}
+</div>
 
-if(kind==="table"){
+</div>
 
-data.tableSales=data.tableSales.filter(x=>x.id!==id);
+</div>
 
-}
-
-if(kind==="bar"){
-
-data.barSales=data.barSales.filter(x=>x.id!==id);
-
-}
-
-if(kind==="expense"){
-
-data.expenses=data.expenses.filter(x=>x.id!==id);
+`).join("");
 
 }
 
-save();
-renderAll();
 
-}
-
-/* ================= НАВИГАЦИЯ ================= */
+/* НАВИГАЦИЯ */
 
 function page(name,button){
 
-[
+const pages=[
 "tables",
 "bar",
 "cash",
@@ -2558,7 +2160,9 @@ function page(name,button){
 "expenses",
 "reports",
 "history"
-].forEach(x=>{
+];
+
+pages.forEach(x=>{
 document.getElementById(x).classList.add("hidden");
 });
 
@@ -2567,21 +2171,30 @@ document.getElementById(name).classList.remove("hidden");
 document.querySelectorAll(".bottom-nav button")
 .forEach(x=>x.classList.remove("active"));
 
-if(button)button.classList.add("active");
+if(button){
+button.classList.add("active");
+}
 
 closeMore();
 
 if(name==="tables")renderTables();
+
 if(name==="bar")renderBar();
+
 if(name==="cash")renderCash();
+
 if(name==="purchases")renderPurchases();
+
 if(name==="expenses")renderExpenses();
+
 if(name==="reports")renderReports();
+
 if(name==="history")renderHistory();
 
 }
 
-/* ================= ЕЩЁ ================= */
+
+/* ЕЩЁ */
 
 function toggleMore(){
 
@@ -2597,85 +2210,8 @@ document.getElementById("moreMenu")
 
 }
 
-/* ================= BACKUP ================= */
 
-function backup(){
-
-let blob=new Blob(
-[JSON.stringify(data,null,2)],
-{type:"application/json"}
-);
-
-let url=URL.createObjectURL(blob);
-
-let a=document.createElement("a");
-
-a.href=url;
-a.download="club-manager-backup.json";
-
-document.body.appendChild(a);
-
-a.click();
-
-a.remove();
-
-setTimeout(
-()=>URL.revokeObjectURL(url),
-1000
-);
-
-}
-
-/* ================= RESTORE ================= */
-
-function restore(event){
-
-let file=event.target.files[0];
-
-if(!file)return;
-
-let reader=new FileReader();
-
-reader.onload=function(e){
-
-try{
-
-let restored=JSON.parse(e.target.result);
-
-if(!restored||!Array.isArray(restored.products)){
-
-alert("Неверный файл.");
-return;
-
-}
-
-if(!confirm("Заменить текущие данные?"))return;
-
-data=restored;
-
-migrate();
-
-save();
-
-alert("Данные восстановлены.");
-
-location.reload();
-
-}catch(error){
-
-alert("Ошибка файла.");
-
-}
-
-};
-
-reader.readAsText(file);
-
-event.target.value="";
-
-}
-
-/* ================= ВСЁ ================= */
+/* ОБЩЕЕ ОБНОВЛЕНИЕ */
 
 function renderAll(){
 
@@ -2689,42 +2225,14 @@ renderHistory();
 
 }
 
-/* ================= ЗАПУСК ================= */
 
-migrate();
-renderAll();
+/* ЗАПУСК */
 
-document.addEventListener(
-"visibilitychange",
-function(){
-
-if(document.visibilityState==="visible"){
-
-renderTables();
-renderCash();
-
-}
-
-});
-
-window.addEventListener(
-"pagehide",
-function(){
-
-data.tables.forEach(t=>{
-
-if(t.running){
-
-t.seconds=getSeconds(t);
-t.startedAt=Date.now();
-
-}
-
-});
+initTables();
 
 save();
 
-});
+renderAll();
 
 </script>
 
