@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Жулебино — Администратор</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;background:#0b0f14;color:#fff;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.header{
+padding:18px 25px;background:#131922;
+border-bottom:1px solid #293340;
+display:flex;justify-content:space-between;align-items:center
+}
+.logo{font-size:25px;font-weight:800}
+.logo span{color:#42d392}
+.status{color:#42d392}
+.container{max-width:1450px;margin:auto;padding:22px}
+.nav{
+display:flex;gap:8px;overflow:auto;margin-bottom:22px
+}
+.nav button{
+background:#181f29;color:#aeb7c3;border:1px solid #293340;
+padding:11px 16px;border-radius:10px;white-space:nowrap
+}
+.nav button.active{background:#42d392;color:#06120c}
+.hidden{display:none!important}
+
+.stats{
+display:grid;grid-template-columns:repeat(4,1fr);
+gap:15px;margin-bottom:20px
+}
+.stat{
+background:#131922;border:1px solid #293340;
+border-radius:16px;padding:18px
+}
+.stat-title{color:#8d98a6;font-size:13px}
+.stat-value{font-size:26px;font-weight:800;margin-top:6px}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:18px
+}
+.card{
+background:#131922;border:1px solid #293340;
+border-radius:18px;padding:20px
+}
+.card h2{margin-top:0}
+.table.busy{border-color:#e4a33d}
+.head{
+display:flex;justify-content:space-between;gap:10px
+}
+.name{font-size:21px;font-weight:800}
+.muted{color:#8d98a6;font-size:13px}
+.green{color:#42d392}
+.orange{color:#e4a33d}
+.red{color:#ff6262}
+
+.input,input,select{
+background:#0b0f14;color:#fff;
+border:1px solid #303a47;
+border-radius:10px;padding:11px
+}
+.input{width:100%;margin-top:15px}
+.timer{
+text-align:center;font-size:36px;font-weight:800;margin-top:20px
+}
+.price{
+text-align:center;font-size:22px;font-weight:800;
+color:#42d392;margin-top:5px
+}
+.buttons{
+display:grid;grid-template-columns:1fr 1fr;
+gap:8px;margin-top:18px
+}
+.btn{
+border:0;border-radius:10px;padding:11px;font-weight:700
+}
+.start{background:#42d392;color:#06120c}
+.blue{background:#4e8cff;color:#fff}
+.orange-btn{background:#e4a33d;color:#151006}
+.gray{background:#303a47;color:#fff}
+.red-btn{background:#d94b4b;color:#fff}
+
+.panel{
+background:#131922;border:1px solid #293340;
+border-radius:18px;padding:20px;margin-bottom:18px
+}
+.row{
+display:flex;gap:10px;flex-wrap:wrap;align-items:center
+}
+.row>*{flex:1;min-width:140px}
+.big{
+font-size:38px;font-weight:800;
+text-align:center;color:#42d392;margin:15px 0
+}
+.product-price{font-size:23px;color:#42d392;font-weight:800}
+.stock{
+font-size:25px;font-weight:800;margin:12px 0
+}
+.product-actions{
+display:grid;grid-template-columns:1fr 1fr;
+gap:7px;margin-top:15px
+}
+table{
+width:100%;border-collapse:collapse
+}
+th,td{
+padding:12px 8px;border-bottom:1px solid #293340;
+text-align:left
+}
+th{color:#8d98a6;font-size:13px}
+.modal{
+position:fixed;inset:0;background:rgba(0,0,0,.8);
+display:none;align-items:center;justify-content:center;
+z-index:100;padding:20px
+}
+.modal.show{display:flex}
+.modal-box{
+width:100%;max-width:500px;background:#151c25;
+border:1px solid #303a47;border-radius:20px;padding:24px
+}
+.modal-box input,.modal-box select{
+width:100%;margin-top:9px
+}
+.modal-buttons{
+display:flex;gap:10px;margin-top:20px
+}
+.modal-buttons button{flex:1}
+
+@media(max-width:800px){
+.stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:500px){
+.container{padding:12px}
+.stats{grid-template-columns:1fr 1fr}
+.header{padding:15px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+<div class="logo">🎱 <span>Жулебино</span></div>
+<div class="status">● Клуб открыт</div>
+</header>
+
+<div class="container">
+
+<div class="nav">
+<button class="active" onclick="page('tables',this)">🎱 Столы</button>
+<button onclick="page('bar',this)">🍫 Бар</button>
+<button onclick="page('cash',this)">💰 Касса</button>
+<button onclick="page('purchases',this)">📦 Закупки</button>
+<button onclick="page('expenses',this)">💸 Расходы</button>
+<button onclick="page('reports',this)">📊 Отчёты</button>
+<button onclick="page('history',this)">📋 История</button>
+</div>
+
+
+<!-- ================= СТОЛЫ ================= -->
+
+<section id="tables">
+
+<div class="stats">
+<div class="stat">
+<div class="stat-title">Столы</div>
+<div class="stat-value">5</div>
+</div>
+<div class="stat">
+<div class="stat-title">Свободно</div>
+<div class="stat-value" id="freeTables">5</div>
+</div>
+<div class="stat">
+<div class="stat-title">Занято</div>
+<div class="stat-value" id="busyTables">0</div>
+</div>
+<div class="stat">
+<div class="stat-title">Выручка</div>
+<div class="stat-value" id="tableRevenue">0 ₽</div>
+</div>
+</div>
+
+<div class="grid" id="tablesGrid"></div>
+
+</section>
+
+
+<!-- ================= БАР ================= -->
+
+<section id="bar" class="hidden">
+
+<div class="stats">
+<div class="stat">
+<div class="stat-title">Выручка бара</div>
+<div class="stat-value" id="barRevenue">0 ₽</div>
+</div>
+<div class="stat">
+<div class="stat-title">Прибыль бара</div>
+<div class="stat-value" id="barProfit">0 ₽</div>
+</div>
+<div class="stat">
+<div class="stat-title">Продано</div>
+<div class="stat-value" id="barSold">0</div>
+</div>
+<div class="stat">
+<div class="stat-title">Мало товара</div>
+<div class="stat-value" id="lowStock">0</div>
+</div>
+</div>
+
+<div class="panel">
+<div class="row">
+<input id="search" placeholder="🔎 Поиск товара" oninput="renderBar()">
+<button class="btn start" onclick="productModal()">+ Новый товар</button>
+</div>
+</div>
+
+<div class="grid" id="productsGrid"></div>
+
+</section>
+
+
+<!-- ================= КАССА ================= -->
+
+<section id="cash" class="hidden">
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-title">Наличные</div>
+<div class="stat-value" id="cashMoney">0 ₽</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Карта</div>
+<div class="stat-value" id="cardMoney">0 ₽</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Выручка</div>
+<div class="stat-value" id="totalRevenue">0 ₽</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Расходы</div>
+<div class="stat-value" id="totalExpenses">0 ₽</div>
+</div>
+
+</div>
+
+<div class="panel">
+<h2>🔒 Смена</h2>
+
+<div id="shiftStatus"></div>
+
+<div class="row">
+<button class="btn start" onclick="openShift()">▶ Открыть смену</button>
+<button class="btn red-btn" onclick="closeShift()">🔒 Закрыть смену</button>
+</div>
+</div>
+
+<div class="panel">
+<h2>💰 Итоговая касса</h2>
+<div class="big" id="cashTotal">0 ₽</div>
+<p class="muted">
+Наличные + карта − расходы
+</p>
+</div>
+
+</section>
+
+
+<!-- ================= ЗАКУПКИ ================= -->
+
+<section id="purchases" class="hidden">
+
+<div class="panel">
+
+<h2>📦 Закупка товара</h2>
+
+<div class="row">
+
+<select id="purchaseProduct"></select>
+
+<input id="purchaseQty" type="number" placeholder="Количество">
+
+<input id="purchaseCost" type="number" placeholder="Цена закупки за шт.">
+
+<button class="btn start" onclick="makePurchase()">
+Добавить закупку
+</button>
+
+</div>
+
+</div>
+
+<div class="panel">
+<h2>История закупок</h2>
+<div id="purchaseHistory"></div>
+</div>
+
+</section>
+
+
+<!-- ================= РАСХОДЫ ================= -->
+
+<section id="expenses" class="hidden">
+
+<div class="panel">
+
+<h2>💸 Добавить расход</h2>
+
+<div class="row">
+
+<input id="expenseName" placeholder="Например: аренда">
+
+<input id="expenseAmount" type="number" placeholder="Сумма">
+
+<select id="expensePayment">
+<option>Наличные</option>
+<option>Карта</option>
+</select>
+
+<button class="btn red-btn" onclick="addExpense()">
+Добавить расход
+</button>
+
+</div>
+
+</div>
+
+<div class="panel">
+<h2>История расходов</h2>
+<div id="expenseHistory"></div>
+</div>
+
+</section>
+
+
+<!-- ================= ОТЧЁТЫ ================= -->
+
+<section id="reports" class="hidden">
+
+<div class="panel">
+
+<h2>📊 Отчёт</h2>
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-title">Бильярд</div>
+<div class="stat-value" id="rTables">0 ₽</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Бар</div>
+<div class="stat-value" id="rBar">0 ₽</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Закупки</div>
+<div class="stat-value" id="rPurchases">0 ₽</div>
+</div>
+
+<div class="stat">
+<div class="stat-title">Расходы</div>
+<div class="stat-value" id="rExpenses">0 ₽</div>
+</div>
+
+</div>
+
+<div class="panel">
+<div class="muted">Чистая прибыль</div>
+<div class="big" id="netProfit">0 ₽</div>
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>🏆 Самые продаваемые товары</h2>
+<div id="topProducts"></div>
+
+</div>
+
+<div class="panel">
+
+<h2>💾 Резервная копия</h2>
+
+<button class="btn start" onclick="backup()">
+⬇️ Скачать резервную копию
+</button>
+
+<button class="btn blue" onclick="document.getElementById('restore').click()">
+⬆️ Восстановить
+</button>
+
+<input id="restore" type="file" accept=".json"
+style="display:none" onchange="restore(event)">
+
+</div>
+
+</section>
+
+
+<!-- ================= ИСТОРИЯ ================= -->
+
+<section id="history" class="hidden">
+
+<div class="panel">
+<h2>📋 История операций</h2>
+<div id="historyList"></div>
+</div>
+
+</section>
+
+</div>
+
+
+<!-- ================= МОДАЛЬНОЕ ОКНО ТОВАРА ================= -->
+
+<div class="modal" id="productModalBox">
+
+<div class="modal-box">
+
+<h2>🍫 Товар</h2>
+
+<input id="pName" placeholder="Название">
+
+<select id="pCategory">
+<option>Напитки</option>
+<option>Снеки</option>
+<option>Другое</option>
+</select>
+
+<input id="pCost" type="number" placeholder="Цена закупки">
+
+<input id="pPrice" type="number" placeholder="Цена продажи">
+
+<input id="pQty" type="number" placeholder="Количество">
+
+<input id="pMin" type="number" placeholder="Минимальный остаток">
+
+<div class="modal-buttons">
+<button class="btn gray" onclick="closeProduct()">Отмена</button>
+<button class="btn start" onclick="saveProduct()">Сохранить</button>
+</div>
+
+</div>
+</div>
+
+
+<!-- ================= ПРОДАЖА ================= -->
+
+<div class="modal" id="saleModal">
+
+<div class="modal-box">
+
+<h2>🛒 Продажа</h2>
+
+<div id="saleName"></div>
+
+<input id="saleQty" type="number" value="1" min="1">
+
+<select id="salePayment">
+<option>Наличные</option>
+<option>Карта</option>
+</select>
+
+<div class="big" id="saleTotal">0 ₽</div>
+
+<div class="modal-buttons">
+<button class="btn gray" onclick="closeSale()">Отмена</button>
+<button class="btn start" onclick="sellProduct()">Продать</button>
+</div>
+
+</div>
+</div>
+
+
+<!-- ================= ОПЛАТА СТОЛА ================= -->
+
+<div class="modal" id="tablePayment">
+
+<div class="modal-box">
+
+<h2>💳 Оплата</h2>
+
+<div id="tablePaymentInfo"></div>
+
+<div class="big" id="tablePaymentTotal">0 ₽</div>
+
+<select id="tablePaymentMethod">
+<option>Наличные</option>
+<option>Карта</option>
+</select>
+
+<div class="modal-buttons">
+<button class="btn gray" onclick="closeTablePayment()">Отмена</button>
+<button class="btn start" onclick="payTable()">Оплачено</button>
+</div>
+
+</div>
+</div>
+
+
+<script>
+
+/* =====================================================
+ДАННЫЕ
+===================================================== */
+
+const KEY="zhulebino_3";
+
+let data=JSON.parse(localStorage.getItem(KEY))||{
+
+tables:[],
+products:[
+{id:1,name:"Coca-Cola 0.5",category:"Напитки",cost:50,price:100,qty:24,sold:0},
+{id:2,name:"Вода 0.5",category:"Напитки",cost:20,price:70,qty:30,sold:0},
+{id:3,name:"Чипсы",category:"Снеки",cost:60,price:120,qty:10,sold:0}
+],
+
+tableSales:[],
+barSales:[],
+purchases:[],
+expenses:[],
+
+cash:0,
+card:0,
+shift:false,
+shiftStart:null,
+admin:"Администратор"
+
+};
+
+
+function save(){
+localStorage.setItem(KEY,JSON.stringify(data));
+}
+
+
+/* =====================================================
+СТОЛЫ
+===================================================== */
+
+const tableInfo=[
+{id:1,name:"Стол №1",type:"Русский бильярд",rate:600},
+{id:2,name:"Стол №2",type:"Русский бильярд",rate:600},
+{id:3,name:"Стол №3",type:"Русский бильярд",rate:600},
+{id:4,name:"Стол №4",type:"Русский бильярд",rate:600},
+{id:5,name:"Американка",type:"Американский пул",rate:500}
+];
+
+if(!data.tables.length){
+
+data.tables=tableInfo.map(t=>({
+id:t.id,
+seconds:0,
+running:false,
+customer:""
+}));
+
+save();
+
+}
+
+
+let activeTable=null;
+let activeProduct=null;
+
+
+function table(id){
+return data.tables.find(x=>x.id===id);
+}
+
+
+function info(id){
+return tableInfo.find(x=>x.id===id);
+}
+
+
+function money(n){
+return Math.round(n).toLocaleString("ru-RU")+" ₽";
+}
+
+
+function time(sec){
+
+let h=Math.floor(sec/3600);
+let m=Math.floor(sec%3600/60);
+let s=sec%60;
+
+return String(h).padStart(2,"0")+":"+
+String(m).padStart(2,"0")+":"+
+String(s).padStart(2,"0");
+}
+
+
+function tablePrice(t){
+let i=info(t.id);
+return Math.ceil(t.seconds/3600*i.rate);
+}
+
+
+/* =====================================================
+ОТРИСОВКА СТОЛОВ
+===================================================== */
+
+function renderTables(){
+
+let grid=document.getElementById("tablesGrid");
+grid.innerHTML="";
+
+let busy=0;
+
+data.tables.forEach(t=>{
+
+if(t.running)busy++;
+
+let i=info(t.id);
+
+let card=document.createElement("div");
+
+card.className="card table "+(t.running?"busy":"");
+
+card.innerHTML=`
+
+<div class="head">
+<div>
+<div class="name">${i.name}</div>
+<div class="muted">${i.type}</div>
+</div>
+
+<div class="${t.running?"orange":"green"}">
+${t.running?"● Занят":"● Свободен"}
+</div>
+</div>
+
+<input
+class="input"
+placeholder="Имя клиента"
+value="${escape(t.customer)}"
+onchange="setCustomer(${t.id},this.value)"
+>
+
+<div class="timer" id="timer${t.id}">
+${time(t.seconds)}
+</div>
+
+<div class="price" id="price${t.id}">
+${money(tablePrice(t))}
+</div>
+
+<div class="muted" style="text-align:center;margin-top:5px">
+${i.rate} ₽ / час
+</div>
+
+<div class="buttons">
+
+<button class="btn start"
+onclick="startTable(${t.id})">
+▶ Старт
+</button>
+
+<button class="btn orange-btn"
+onclick="pauseTable(${t.id})">
+${t.running?"Ⅱ Пауза":"▶ Продолжить"}
+</button>
+
+<button class="btn blue"
+onclick="openTablePayment(${t.id})">
+💳 Оплата
+</button>
+
+<button class="btn gray"
+onclick="resetTable(${t.id})">
+↻ Сброс
+</button>
+
+</div>
+`;
+
+grid.appendChild(card);
+
+});
+
+document.getElementById("freeTables").textContent=5-busy;
+document.getElementById("busyTables").textContent=busy;
+
+document.getElementById("tableRevenue").textContent=
+money(data.tableSales.reduce((a,x)=>a+x.amount,0));
+
+}
+
+
+function setCustomer(id,v){
+table(id).customer=v;
+save();
+}
+
+
+function startTable(id){
+
+let t=table(id);
+
+if(t.running)return;
+
+t.running=true;
+
+save();
+renderTables();
+
+}
+
+
+function pauseTable(id){
+
+let t=table(id);
+
+t.running=!t.running;
+
+save();
+renderTables();
+
+}
+
+
+function resetTable(id){
+
+let t=table(id);
+
+if(!confirm("Сбросить стол?"))return;
+
+t.seconds=0;
+t.running=false;
+t.customer="";
+
+save();
+renderTables();
+
+}
+
+
+setInterval(()=>{
+
+data.tables.forEach(t=>{
+
+if(t.running)t.seconds++;
+
+});
+
+save();
+
+data.tables.forEach(t=>{
+
+let a=document.getElementById("timer"+t.id);
+let b=document.getElementById("price"+t.id);
+
+if(a)a.textContent=time(t.seconds);
+if(b)b.textContent=money(tablePrice(t));
+
+});
+
+},1000);
+
+
+/* =====================================================
+ОПЛАТА СТОЛА
+===================================================== */
+
+function openTablePayment(id){
+
+let t=table(id);
+
+if(t.seconds<=0){
+alert("Стол ещё не запускался.");
+return;
+}
+
+activeTable=t;
+
+document.getElementById("tablePaymentInfo").textContent=
+info(id).name+" · "+(t.customer||"Без имени");
+
+document.getElementById("tablePaymentTotal").textContent=
+money(tablePrice(t));
+
+document.getElementById("tablePayment").classList.add("show");
+
+}
+
+
+function closeTablePayment(){
+document.getElementById("tablePayment").classList.remove("show");
+activeTable=null;
+}
+
+
+function payTable(){
+
+let t=activeTable;
+let amount=tablePrice(t);
+
+let method=document.getElementById("tablePaymentMethod").value;
+
+if(method==="Наличные")data.cash+=amount;
+else data.card+=amount;
+
+data.tableSales.unshift({
+type:"Бильярд",
+table:info(t.id).name,
+customer:t.customer||"Без имени",
+amount,
+method,
+date:new Date().toLocaleString("ru-RU")
+});
+
+t.seconds=0;
+t.running=false;
+t.customer="";
+
+save();
+closeTablePayment();
+renderTables();
+renderCash();
+renderHistory();
+
+}
+
+
+/* =====================================================
+БАР
+===================================================== */
+
+function renderBar(){
+
+let grid=document.getElementById("productsGrid");
+grid.innerHTML="";
+
+let search=(document.getElementById("search").value||"").toLowerCase();
+
+data.products
+.filter(p=>p.name.toLowerCase().includes(search))
+.forEach(p=>{
+
+let low=p.qty<=p.min;
+
+let card=document.createElement("div");
+card.className="card";
+
+card.innerHTML=`
+
+<div class="head">
+<div>
+<div class="name">${escape(p.name)}</div>
+<div class="muted">${p.category}</div>
+</div>
+
+<div class="${low?"red":"green"}">
+${low?"⚠️ Мало":"● Есть"}
+</div>
+</div>
+
+<div class="stock ${low?"red":"green"}">
+${p.qty} шт.
+</div>
+
+<div class="product-price">${money(p.price)}</div>
+
+<div class="muted">
+Закупка: ${money(p.cost)}
+</div>
+
+<div class="muted">
+Прибыль с единицы: ${money(p.price-p.cost)}
+</div>
+
+<div class="muted" style="margin-top:8px">
+Продано: ${p.sold||0} шт.
+</div>
+
+<div class="product-actions">
+
+<button class="btn start"
+onclick="openSale(${p.id})">
+🛒 Продать
+</button>
+
+<button class="btn blue"
+onclick="addStock(${p.id})">
+📦 Пополнить
+</button>
+
+<button class="btn orange-btn"
+onclick="editProduct(${p.id})">
+✏️ Изменить
+</button>
+
+<button class="btn red-btn"
+onclick="deleteProduct(${p.id})">
+🗑️ Удалить
+</button>
+
+</div>
+`;
+
+grid.appendChild(card);
+
+});
+
+let revenue=data.barSales.reduce((a,x)=>a+x.total,0);
+
+let profit=data.barSales.reduce((a,x)=>a+x.profit,0);
+
+document.getElementById("barRevenue").textContent=money(revenue);
+document.getElementById("barProfit").textContent=money(profit);
+document.getElementById("barSold").textContent=
+data.barSales.reduce((a,x)=>a+x.qty,0);
+
+document.getElementById("lowStock").textContent=
+data.products.filter(p=>p.qty<=p.min).length;
+
+updatePurchaseProducts();
+
+}
+
+
+function productModal(){
+
+activeProduct=null;
+
+document.getElementById("pName").value="";
+document.getElementById("pCategory").value="Напитки";
+document.getElementById("pCost").value="";
+document.getElementById("pPrice").value="";
+document.getElementById("pQty").value="";
+document.getElementById("pMin").value="5";
+
+document.getElementById("productModalBox").classList.add("show");
+
+}
+
+
+function editProduct(id){
+
+let p=data.products.find(x=>x.id===id);
+
+activeProduct=p;
+
+document.getElementById("pName").value=p.name;
+document.getElementById("pCategory").value=p.category;
+document.getElementById("pCost").value=p.cost;
+document.getElementById("pPrice").value=p.price;
+document.getElementById("pQty").value=p.qty;
+document.getElementById("pMin").value=p.min;
+
+document.getElementById("productModalBox").classList.add("show");
+
+}
+
+
+function closeProduct(){
+document.getElementById("productModalBox").classList.remove("show");
+}
+
+
+function saveProduct(){
+
+let name=document.getElementById("pName").value.trim();
+let category=document.getElementById("pCategory").value;
+let cost=+document.getElementById("pCost").value;
+let price=+document.getElementById("pPrice").value;
+let qty=+document.getElementById("pQty").value;
+let min=+document.getElementById("pMin").value;
+
+if(!name||price<=0){
+alert("Заполни название и цену продажи.");
+return;
+}
+
+if(activeProduct){
+
+activeProduct.name=name;
+activeProduct.category=category;
+activeProduct.cost=cost;
+activeProduct.price=price;
+activeProduct.qty=qty;
+activeProduct.min=min;
+
+}else{
+
+data.products.push({
+id:Date.now(),
+name,
+category,
+cost,
+price,
+qty,
+min,
+sold:0
+});
+
+}
+
+save();
+closeProduct();
+renderBar();
+
+}
+
+
+function deleteProduct(id){
+
+if(!confirm("Удалить товар?"))return;
+
+data.products=data.products.filter(p=>p.id!==id);
+
+save();
+renderBar();
+
+}
+
+
+/* =====================================================
+ПРОДАЖА
+===================================================== */
+
+function openSale(id){
+
+let p=data.products.find(x=>x.id===id);
+
+if(p.qty<=0){
+alert("Товар закончился.");
+return;
+}
+
+activeProduct=p;
+
+document.getElementById("saleName").textContent=
+p.name+" · "+money(p.price);
+
+document.getElementById("saleQty").value=1;
+
+document.getElementById("saleQty").max=p.qty;
+
+updateSale();
+
+document.getElementById("saleModal").classList.add("show");
+
+}
+
+
+document.getElementById("saleQty").addEventListener("input",updateSale);
+
+
+function updateSale(){
+
+if(!activeProduct)return;
+
+let q=Math.max(
+1,
+Math.min(
+activeProduct.qty,
+parseInt(document.getElementById("saleQty").value)||1
+)
+);
+
+document.getElementById("saleQty").value=q;
+
+document.getElementById("saleTotal").textContent=
+money(activeProduct.price*q);
+
+}
+
+
+function closeSale(){
+document.getElementById("saleModal").classList.remove("show");
+activeProduct=null;
+}
+
+
+function sellProduct(){
+
+let p=activeProduct;
+
+let q=+document.getElementById("saleQty").value;
+
+if(q<=0||q>p.qty){
+alert("Недостаточное количество.");
+return;
+}
+
+let total=p.price*q;
+let profit=(p.price-p.cost)*q;
+
+let method=document.getElementById("salePayment").value;
+
+if(method==="Наличные")data.cash+=total;
+else data.card+=total;
+
+p.qty-=q;
+p.sold=(p.sold||0)+q;
+
+data.barSales.unshift({
+type:"Бар",
+product:p.name,
+qty:q,
+total,
+profit,
+method,
+date:new Date().toLocaleString("ru-RU")
+});
+
+save();
+closeSale();
+renderBar();
+renderCash();
+renderHistory();
+
+if(p.qty<=p.min)
+alert("⚠️ Мало товара: "+p.name);
+
+}
+
+
+function addStock(id){
+
+let p=data.products.find(x=>x.id===id);
+
+let q=+prompt("Количество:",10);
+
+if(!q||q<=0)return;
+
+let cost=+prompt("Цена закупки за штуку:",p.cost);
+
+if(!cost||cost<0)return;
+
+p.qty+=q;
+p.cost=cost;
+
+data.purchases.unshift({
+product:p.name,
+qty:q,
+cost,
+total:q*cost,
+date:new Date().toLocaleString("ru-RU")
+});
+
+save();
+renderBar();
+renderPurchases();
+
+}
+
+
+/* =====================================================
+ЗАКУПКИ
+===================================================== */
+
+function updatePurchaseProducts(){
+
+let select=document.getElementById("purchaseProduct");
+
+if(!select)return;
+
+select.innerHTML="";
+
+data.products.forEach(p=>{
+
+let option=document.createElement("option");
+
+option.value=p.id;
+option.textContent=p.name;
+
+select.appendChild(option);
+
+});
+
+}
+
+
+function makePurchase(){
+
+let id=+document.getElementById("purchaseProduct").value;
+
+let q=+document.getElementById("purchaseQty").value;
+
+let cost=+document.getElementById("purchaseCost").value;
+
+let p=data.products.find(x=>x.id===id);
+
+if(!p||q<=0||cost<0){
+alert("Заполни данные.");
+return;
+}
+
+p.qty+=q;
+p.cost=cost;
+
+let total=q*cost;
+
+data.purchases.unshift({
+product:p.name,
+qty:q,
+cost,
+total,
+date:new Date().toLocaleString("ru-RU")
+});
+
+save();
+
+document.getElementById("purchaseQty").value="";
+document.getElementById("purchaseCost").value="";
+
+renderPurchases();
+renderBar();
+
+}
+
+
+function renderPurchases(){
+
+let box=document.getElementById("purchaseHistory");
+
+if(!data.purchases.length){
+box.innerHTML='<p class="muted">Закупок пока нет</p>';
+return;
+}
+
+box.innerHTML=`
+
+<table>
+<tr>
+<th>Дата</th>
+<th>Товар</th>
+<th>Количество</th>
+<th>Цена</th>
+<th>Сумма</th>
+</tr>
+
+${data.purchases.map(x=>`
+
+<tr>
+<td>${x.date}</td>
+<td>${escape(x.product)}</td>
+<td>${x.qty}</td>
+<td>${money(x.cost)}</td>
+<td>${money(x.total)}</td>
+</tr>
+
+`).join("")}
+
+</table>
+`;
+
+}
+
+
+/* =====================================================
+РАСХОДЫ
+===================================================== */
+
+function addExpense(){
+
+let name=document.getElementById("expenseName").value.trim();
+let amount=+document.getElementById("expenseAmount").value;
+let method=document.getElementById("expensePayment").value;
+
+if(!name||amount<=0){
+alert("Заполни расход.");
+return;
+}
+
+if(method==="Наличные")data.cash-=amount;
+else data.card-=amount;
+
+data.expenses.unshift({
+name,
+amount,
+method,
+date:new Date().toLocaleString("ru-RU")
+});
+
+save();
+
+document.getElementById("expenseName").value="";
+document.getElementById("expenseAmount").value="";
+
+renderExpenses();
+renderCash();
+
+}
+
+
+function renderExpenses(){
+
+let box=document.getElementById("expenseHistory");
+
+if(!data.expenses.length){
+box.innerHTML='<p class="muted">Расходов пока нет</p>';
+return;
+}
+
+box.innerHTML=`
+
+<table>
+<tr>
+<th>Дата</th>
+<th>Расход</th>
+<th>Сумма</th>
+<th>Оплата</th>
+</tr>
+
+${data.expenses.map(x=>`
+
+<tr>
+<td>${x.date}</td>
+<td>${escape(x.name)}</td>
+<td>${money(x.amount)}</td>
+<td>${x.method}</td>
+</tr>
+
+`).join("")}
+
+</table>
+`;
+
+}
+
+
+/* =====================================================
+КАССА
+===================================================== */
+
+function openShift(){
+
+if(data.shift){
+alert("Смена уже открыта.");
+return;
+}
+
+let admin=prompt("Имя администратора:","Администратор");
+
+if(!admin)return;
+
+data.shift=true;
+data.shiftStart=new Date().toLocaleString("ru-RU");
+data.admin=admin;
+
+save();
+renderCash();
+
+}
+
+
+function closeShift(){
+
+if(!data.shift){
+alert("Смена не открыта.");
+return;
+}
+
+let total=data.cash+data.card;
+
+if(
+!confirm(
+"Закрыть смену?\n\n"+
+"Администратор: "+data.admin+
+"\nКасса: "+money(total)
+)
+)return;
+
+data.shift=false;
+
+save();
+renderCash();
+
+alert("Смена закрыта.");
+
+}
+
+
+function renderCash(){
+
+let tableRev=data.tableSales.reduce((a,x)=>a+x.amount,0);
+let barRev=data.barSales.reduce((a,x)=>a+x.total,0);
+
+let expenses=data.expenses.reduce((a,x)=>a+x.amount,0);
+
+document.getElementById("cashMoney").textContent=money(data.cash);
+document.getElementById("cardMoney").textContent=money(data.card);
+document.getElementById("totalRevenue").textContent=
+money(tableRev+barRev);
+
+document.getElementById("totalExpenses").textContent=
+money(expenses);
+
+document.getElementById("cashTotal").textContent=
+money(data.cash+data.card);
+
+document.getElementById("shiftStatus").innerHTML=data.shift?
+
+`<p class="green">
+● Смена открыта<br>
+Администратор: <b>${escape(data.admin)}</b><br>
+Начало: ${data.shiftStart}
+</p>`
+
+:
+
+`<p class="red">● Смена закрыта</p>`;
+
+}
+
+
+/* =====================================================
+ОТЧЁТЫ
+===================================================== */
+
+function renderReports(){
+
+let tables=data.tableSales.reduce((a,x)=>a+x.amount,0);
+
+let bar=data.barSales.reduce((a,x)=>a+x.total,0);
+
+let purchases=data.purchases.reduce((a,x)=>a+x.total,0);
+
+let expenses=data.expenses.reduce((a,x)=>a+x.amount,0);
+
+let barProfit=data.barSales.reduce((a,x)=>a+x.profit,0);
+
+let profit=tables+barProfit-purchases-expenses;
+
+document.getElementById("rTables").textContent=money(tables);
+document.getElementById("rBar").textContent=money(bar);
+document.getElementById("rPurchases").textContent=money(purchases);
+document.getElementById("rExpenses").textContent=money(expenses);
+document.getElementById("netProfit").textContent=money(profit);
+
+let top=[...data.products]
+.sort((a,b)=>(b.sold||0)-(a.sold||0))
+.slice(0,10);
+
+document.getElementById("topProducts").innerHTML=
+
+top.map((p,i)=>`
+
+<div class="row" style="padding:10px 0;border-bottom:1px solid #293340">
+<div>🏆 ${i+1}. ${escape(p.name)}</div>
+<div>${p.sold||0} шт.</div>
+<div>${money((p.sold||0)*p.price)}</div>
+</div>
+
+`).join("");
+
+}
+
+
+/* =====================================================
+ИСТОРИЯ
+===================================================== */
+
+function renderHistory(){
+
+let list=[
+...data.tableSales,
+...data.barSales.map(x=>({
+type:"Бар",
+product:x.product,
+amount:x.total,
+method:x.method,
+date:x.date
+}))
+];
+
+list.sort((a,b)=>
+new Date(b.date)-new Date(a.date)
+);
+
+let box=document.getElementById("historyList");
+
+if(!list.length){
+box.innerHTML='<p class="muted">История пока пустая</p>';
+return;
+}
+
+box.innerHTML=`
+
+<table>
+<tr>
+<th>Дата</th>
+<th>Тип</th>
+<th>Описание</th>
+<th>Сумма</th>
+<th>Оплата</th>
+</tr>
+
+${list.map(x=>`
+
+<tr>
+<td>${x.date}</td>
+<td>${x.type}</td>
+<td>${escape(x.table||x.product||"")}</td>
+<td>${money(x.amount)}</td>
+<td>${x.method}</td>
+</tr>
+
+`).join("")}
+
+</table>
+`;
+
+}
+
+
+/* =====================================================
+НАВИГАЦИЯ
+===================================================== */
+
+function page(name,button){
+
+[
+"tables",
+"bar",
+"cash",
+"purchases",
+"expenses",
+"reports",
+"history"
+].forEach(x=>{
+document.getElementById(x).classList.add("hidden");
+});
+
+document.getElementById(name).classList.remove("hidden");
+
+document.querySelectorAll(".nav button")
+.forEach(x=>x.classList.remove("active"));
+
+button.classList.add("active");
+
+if(name==="bar")renderBar();
+if(name==="cash")renderCash();
+if(name==="purchases")renderPurchases();
+if(name==="expenses")renderExpenses();
+if(name==="reports")renderReports();
+if(name==="history")renderHistory();
+
+}
+
+
+/* =====================================================
+BACKUP
+===================================================== */
+
+function backup(){
+
+let blob=new Blob(
+[JSON.stringify(data,null,2)],
+{type:"application/json"}
+);
+
+let url=URL.createObjectURL(blob);
+
+let a=document.createElement("a");
+
+a.href=url;
+a.download="zhulebino-backup.json";
+a.click();
+
+URL.revokeObjectURL(url);
+
+}
+
+
+function restore(event){
+
+let file=event.target.files[0];
+
+if(!file)return;
+
+let reader=new FileReader();
+
+reader.onload=e=>{
+
+try{
+
+let restored=JSON.parse(e.target.result);
+
+if(!restored.products){
+alert("Неверный файл.");
+return;
+}
+
+if(!confirm("Заменить текущие данные?"))return;
+
+data=restored;
+
+save();
+
+alert("Данные восстановлены.");
+
+location.reload();
+
+}catch{
+alert("Ошибка файла.");
+}
+
+};
+
+reader.readAsText(file);
+
+}
+
+
+/* =====================================================
+ESCAPE
+===================================================== */
+
+function escape(s){
+
+return String(s??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================================
+ЗАПУСК
+===================================================== */
+
+renderTables();
+renderBar();
+renderCash();
+renderPurchases();
+renderExpenses();
+renderReports();
+renderHistory();
+
+</script>
+
+</body>
+</html>
