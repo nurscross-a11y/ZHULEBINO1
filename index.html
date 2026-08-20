@@ -1,783 +1,762 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head> <link rel="manifest" href="manifest.json">
-
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Club Manager">
+<head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Club Manager</title>
 
 <style>
-*{box-sizing:border-box}
-
-html,body{
-margin:0;
-padding:0;
-background:#0b0f14;
-color:#fff;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
--webkit-tap-highlight-color:transparent;
+:root{
+  --bg:#0b0f14;
+  --card:#151b23;
+  --card2:#1b222c;
+  --text:#fff;
+  --muted:#8993a1;
+  --border:#29313d;
+  --green:#22c55e;
+  --yellow:#f59e0b;
+  --red:#ef4444;
+  --blue:#3b82f6;
 }
 
-body{padding-bottom:75px}
+*{box-sizing:border-box}
 
-button,input,select{font:inherit}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
+}
 
-button{cursor:pointer}
+button,input,select{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
 
 .hidden{display:none!important}
 
-.header{
-height:60px;
-padding:0 15px;
-background:#131922;
-border-bottom:1px solid #293340;
-display:flex;
-align-items:center;
-justify-content:space-between;
-position:sticky;
-top:0;
-z-index:50
+#app{
+  min-height:100vh;
+  padding-bottom:90px;
+}
+
+header{
+  padding:20px 18px 10px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(11,15,20,.94);
+  backdrop-filter:blur(15px);
 }
 
 .logo{
-font-size:20px;
-font-weight:800
+  font-size:26px;
+  font-weight:800;
 }
 
-.logo span{color:#42d392}
-
-.status{
-font-size:12px;
-color:#42d392
+.subtitle{
+  color:var(--muted);
+  margin-top:4px;
 }
 
 .container{
-width:100%;
-max-width:1200px;
-margin:auto;
-padding:10px
+  padding:10px 15px 30px;
+  max-width:1100px;
+  margin:auto;
 }
 
-.stats{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:8px;
-margin-bottom:10px
+h2{
+  margin-top:10px;
 }
 
-.stat{
-background:#131922;
-border:1px solid #293340;
-border-radius:14px;
-padding:11px
-}
-
-.stat-title{
-font-size:11px;
-color:#8d98a6
-}
-
-.stat-value{
-font-size:19px;
-font-weight:800;
-margin-top:3px
-}
-
-/* СТОЛЫ */
-
-.tables-grid{
-display:grid;
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:9px
+.tables{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
 }
 
 .card{
-background:#131922;
-border:1px solid #293340;
-border-radius:15px;
-padding:10px;
-min-width:0
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:15px;
 }
 
-.card.busy{
-border-color:#e4a33d
+.table-card{
+  min-height:235px;
 }
 
-.head{
-display:flex;
-justify-content:space-between;
-gap:5px;
-align-items:flex-start
+.table-card.active{
+  border-color:var(--green);
 }
 
-.name{
-font-size:15px;
-font-weight:800
+.table-title{
+  font-size:20px;
+  font-weight:800;
 }
 
-.muted{
-color:#8d98a6;
-font-size:11px
+.table-type{
+  color:var(--muted);
+  margin-top:4px;
 }
 
-.green{color:#42d392}
-.orange{color:#e4a33d}
-.red{color:#ff6262}
-
-.input{
-width:100%;
-margin-top:7px;
-background:#0b0f14;
-color:#fff;
-border:1px solid #303a47;
-border-radius:8px;
-padding:8px;
-font-size:12px
+.status{
+  margin-top:13px;
+  color:var(--muted);
+  font-size:13px;
 }
 
 .timer{
-text-align:center;
-font-size:23px;
-font-weight:800;
-margin-top:8px;
-font-variant-numeric:tabular-nums
+  font-size:27px;
+  font-weight:800;
+  margin-top:8px;
 }
 
-.price{
-text-align:center;
-font-size:15px;
-font-weight:800;
-color:#42d392;
-margin-top:2px
+.amount{
+  font-size:22px;
+  font-weight:800;
+  margin-top:6px;
 }
 
-.rate{
-text-align:center;
-font-size:10px;
-color:#8d98a6
+.total{
+  color:var(--green);
+  font-weight:800;
+  margin-top:7px;
 }
 
-.buttons{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:5px;
-margin-top:8px
+.grid-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:13px;
 }
 
 .btn{
-border:0;
-border-radius:8px;
-padding:8px 4px;
-font-size:11px;
-font-weight:700
+  padding:12px 9px;
+  border-radius:11px;
+  background:var(--green);
+  color:#fff;
+  font-weight:700;
 }
 
-.start{
-background:#42d392;
-color:#06120c
-}
-
-.blue{
-background:#4e8cff;
-color:white
-}
-
-.orange-btn{
-background:#e4a33d;
-color:#151006
-}
-
-.gray{
-background:#303a47;
-color:white
-}
-
-.red-btn{
-background:#d94b4b;
-color:white
-}
-
-/* ПАНЕЛИ */
-
-.panel{
-background:#131922;
-border:1px solid #293340;
-border-radius:15px;
-padding:14px;
-margin-bottom:10px
-}
-
-.panel h2{
-font-size:17px;
-margin:0 0 11px
-}
-
-.row{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-align-items:center
-}
-
-.row>*{
-flex:1;
-min-width:110px
-}
-
-input,select{
-background:#0b0f14;
-color:#fff;
-border:1px solid #303a47;
-border-radius:9px;
-padding:9px
-}
-
-/* БАР */
-
-.grid{
-display:grid;
-grid-template-columns:repeat(2,minmax(0,1fr));
-gap:9px
-}
-
-.stock{
-font-size:21px;
-font-weight:800;
-margin:7px 0
-}
-
-.product-price{
-font-size:17px;
-color:#42d392;
-font-weight:800
-}
-
-.product-actions{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:5px;
-margin-top:8px
-}
-
-/* ТАБЛИЦЫ */
-
-.table-wrap{
-overflow-x:auto
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-font-size:12px
-}
-
-th,td{
-padding:8px 5px;
-border-bottom:1px solid #293340;
-text-align:left;
-white-space:nowrap
-}
-
-th{color:#8d98a6}
-
-/* ИСТОРИЯ */
-
-.operation{
-display:flex;
-gap:8px;
-align-items:center;
-padding:10px 0;
-border-bottom:1px solid #293340
-}
-
-.operation-info{
-flex:1;
-min-width:0
-}
-
-.danger-small{
-background:#d94b4b;
-color:#fff;
-border:0;
-border-radius:7px;
-padding:7px 8px;
-font-size:11px;
-white-space:nowrap
-}
-
-.warning-box{
-padding:10px;
-border-radius:9px;
-margin-bottom:10px;
-font-size:12px;
-background:#2b2110;
-border:1px solid #6b5120;
-color:#e4a33d
-}
-
-.big{
-font-size:30px;
-font-weight:800;
-text-align:center;
-color:#42d392;
-margin:10px 0
-}
-
-/* НИЖНЕЕ МЕНЮ */
+.btn.gray{background:var(--card2)}
+.btn.red{background:var(--red)}
+.btn.blue{background:var(--blue)}
+.btn.yellow{background:var(--yellow);color:#111}
 
 .bottom-nav{
-position:fixed;
-left:0;
-right:0;
-bottom:0;
-height:68px;
-background:rgba(19,25,34,.98);
-border-top:1px solid #293340;
-display:grid;
-grid-template-columns:repeat(4,1fr);
-z-index:200
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:75px;
+  background:#151b23;
+  border-top:1px solid var(--border);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  z-index:50;
 }
 
-.bottom-nav button{
-border:0;
-background:transparent;
-color:#8d98a6;
-font-size:11px;
-font-weight:700;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:3px
+.nav-btn{
+  background:none;
+  color:var(--muted);
 }
 
-.bottom-nav button.active{
-color:#42d392
+.nav-btn.active{
+  color:white;
 }
 
 .nav-icon{
-font-size:21px
+  display:block;
+  font-size:22px;
 }
 
-/* ЕЩЁ */
-
-.more-menu{
-position:fixed;
-bottom:74px;
-right:10px;
-width:190px;
-background:#151c25;
-border:1px solid #303a47;
-border-radius:15px;
-padding:6px;
-z-index:300;
-box-shadow:0 10px 40px rgba(0,0,0,.5)
+.nav-text{
+  display:block;
+  font-size:10px;
+  margin-top:3px;
 }
 
-.more-menu button{
-width:100%;
-padding:12px;
-background:transparent;
-border:0;
-border-radius:9px;
-color:white;
-text-align:left
+.section{
+  display:none;
 }
 
-/* MODAL */
+.section.active{
+  display:block;
+}
+
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+}
+
+.stat-name{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.stat-value{
+  font-size:24px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.list{
+  margin-top:15px;
+}
+
+.list-item{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:8px;
+}
+
+.product{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:13px;
+  border-radius:13px;
+  margin-bottom:8px;
+}
+
+.product-name{
+  font-weight:700;
+}
+
+.product-price{
+  color:var(--muted);
+  margin-top:3px;
+  font-size:13px;
+}
 
 .modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.8);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:500;
-padding:15px
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  z-index:100;
+  display:none;
+  align-items:flex-end;
 }
 
 .modal.show{
-display:flex
+  display:flex;
 }
 
-.modal-box{
-width:100%;
-max-width:430px;
-max-height:90vh;
-overflow:auto;
-background:#151c25;
-border:1px solid #303a47;
-border-radius:18px;
-padding:18px
+.modal-content{
+  width:100%;
+  max-height:92vh;
+  overflow:auto;
+  background:var(--card);
+  border-radius:24px 24px 0 0;
+  padding:20px;
 }
 
-.modal-box h2{
-margin-top:0
+.modal-title{
+  font-size:24px;
+  font-weight:800;
+  margin-bottom:15px;
 }
 
-.modal-box input,
-.modal-box select{
-width:100%;
-margin-top:8px
+.summary{
+  background:var(--bg);
+  padding:15px;
+  border-radius:15px;
+  margin-top:15px;
 }
 
-.modal-buttons{
-display:flex;
-gap:8px;
-margin-top:15px
+.row{
+  display:flex;
+  justify-content:space-between;
+  margin:9px 0;
 }
 
-.modal-buttons button{
-flex:1
+.big-total{
+  font-size:25px;
+  font-weight:800;
+  color:var(--green);
+}
+
+.login{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:var(--bg);
+}
+
+.login-box{
+  width:100%;
+  max-width:420px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:25px;
+  padding:25px;
+}
+
+.login-logo{
+  font-size:32px;
+  font-weight:900;
+  margin-bottom:6px;
+}
+
+.login-sub{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+.login input{
+  width:100%;
+  padding:14px;
+  margin-bottom:10px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  color:white;
+  outline:none;
+}
+
+.login-tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-bottom:15px;
+}
+
+.login-tab{
+  padding:12px;
+  border-radius:11px;
+  background:var(--card2);
+  color:var(--muted);
+}
+
+.login-tab.active{
+  background:var(--green);
+  color:white;
+}
+
+.help-item{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:15px;
+  border-radius:14px;
+  margin-bottom:8px;
+}
+
+.help-item b{
+  display:block;
+  margin-bottom:6px;
+}
+
+.danger{
+  color:#ff6b6b;
 }
 
 @media(min-width:700px){
-
-.tables-grid{
-grid-template-columns:repeat(3,minmax(0,1fr));
-gap:15px
-}
-
-.grid{
-grid-template-columns:repeat(3,minmax(0,1fr))
-}
-
-.timer{
-font-size:30px
-}
-
-.bottom-nav{
-left:50%;
-right:auto;
-transform:translateX(-50%);
-width:420px;
-border:1px solid #293340;
-border-radius:15px;
-bottom:15px;
-overflow:hidden
-}
-}
-
-@media(max-width:360px){
-
-.tables-grid{
-gap:6px
-}
-
-.card{
-padding:8px
-}
-
-.name{
-font-size:13px
-}
-
-.timer{
-font-size:20px
-}
-
-.btn{
-font-size:10px;
-padding:7px 2px
-}
+  .tables{
+    grid-template-columns:repeat(3,1fr);
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
-<div class="logo">🎱 <span>Club Manager</span></div>
-<div class="status">● Открыт</div>
+<!-- LOGIN -->
+
+<div id="loginScreen" class="login">
+
+  <div class="login-box">
+
+    <div class="login-logo">🎱 Club Manager</div>
+
+    <div class="login-sub">
+      Автоматизация бильярдного клуба
+    </div>
+
+    <div class="login-tabs">
+
+      <button
+        id="ownerTab"
+        class="login-tab active"
+        onclick="loginMode('owner')">
+        Владелец
+      </button>
+
+      <button
+        id="employeeTab"
+        class="login-tab"
+        onclick="loginMode('employee')">
+        Сотрудник
+      </button>
+
+    </div>
+
+    <div id="ownerLogin">
+
+      <input
+        id="clubId"
+        placeholder="ID клуба">
+
+      <input
+        id="ownerPin"
+        type="password"
+        placeholder="PIN-код">
+
+      <button
+        class="btn"
+        style="width:100%"
+        onclick="ownerLogin()">
+        Войти
+      </button>
+
+    </div>
+
+    <div id="employeeLogin" class="hidden">
+
+      <input
+        id="employeeEmail"
+        type="email"
+        placeholder="Email">
+
+      <input
+        id="employeePassword"
+        type="password"
+        placeholder="Пароль">
+
+      <button
+        class="btn"
+        style="width:100%"
+        onclick="employeeLogin()">
+        Войти
+      </button>
+
+    </div>
+
+    <p style="color:#8993a1;font-size:12px;margin-top:18px">
+      Демо-доступ владельца: CLUB001 / 1234
+    </p>
+
+  </div>
+
+</div>
+
+<!-- APP -->
+
+<div id="app" class="hidden">
+
+<header>
+
+  <div class="logo">
+    🎱 Club Manager
+  </div>
+
+  <div class="subtitle" id="clubName">
+    Мой бильярдный клуб
+  </div>
+
 </header>
 
 <div class="container">
 
 <!-- СТОЛЫ -->
 
-<section id="tables">
+<section id="tablesSection" class="section active">
 
-<div class="stats">
+<h2>Столы</h2>
 
-<div class="stat">
-<div class="stat-title">Всего столов</div>
-<div class="stat-value">5</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Свободно</div>
-<div class="stat-value" id="freeTables">5</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Занято</div>
-<div class="stat-value" id="busyTables">0</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Выручка</div>
-<div class="stat-value" id="tableRevenue">0 ₽</div>
-</div>
-
-</div>
-
-<div class="tables-grid" id="tablesGrid"></div>
+<div class="tables" id="tables"></div>
 
 </section>
 
+<!-- ОТЧЕТЫ -->
+
+<section id="reportsSection" class="section">
+
+<h2>📊 Отчёты</h2>
+
+<div class="stat-grid">
+
+<div class="stat">
+<div class="stat-name">Выручка сегодня</div>
+<div class="stat-value" id="reportRevenue">0 ₽</div>
+</div>
+
+<div class="stat">
+<div class="stat-name">Продажи и игры</div>
+<div class="stat-value" id="reportSessions">0</div>
+</div>
+
+<div class="stat">
+<div class="stat-name">Продажа бара</div>
+<div class="stat-value" id="reportBar">0 ₽</div>
+</div>
+
+<div class="stat">
+<div class="stat-name">Средний чек</div>
+<div class="stat-value" id="reportAverage">0 ₽</div>
+</div>
+
+<div class="stat">
+<div class="stat-name">Загрузка</div>
+<div class="stat-value" id="reportLoad">0%</div>
+</div>
+
+<div class="stat">
+<div class="stat-name">Себестоимость</div>
+<div class="stat-value" id="reportCost">0 ₽</div>
+</div>
+
+<div class="stat">
+<div class="stat-name">Чистая прибыль</div>
+<div class="stat-value" id="reportProfit">0 ₽</div>
+</div>
+
+</div>
+
+<h3>Игры по столам</h3>
+
+<div id="tableReports"></div>
+
+<h3>Почасовая выручка</h3>
+
+<div id="hourReports"></div>
+
+<h3>История игр</h3>
+
+<div id="history"></div>
+
+</section>
+
+<!-- СТАТИСТИКА -->
+
+<section id="statsSection" class="section">
+
+<h2>📈 Статистика</h2>
+
+<div class="stat-grid">
+
+<div class="stat">
+<div class="stat-name">Всего игр</div>
+<div class="stat-value" id="statGames">0</div>
+</div>
+
+<div class="stat">
+<div class="stat-name">Время игр</div>
+<div class="stat-value" id="statTime">0ч</div>
+</div>
+
+<div class="stat">
+<div class="stat-name">Средняя игра</div>
+<div class="stat-value" id="statAverageTime">0 мин</div>
+</div>
+
+<div class="stat">
+<div class="stat-name">Загруженный стол</div>
+<div class="stat-value" id="statTopTable">—</div>
+</div>
+
+</div>
+
+</section>
 
 <!-- БАР -->
 
-<section id="bar" class="hidden">
+<section id="barSection" class="section">
 
-<div class="stats">
+<h2>🍹 Бар</h2>
 
 <div class="stat">
-<div class="stat-title">Выручка</div>
+<div class="stat-name">Продажи бара</div>
 <div class="stat-value" id="barRevenue">0 ₽</div>
 </div>
 
-<div class="stat">
-<div class="stat-title">Прибыль</div>
-<div class="stat-value" id="barProfit">0 ₽</div>
+<h3>Товары</h3>
+
+<div id="barProducts"></div>
+
+</section>
+
+<!-- НАСТРОЙКИ -->
+
+<section id="settingsSection" class="section">
+
+<h2>⚙️ Настройки</h2>
+
+<div class="list">
+
+<div class="list-item">
+<b>👤 Аккаунт</b>
+<br>
+Владелец клуба
+<br>
+ID: CLUB001
 </div>
 
-<div class="stat">
-<div class="stat-title">Продано</div>
-<div class="stat-value" id="barSold">0</div>
+<div class="list-item">
+<b>💳 Подписка</b>
+<br>
+Текущий тариф: Demo
+<br><br>
+<button class="btn">Управление подпиской</button>
 </div>
 
-<div class="stat">
-<div class="stat-title">Мало товара</div>
-<div class="stat-value" id="lowStock">0</div>
+<div class="list-item">
+<b>💰 История платежей</b>
+<br>
+История оплат тарифа
 </div>
 
+<div class="list-item">
+<b>🔄 Синхронизация</b>
+<br>
+Статус: готов к синхронизации
 </div>
 
-<div class="panel">
+<div class="list-item">
+<b>🌍 Язык</b>
+<br><br>
 
-<div class="row">
+<select
+id="language"
+onchange="changeLanguage()"
+style="background:var(--bg);color:white;padding:10px;border-radius:10px">
 
-<input id="search" placeholder="🔎 Поиск" oninput="renderBar()">
+<option value="ru">Русский</option>
+<option value="ky">Кыргызский</option>
+<option value="uz">Узбекский</option>
 
-<button class="btn start" onclick="productModal()">
-+ Новый товар
+</select>
+
+</div>
+
+<div class="list-item">
+
+<b>🎨 Тема</b>
+
+<br><br>
+
+<button
+class="btn gray"
+onclick="toggleTheme()">
+
+Тёмная / Светлая
+
 </button>
 
 </div>
 
+<div class="list-item">
+<b>🔔 Уведомления</b>
+<br>
+Уведомления устройства
 </div>
 
-<div class="grid" id="productsGrid"></div>
+<div class="list-item">
 
-</section>
+<b>❓ Помощь</b>
 
+<br><br>
 
-<!-- КАССА -->
+<button
+class="btn"
+onclick="openHelp()">
 
-<section id="cash" class="hidden">
+Открыть помощь
 
-<div class="stats">
-
-<div class="stat">
-<div class="stat-title">Наличные</div>
-<div class="stat-value" id="cashMoney">0 ₽</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Карта</div>
-<div class="stat-value" id="cardMoney">0 ₽</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Выручка</div>
-<div class="stat-value" id="totalRevenue">0 ₽</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Расходы</div>
-<div class="stat-value" id="totalExpenses">0 ₽</div>
-</div>
+</button>
 
 </div>
 
-<div class="panel">
+<div class="list-item">
 
-<h2>🔒 Смена</h2>
+<b>🔐 Данные и безопасность</b>
 
-<div id="shiftStatus"></div>
+<br><br>
 
-<div class="row">
+Политика конфиденциальности
 
-<button class="btn start" onclick="openShift()">▶ Открыть</button>
+<br><br>
 
-<button class="btn red-btn" onclick="closeShift()">🔒 Закрыть</button>
+<button
+class="btn gray"
+onclick="openPrivacy()">
 
-</div>
+Открыть политику
 
-</div>
-
-<div class="panel">
-
-<h2>💰 Итоговая касса</h2>
-
-<div class="big" id="cashTotal">0 ₽</div>
-
-<div class="muted" style="text-align:center">
-Наличные + карта
-</div>
+</button>
 
 </div>
 
-</section>
+<div class="list-item">
 
+<b>📱 Активные устройства</b>
 
-<!-- ЗАКУПКИ -->
-
-<section id="purchases" class="hidden">
-
-<div class="panel">
-
-<h2>📦 Закупка товара</h2>
-
-<div class="row">
-
-<select id="purchaseProduct"></select>
-
-<input id="purchaseQty" type="number" placeholder="Количество">
-
-<input id="purchaseCost" type="number" placeholder="Цена">
-
-<button class="btn start" onclick="makePurchase()">Добавить</button>
+<br>
+Текущее устройство
 
 </div>
 
-</div>
+<div class="list-item">
 
-<div class="panel">
+<b>🚪 Выйти из аккаунта</b>
 
-<h2>История закупок</h2>
+<br><br>
 
-<div id="purchaseHistory"></div>
+<button
+class="btn red"
+onclick="logout()">
 
-</div>
+Выйти
 
-</section>
-
-
-<!-- РАСХОДЫ -->
-
-<section id="expenses" class="hidden">
-
-<div class="panel">
-
-<h2>💸 Добавить расход</h2>
-
-<div class="row">
-
-<input id="expenseName" placeholder="Например: аренда">
-
-<input id="expenseAmount" type="number" placeholder="Сумма">
-
-<select id="expensePayment">
-
-<option>Наличные</option>
-<option>Карта</option>
-
-</select>
-
-<button class="btn red-btn" onclick="addExpense()">Добавить</button>
+</button>
 
 </div>
 
-</div>
+<div class="list-item">
 
-<div class="panel">
+<b class="danger">
+🗑️ Удалить аккаунт
+</b>
 
-<h2>История расходов</h2>
+<br><br>
 
-<div id="expenseHistory"></div>
+<button
+class="btn red"
+onclick="deleteAccount()">
 
-</div>
+Удалить аккаунт
 
-</section>
-
-
-<!-- ОТЧЁТЫ -->
-
-<section id="reports" class="hidden">
-
-<div class="panel">
-
-<h2>📊 Отчёт</h2>
-
-<div class="stats">
-
-<div class="stat">
-<div class="stat-title">Бильярд</div>
-<div class="stat-value" id="rTables">0 ₽</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Бар</div>
-<div class="stat-value" id="rBar">0 ₽</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Закупки</div>
-<div class="stat-value" id="rPurchases">0 ₽</div>
-</div>
-
-<div class="stat">
-<div class="stat-title">Расходы</div>
-<div class="stat-value" id="rExpenses">0 ₽</div>
-</div>
+</button>
 
 </div>
 
-<div class="big" id="netProfit">0 ₽</div>
+<div class="list-item">
 
-<div class="muted" style="text-align:center">
-Чистая прибыль
-</div>
+<b>Club Manager</b>
 
-</div>
+<br>
 
-<div class="panel">
-
-<h2>🏆 Топ товаров</h2>
-
-<div id="topProducts"></div>
+Версия приложения: 1.0.0
 
 </div>
-
-</section>
-
-
-<!-- ИСТОРИЯ -->
-
-<section id="history" class="hidden">
-
-<div class="panel">
-
-<h2>📋 История</h2>
-
-<div class="warning-box">
-Ошибочную операцию можно отменить.
-</div>
-
-<div id="historyList"></div>
 
 </div>
 
@@ -785,1463 +764,1607 @@ padding:7px 2px
 
 </div>
 
+<!-- NAV -->
 
-<!-- НИЖНЕЕ МЕНЮ -->
+<div class="bottom-nav">
 
-<nav class="bottom-nav">
+<button
+class="nav-btn"
+onclick="showSection('reportsSection',this)">
 
-<button class="active" onclick="page('tables',this)">
+<span class="nav-icon">📊</span>
+<span class="nav-text">Отчёты</span>
+
+</button>
+
+<button
+class="nav-btn active"
+onclick="showSection('tablesSection',this)">
+
 <span class="nav-icon">🎱</span>
-<span>Столы</span>
+<span class="nav-text">Столы</span>
+
 </button>
 
-<button onclick="page('bar',this)">
-<span class="nav-icon">🍫</span>
+<button
+class="nav-btn"
+onclick="showSection('statsSection',this)">
+
+<span class="nav-icon">📈</span>
+<span class="nav-text">Статистика</span>
+
+</button>
+
+<button
+class="nav-btn"
+onclick="showSection('barSection',this)">
+
+<span class="nav-icon">🍹</span>
+<span class="nav-text">Бар</span>
+
+</button>
+
+<button
+class="nav-btn"
+onclick="showSection('settingsSection',this)">
+
+<span class="nav-icon">⚙️</span>
+<span class="nav-text">Настройки</span>
+
+</button>
+
+</div>
+
+</div>
+
+<!-- TABLE MODAL -->
+
+<div id="tableModal" class="modal">
+
+<div class="modal-content">
+
+<div class="modal-title" id="modalTitle"></div>
+
+<div id="products"></div>
+
+<div class="summary">
+
+<div class="row">
+<span>Игра</span>
+<b id="modalGame">0 ₽</b>
+</div>
+
+<div class="row">
 <span>Бар</span>
-</button>
+<b id="modalBar">0 ₽</b>
+</div>
 
-<button onclick="page('cash',this)">
-<span class="nav-icon">💰</span>
-<span>Касса</span>
-</button>
+<hr>
 
-<button onclick="toggleMore()">
-<span class="nav-icon">☰</span>
-<span>Ещё</span>
-</button>
+<div class="row big-total">
+<span>ИТОГО</span>
+<span id="modalTotal">0 ₽</span>
+</div>
 
-</nav>
+</div>
 
+<button
+class="btn"
+style="width:100%;margin-top:10px"
+onclick="closeModal()">
 
-<!-- ЕЩЁ -->
+Закрыть окно
 
-<div id="moreMenu" class="more-menu hidden">
-
-<button onclick="page('purchases');closeMore()">
-📦 Закупки
-</button>
-
-<button onclick="page('expenses');closeMore()">
-💸 Расходы
-</button>
-
-<button onclick="page('reports');closeMore()">
-📊 Отчёты
-</button>
-
-<button onclick="page('history');closeMore()">
-📋 История
 </button>
 
 </div>
 
+</div>
 
-<!-- ТОВАР -->
+<!-- HELP MODAL -->
 
-<div class="modal" id="productModalBox">
+<div id="helpModal" class="modal">
 
-<div class="modal-box">
+<div class="modal-content">
 
-<h2>🍫 Товар</h2>
+<div class="modal-title">
+❓ Помощь
+</div>
 
-<input id="pName" placeholder="Название">
+<div id="helpContent"></div>
 
-<select id="pCategory">
-<option>Напитки</option>
-<option>Снеки</option>
-<option>Другое</option>
-</select>
+<button
+class="btn"
+style="width:100%"
+onclick="document.getElementById('helpModal').classList.remove('show')">
 
-<input id="pCost" type="number" placeholder="Цена закупки">
+Закрыть
 
-<input id="pPrice" type="number" placeholder="Цена продажи">
-
-<input id="pQty" type="number" placeholder="Количество">
-
-<input id="pMin" type="number" placeholder="Минимальный остаток">
-
-<div class="modal-buttons">
-
-<button class="btn gray" onclick="closeProduct()">Отмена</button>
-
-<button class="btn start" onclick="saveProduct()">Сохранить</button>
+</button>
 
 </div>
 
 </div>
 
+<!-- PRIVACY -->
+
+<div id="privacyModal" class="modal">
+
+<div class="modal-content">
+
+<div class="modal-title">
+Политика конфиденциальности
 </div>
 
+<div class="help-item">
 
-<!-- ПРОДАЖА -->
+<b>1. Общие положения</b>
 
-<div class="modal" id="saleModal">
-
-<div class="modal-box">
-
-<h2>🛒 Продажа</h2>
-
-<div id="saleName"></div>
-
-<input id="saleQty" type="number" value="1" min="1">
-
-<select id="salePayment">
-
-<option>Наличные</option>
-<option>Карта</option>
-
-</select>
-
-<div class="big" id="saleTotal">0 ₽</div>
-
-<div class="modal-buttons">
-
-<button class="btn gray" onclick="closeSale()">Отмена</button>
-
-<button class="btn start" onclick="sellProduct()">Продать</button>
+Club Manager предназначен для автоматизации работы бильярдных клубов, включая учёт столов, игровых сессий, продажи бара, склада, смен и отчётности.
 
 </div>
 
-</div>
+<div class="help-item">
+
+<b>2. Данные</b>
+
+Могут обрабатываться данные аккаунта, клуба, сотрудников, игровых сессий, продаж, склада, смен и подписки.
 
 </div>
 
+<div class="help-item">
 
-<!-- ОПЛАТА СТОЛА -->
+<b>3. Использование</b>
 
-<div class="modal" id="tablePayment">
+Данные используются для авторизации, синхронизации, работы сервиса, отчётов, складского учёта, подписки и безопасности.
 
-<div class="modal-box">
+</div>
 
-<h2>💳 Оплата стола</h2>
+<div class="help-item">
 
-<div id="tablePaymentInfo"></div>
+<b>4. Безопасность</b>
 
-<div class="big" id="tablePaymentTotal">0 ₽</div>
+Для защиты данных должны использоваться авторизация, защищённое соединение, разграничение доступа и резервное копирование.
 
-<select id="tablePaymentMethod">
+</div>
 
-<option>Наличные</option>
-<option>Карта</option>
+<div class="help-item">
 
-</select>
+<b>5. Передача данных</b>
 
-<div class="modal-buttons">
+Персональные данные не продаются третьим лицам. Передача возможна только в случаях, необходимых для работы сервиса или предусмотренных законом.
 
-<button class="btn gray" onclick="closeTablePayment()">Отмена</button>
+</div>
 
-<button class="btn start" onclick="payTable()">Оплачено</button>
+<div class="help-item">
+
+<b>6. Удаление аккаунта</b>
+
+Пользователь может запросить удаление аккаунта и связанных данных согласно правилам сервиса и применимому законодательству.
+
+</div>
+
+<div class="help-item">
+
+<b>7. Изменения</b>
+
+Политика может обновляться при изменении функциональности или требований законодательства.
+
+</div>
+
+<div class="help-item">
+
+<b>8. Контакты</b>
+
+Контактные данные владельца сервиса будут указаны перед публичным запуском приложения.
+
+</div>
+
+<button
+class="btn"
+style="width:100%"
+onclick="document.getElementById('privacyModal').classList.remove('show')">
+
+Закрыть
+
+</button>
 
 </div>
 
 </div>
-
-</div>
-
 
 <script>
 
-const KEY="club_manager_v2";
+/* =========================
+   ДАННЫЕ
+========================= */
 
-/* 4 РУССКИХ + 1 АМЕРИКАНКА */
-
-const tableInfo=[
-{id:1,name:"Стол №1",type:"Русский бильярд",rate:600},
-{id:2,name:"Стол №2",type:"Русский бильярд",rate:600},
-{id:3,name:"Стол №3",type:"Русский бильярд",rate:600},
-{id:4,name:"Стол №4",type:"Русский бильярд",rate:600},
-{id:5,name:"Стол №5",type:"Американский пул",rate:500}
+const tableConfig=[
+{
+ id:1,
+ name:"Стол 1",
+ type:"Русский",
+ rate:600
+},
+{
+ id:2,
+ name:"Стол 2",
+ type:"Русский",
+ rate:600
+},
+{
+ id:3,
+ name:"Стол 3",
+ type:"Русский",
+ rate:600
+},
+{
+ id:4,
+ name:"Стол 4",
+ type:"Русский",
+ rate:600
+},
+{
+ id:5,
+ name:"Стол 5",
+ type:"Американа",
+ rate:500
+}
 ];
 
-const defaultData={
-tables:[],
-products:[
+const products=[
 {
-id:1,
-name:"Coca-Cola 0.5",
-category:"Напитки",
-cost:50,
-price:100,
-qty:24,
-min:5,
-sold:0
+ id:1,
+ name:"Coca-Cola",
+ price:150,
+ cost:80
 },
 {
-id:2,
-name:"Вода 0.5",
-category:"Напитки",
-cost:20,
-price:70,
-qty:30,
-min:5,
-sold:0
+ id:2,
+ name:"Pepsi",
+ price:150,
+ cost:80
 },
 {
-id:3,
-name:"Чипсы",
-category:"Снеки",
-cost:60,
-price:120,
-qty:10,
-min:5,
-sold:0
+ id:3,
+ name:"Вода",
+ price:100,
+ cost:40
+},
+{
+ id:4,
+ name:"Энергетик",
+ price:200,
+ cost:120
+},
+{
+ id:5,
+ name:"Кофе",
+ price:200,
+ cost:70
+},
+{
+ id:6,
+ name:"Чай",
+ price:150,
+ cost:50
 }
-],
-tableSales:[],
-barSales:[],
-purchases:[],
-expenses:[],
-cash:0,
-card:0,
-shift:false,
-shiftStart:null,
-admin:"Администратор"
-};
+];
 
-let data;
+let tables=JSON.parse(
+localStorage.getItem("club_tables_v2")
+);
 
-try{
-data=JSON.parse(localStorage.getItem(KEY));
-}catch(e){
-data=null;
-}
+let sales=JSON.parse(
+localStorage.getItem("club_sales_v2")
+)||[];
 
-if(!data){
-data=JSON.parse(JSON.stringify(defaultData));
-}
+let currentTable=null;
 
-/* СОЗДАНИЕ СТОЛОВ */
+if(!tables){
 
-function initTables(){
+ tables=tableConfig.map(t=>({
+   ...t,
+   active:false,
+   paused:false,
+   startedAt:null,
+   pausedAt:null,
+   pauseSeconds:0,
+   products:[]
+ }));
 
-data.tables=tableInfo.map(info=>{
-
-let old=data.tables.find(t=>t.id===info.id);
-
-return old||{
-id:info.id,
-seconds:0,
-running:false,
-customer:"",
-startedAt:null
-};
-
-});
+ save();
 
 }
 
-/* СОХРАНЕНИЕ */
+/* =========================
+   AUTH
+========================= */
+
+function loginMode(mode){
+
+ document
+ .getElementById("ownerTab")
+ .classList.toggle(
+   "active",
+   mode==="owner"
+ );
+
+ document
+ .getElementById("employeeTab")
+ .classList.toggle(
+   "active",
+   mode==="employee"
+ );
+
+ document
+ .getElementById("ownerLogin")
+ .classList.toggle(
+   "hidden",
+   mode!=="owner"
+ );
+
+ document
+ .getElementById("employeeLogin")
+ .classList.toggle(
+   "hidden",
+   mode!=="employee"
+ );
+
+}
+
+function ownerLogin(){
+
+ const club=
+ document.getElementById("clubId").value;
+
+ const pin=
+ document.getElementById("ownerPin").value;
+
+ if(
+ club==="CLUB001" &&
+ pin==="1234"
+ ){
+
+  openApp();
+
+ }else{
+
+  alert(
+   "Неверный ID клуба или PIN."
+  );
+
+ }
+
+}
+
+function employeeLogin(){
+
+ const email=
+ document.getElementById(
+   "employeeEmail"
+ ).value;
+
+ const password=
+ document.getElementById(
+   "employeePassword"
+ ).value;
+
+ if(
+ email &&
+ password
+ ){
+
+  openApp();
+
+ }else{
+
+  alert(
+   "Введите email и пароль."
+  );
+
+ }
+
+}
+
+function openApp(){
+
+ document
+ .getElementById("loginScreen")
+ .classList.add("hidden");
+
+ document
+ .getElementById("app")
+ .classList.remove("hidden");
+
+ renderAll();
+
+}
+
+/* =========================
+   STORAGE
+========================= */
 
 function save(){
-localStorage.setItem(KEY,JSON.stringify(data));
-}
 
-/* УТИЛИТЫ */
+ localStorage.setItem(
+  "club_tables_v2",
+  JSON.stringify(tables)
+ );
 
-function getTable(id){
-return data.tables.find(t=>t.id===id);
-}
-
-function getInfo(id){
-return tableInfo.find(t=>t.id===id);
-}
-
-function money(n){
-return Math.round(Number(n)||0).toLocaleString("ru-RU")+" ₽";
-}
-
-function formatTime(sec){
-
-sec=Math.max(0,Math.floor(sec));
-
-let h=Math.floor(sec/3600);
-let m=Math.floor((sec%3600)/60);
-let s=sec%60;
-
-return String(h).padStart(2,"0")+":"+
-String(m).padStart(2,"0")+":"+
-String(s).padStart(2,"0");
+ localStorage.setItem(
+  "club_sales_v2",
+  JSON.stringify(sales)
+ );
 
 }
 
-function getSeconds(t){
+/* =========================
+   MONEY
+========================= */
 
-let seconds=Number(t.seconds)||0;
+function money(value){
 
-if(t.running && t.startedAt){
-
-return seconds+
-Math.floor((Date.now()-t.startedAt)/1000);
+ return Number(value)
+ .toLocaleString(
+  "ru-RU",
+  {
+   minimumFractionDigits:2,
+   maximumFractionDigits:2
+  }
+ )+" ₽";
 
 }
 
-return seconds;
+/* =========================
+   TIMER
+========================= */
+
+function elapsed(table){
+
+ if(!table.startedAt)
+ return 0;
+
+ let now=
+ table.paused && table.pausedAt
+ ? table.pausedAt
+ : Date.now();
+
+ let seconds=
+ Math.floor(
+  (now-table.startedAt)/1000
+ );
+
+ seconds-=
+ table.pauseSeconds||0;
+
+ return Math.max(
+  0,
+  seconds
+ );
+
 }
 
-function tablePrice(t){
+function gamePrice(table){
 
-let seconds=getSeconds(t);
+ return elapsed(table)*
+ (table.rate/3600);
 
-if(seconds<=0)return 0;
-
-return Math.ceil(
-seconds/3600
-)*getInfo(t.id).rate;
 }
 
-/* СТОЛЫ */
+function barPrice(table){
+
+ return table.products.reduce(
+  (sum,p)=>
+   sum+p.price*p.quantity,
+  0
+ );
+
+}
+
+function totalPrice(table){
+
+ return gamePrice(table)+
+ barPrice(table);
+
+}
+
+function timeText(sec){
+
+ const h=
+ Math.floor(sec/3600);
+
+ const m=
+ Math.floor(
+  (sec%3600)/60
+ );
+
+ const s=
+ sec%60;
+
+ return String(h).padStart(2,"0")
+ +":"
+ +String(m).padStart(2,"0")
+ +":"
+ +String(s).padStart(2,"0");
+
+}
+
+/* =========================
+   TABLES
+========================= */
 
 function renderTables(){
 
-const grid=document.getElementById("tablesGrid");
+ const box=
+ document.getElementById("tables");
 
-grid.innerHTML="";
+ box.innerHTML="";
 
-let busy=0;
+ tables.forEach(table=>{
 
-data.tables.forEach(t=>{
+  const div=
+  document.createElement("div");
 
-if(t.running)busy++;
+  div.className=
+  "card table-card "+
+  (table.active?"active":"");
 
-const i=getInfo(t.id);
+  if(!table.active){
 
-const card=document.createElement("div");
+   div.innerHTML=`
 
-card.className="card"+(t.running?" busy":"");
+   <div class="table-title">
+   ${table.name}
+   </div>
 
-card.innerHTML=`
+   <div class="table-type">
+   ${table.type} · ${table.rate} ₽/час
+   </div>
 
-<div class="head">
+   <div class="status">
+   🟢 Свободен
+   </div>
 
-<div>
+   <div class="amount">
+   0 ₽
+   </div>
 
-<div class="name">${i.name}</div>
+   <div class="grid-buttons">
 
-<div class="muted">${i.type}</div>
+   <button
+   class="btn"
+   onclick="startTable(${table.id})">
+   ▶ Начать
+   </button>
 
-</div>
+   <button
+   class="btn gray"
+   onclick="openTable(${table.id})">
+   🧾 Счёт
+   </button>
 
-<div class="${t.running?"orange":"green"}">
+   </div>
+   `;
 
-${t.running?"● Занят":"● Свободен"}
+  }else{
 
-</div>
+   div.innerHTML=`
 
-</div>
+   <div class="table-title">
+   ${table.name}
+   </div>
 
-<input
-class="input"
-placeholder="Имя клиента"
-value="${t.customer||""}"
->
+   <div class="table-type">
+   ${table.type} · ${table.rate} ₽/час
+   </div>
 
-<div class="timer">
-${formatTime(getSeconds(t))}
-</div>
+   <div class="status">
+   ${table.paused
+   ?"🟡 Пауза"
+   :"🔴 Играет"}
+   </div>
 
-<div class="price">
-${money(tablePrice(t))}
-</div>
+   <div class="timer">
+   ${timeText(elapsed(table))}
+   </div>
 
-<div class="rate">
-${i.rate} ₽ / час
-</div>
+   <div class="amount">
+   ${money(gamePrice(table))}
+   </div>
 
-<div class="buttons">
+   <div class="total">
+   Счёт: ${money(totalPrice(table))}
+   </div>
 
-<button class="btn start"
-data-action="start"
-data-id="${t.id}">
-▶ Старт
-</button>
+   <div class="grid-buttons">
 
-<button class="btn orange-btn"
-data-action="pause"
-data-id="${t.id}">
-${t.running?"Ⅱ Пауза":"▶ Продолжить"}
-</button>
+   <button
+   class="btn ${
+    table.paused
+    ?"blue"
+    :"yellow"
+   }"
+   onclick="pauseTable(${table.id})">
 
-<button class="btn blue"
-data-action="pay"
-data-id="${t.id}">
-💳 Оплата
-</button>
+   ${
+    table.paused
+    ?"▶ Продолжить"
+    :"⏸ Пауза"
+   }
 
-<button class="btn gray"
-data-action="reset"
-data-id="${t.id}">
-↻ Сброс
-</button>
+   </button>
 
-</div>
-`;
+   <button
+   class="btn blue"
+   onclick="openTable(${table.id})">
 
-const input=card.querySelector("input");
+   🍹 Бар / счёт
 
-input.addEventListener("change",function(){
-t.customer=this.value;
-save();
-});
+   </button>
 
-grid.appendChild(card);
+   <button
+   class="btn red"
+   onclick="finishTable(${table.id})">
 
-});
+   ■ Закрыть
 
-document.getElementById("freeTables").textContent=
-data.tables.length-busy;
+   </button>
 
-document.getElementById("busyTables").textContent=busy;
+   <button
+   class="btn gray"
+   onclick="reminder(${table.id})">
 
-const revenue=data.tableSales
-.filter(x=>!x.cancelled)
-.reduce((a,x)=>a+Number(x.amount||0),0);
+   🔔 Напомнить
 
-document.getElementById("tableRevenue").textContent=money(revenue);
+   </button>
+
+   </div>
+
+   `;
+
+  }
+
+  box.appendChild(div);
+
+ });
 
 }
 
-/* КНОПКИ СТОЛОВ */
-
-document.getElementById("tablesGrid").addEventListener("click",function(e){
-
-const btn=e.target.closest("button");
-
-if(!btn)return;
-
-const id=Number(btn.dataset.id);
-
-if(btn.dataset.action==="start")startTable(id);
-
-if(btn.dataset.action==="pause")pauseTable(id);
-
-if(btn.dataset.action==="pay")openTablePayment(id);
-
-if(btn.dataset.action==="reset")resetTable(id);
-
-});
+/* =========================
+   START
+========================= */
 
 function startTable(id){
 
-const t=getTable(id);
+ const table=
+ tables.find(t=>t.id===id);
 
-if(!t)return;
+ table.active=true;
+ table.paused=false;
+ table.startedAt=Date.now();
+ table.pausedAt=null;
+ table.pauseSeconds=0;
+ table.products=[];
 
-if(t.running){
-alert("Стол уже запущен.");
-return;
+ save();
+
+ renderTables();
+
 }
 
-t.running=true;
-t.startedAt=Date.now();
-
-save();
-renderTables();
-
-}
+/* =========================
+   PAUSE
+========================= */
 
 function pauseTable(id){
 
-const t=getTable(id);
+ const table=
+ tables.find(t=>t.id===id);
 
-if(!t)return;
+ if(!table.paused){
 
-if(t.running){
+  table.paused=true;
+  table.pausedAt=Date.now();
 
-t.seconds=getSeconds(t);
-t.running=false;
-t.startedAt=null;
+ }else{
 
-}else{
+  table.pauseSeconds+=
+   Math.floor(
+    (Date.now()-table.pausedAt)/1000
+   );
 
-t.running=true;
-t.startedAt=Date.now();
+  table.paused=false;
+  table.pausedAt=null;
 
-}
+ }
 
-save();
-renderTables();
+ save();
 
-}
-
-function resetTable(id){
-
-const t=getTable(id);
-
-if(!t)return;
-
-if(!confirm("Сбросить стол?"))return;
-
-t.seconds=0;
-t.running=false;
-t.startedAt=null;
-t.customer="";
-
-save();
-renderTables();
+ renderTables();
 
 }
 
-/* ТАЙМЕР */
+/* =========================
+   TABLE MODAL
+========================= */
 
-setInterval(function(){
+function openTable(id){
 
-data.tables.forEach(t=>{
+ currentTable=
+ tables.find(t=>t.id===id);
 
-const cards=document.querySelectorAll("#tablesGrid .card");
+ document
+ .getElementById("tableModal")
+ .classList.add("show");
 
-cards.forEach(card=>{
-
-const name=card.querySelector(".name");
-
-if(!name)return;
-
-if(name.textContent===getInfo(t.id).name){
-
-const timer=card.querySelector(".timer");
-const price=card.querySelector(".price");
-
-if(timer)timer.textContent=formatTime(getSeconds(t));
-
-if(price)price.textContent=money(tablePrice(t));
+ renderModal();
 
 }
 
-});
+function closeModal(){
 
-});
+ document
+ .getElementById("tableModal")
+ .classList.remove("show");
 
-},1000);
-
-
-/* ОПЛАТА */
-
-let activeTable=null;
-
-function openTablePayment(id){
-
-const t=getTable(id);
-
-if(!t)return;
-
-if(getSeconds(t)<=0){
-
-alert("Сначала запусти стол.");
-
-return;
+ currentTable=null;
 
 }
 
-activeTable=t;
+function renderModal(){
 
-document.getElementById("tablePaymentInfo").textContent=
-getInfo(id).name+" · "+(t.customer||"Без имени");
+ if(!currentTable)return;
 
-document.getElementById("tablePaymentTotal").textContent=
-money(tablePrice(t));
+ document
+ .getElementById("modalTitle")
+ .innerText=
+ currentTable.name+
+ " · "+
+ currentTable.type;
 
-document.getElementById("tablePayment").classList.add("show");
+ const box=
+ document.getElementById("products");
+
+ box.innerHTML="<h3>Добавить в заказ</h3>";
+
+ products.forEach(product=>{
+
+  box.innerHTML+=`
+
+  <div class="product">
+
+  <div>
+  <div class="product-name">
+  ${product.name}
+  </div>
+
+  <div class="product-price">
+  ${product.price} ₽
+  </div>
+  </div>
+
+  <button
+  class="btn"
+  onclick="addProduct(${product.id})">
+  + Добавить
+  </button>
+
+  </div>
+
+  `;
+
+ });
+
+ if(currentTable.products.length){
+
+  box.innerHTML+="<h3>Заказ</h3>";
+
+  currentTable.products.forEach(item=>{
+
+   box.innerHTML+=`
+
+   <div class="product">
+
+   <div>
+
+   <div class="product-name">
+   ${item.name}
+   </div>
+
+   <div class="product-price">
+   ${item.quantity} × ${item.price} ₽
+   </div>
+
+   </div>
+
+   <button
+   class="btn red"
+   onclick="removeProduct(${item.id})">
+   −
+   </button>
+
+   </div>
+
+   `;
+
+  });
+
+ }
+
+ document
+ .getElementById("modalGame")
+ .innerText=
+ money(gamePrice(currentTable));
+
+ document
+ .getElementById("modalBar")
+ .innerText=
+ money(barPrice(currentTable));
+
+ document
+ .getElementById("modalTotal")
+ .innerText=
+ money(totalPrice(currentTable));
 
 }
 
-function closeTablePayment(){
+/* =========================
+   PRODUCTS
+========================= */
 
-document.getElementById("tablePayment").classList.remove("show");
+function addProduct(id){
 
-activeTable=null;
+ const p=
+ products.find(x=>x.id===id);
 
-}
+ const existing=
+ currentTable.products.find(
+  x=>x.id===id
+ );
 
-function payTable(){
+ if(existing){
 
-if(!activeTable)return;
+  existing.quantity++;
 
-const t=activeTable;
+ }else{
 
-const amount=tablePrice(t);
+  currentTable.products.push({
 
-const method=document.getElementById("tablePaymentMethod").value;
+   id:p.id,
+   name:p.name,
+   price:p.price,
+   cost:p.cost,
+   quantity:1
 
-if(method==="Наличные"){
-data.cash+=amount;
-}else{
-data.card+=amount;
-}
+  });
 
-data.tableSales.unshift({
+ }
 
-id:Date.now(),
+ save();
 
-table:getInfo(t.id).name,
-
-customer:t.customer||"Без имени",
-
-amount:amount,
-
-method:method,
-
-seconds:getSeconds(t),
-
-date:new Date().toISOString(),
-
-cancelled:false
-
-});
-
-t.seconds=0;
-t.running=false;
-t.startedAt=null;
-t.customer="";
-
-save();
-
-closeTablePayment();
-
-renderAll();
+ renderModal();
+ renderTables();
 
 }
 
+function removeProduct(id){
 
-/* БАР */
+ const item=
+ currentTable.products.find(
+  x=>x.id===id
+ );
 
-let activeProduct=null;
+ if(!item)return;
 
-function renderBar(){
+ if(item.quantity>1){
 
-const grid=document.getElementById("productsGrid");
+  item.quantity--;
 
-grid.innerHTML="";
+ }else{
 
-const search=
-(document.getElementById("search").value||"").toLowerCase();
+  currentTable.products=
+   currentTable.products.filter(
+    x=>x.id!==id
+   );
 
-data.products
-.filter(p=>p.name.toLowerCase().includes(search))
-.forEach(p=>{
+ }
 
-const low=p.qty<=p.min;
+ save();
 
-const card=document.createElement("div");
-
-card.className="card";
-
-card.innerHTML=`
-
-<div class="head">
-
-<div>
-
-<div class="name">${p.name}</div>
-
-<div class="muted">${p.category}</div>
-
-</div>
-
-<div class="${low?"red":"green"}">
-${low?"⚠️ Мало":"● Есть"}
-</div>
-
-</div>
-
-<div class="stock ${low?"red":"green"}">
-${p.qty} шт.
-</div>
-
-<div class="product-price">
-${money(p.price)}
-</div>
-
-<div class="muted">
-Закупка: ${money(p.cost)}
-</div>
-
-<div class="muted">
-Продано: ${p.sold||0} шт.
-</div>
-
-<div class="product-actions">
-
-<button class="btn start"
-onclick="openSale(${p.id})">
-🛒 Продать
-</button>
-
-<button class="btn blue"
-onclick="addStock(${p.id})">
-📦 Пополнить
-</button>
-
-<button class="btn orange-btn"
-onclick="editProduct(${p.id})">
-✏️ Изменить
-</button>
-
-<button class="btn red-btn"
-onclick="deleteProduct(${p.id})">
-🗑️ Удалить
-</button>
-
-</div>
-`;
-
-grid.appendChild(card);
-
-});
-
-const sales=data.barSales.filter(x=>!x.cancelled);
-
-document.getElementById("barRevenue").textContent=
-money(sales.reduce((a,x)=>a+x.total,0));
-
-document.getElementById("barProfit").textContent=
-money(sales.reduce((a,x)=>a+x.profit,0));
-
-document.getElementById("barSold").textContent=
-sales.reduce((a,x)=>a+x.qty,0);
-
-document.getElementById("lowStock").textContent=
-data.products.filter(p=>p.qty<=p.min).length;
-
-updatePurchaseProducts();
+ renderModal();
+ renderTables();
 
 }
 
+/* =========================
+   FINISH
+========================= */
 
-/* ТОВАР */
+function finishTable(id){
 
-function productModal(){
+ const table=
+ tables.find(t=>t.id===id);
 
-activeProduct=null;
+ const total=
+ totalPrice(table);
 
-["pName","pCost","pPrice","pQty"].forEach(id=>{
-document.getElementById(id).value="";
-});
+ const payment=
+ prompt(
+  "Способ оплаты:\n"+
+  "1 — Наличные\n"+
+  "2 — Карта\n"+
+  "3 — Перевод",
+  "1"
+ );
 
-document.getElementById("pCategory").value="Напитки";
-document.getElementById("pMin").value=5;
+ let method="Наличные";
 
-document.getElementById("productModalBox").classList.add("show");
+ if(payment==="2")
+ method="Карта";
 
-}
+ if(payment==="3")
+ method="Перевод";
 
-function editProduct(id){
+ sales.push({
 
-activeProduct=data.products.find(p=>p.id===id);
+  id:Date.now(),
 
-if(!activeProduct)return;
+  tableId:table.id,
 
-document.getElementById("pName").value=activeProduct.name;
-document.getElementById("pCategory").value=activeProduct.category;
-document.getElementById("pCost").value=activeProduct.cost;
-document.getElementById("pPrice").value=activeProduct.price;
-document.getElementById("pQty").value=activeProduct.qty;
-document.getElementById("pMin").value=activeProduct.min;
+  table:table.name,
 
-document.getElementById("productModalBox").classList.add("show");
+  type:table.type,
 
-}
+  duration:elapsed(table),
 
-function closeProduct(){
+  game:gamePrice(table),
 
-document.getElementById("productModalBox").classList.remove("show");
+  bar:barPrice(table),
 
-activeProduct=null;
+  cost:table.products.reduce(
+   (sum,p)=>
+   sum+p.cost*p.quantity,
+   0
+  ),
 
-}
+  total:total,
 
-function saveProduct(){
+  payment:method,
 
-const name=document.getElementById("pName").value.trim();
+  date:new Date().toISOString()
 
-const category=document.getElementById("pCategory").value;
+ });
 
-const cost=Number(document.getElementById("pCost").value)||0;
+ table.active=false;
+ table.paused=false;
+ table.startedAt=null;
+ table.pausedAt=null;
+ table.pauseSeconds=0;
+ table.products=[];
 
-const price=Number(document.getElementById("pPrice").value)||0;
+ save();
 
-const qty=Number(document.getElementById("pQty").value)||0;
-
-const min=Number(document.getElementById("pMin").value)||0;
-
-if(!name||price<=0){
-
-alert("Заполни название и цену.");
-
-return;
-
-}
-
-if(activeProduct){
-
-Object.assign(activeProduct,{
-name,category,cost,price,qty,min
-});
-
-}else{
-
-data.products.push({
-id:Date.now(),
-name,
-category,
-cost,
-price,
-qty,
-min,
-sold:0
-});
+ renderAll();
 
 }
 
-save();
-closeProduct();
-renderBar();
+/* =========================
+   REMINDER
+========================= */
+
+function reminder(id){
+
+ const minutes=
+ prompt(
+  "Напомнить через сколько минут?",
+  "30"
+ );
+
+ if(!minutes)return;
+
+ alert(
+  "Напоминание установлено на "+
+  minutes+
+  " минут."
+ );
 
 }
 
-function deleteProduct(id){
-
-if(!confirm("Удалить товар?"))return;
-
-data.products=data.products.filter(p=>p.id!==id);
-
-save();
-renderBar();
-
-}
-
-
-/* ПРОДАЖА */
-
-function openSale(id){
-
-activeProduct=data.products.find(p=>p.id===id);
-
-if(!activeProduct)return;
-
-if(activeProduct.qty<=0){
-
-alert("Товар закончился.");
-
-return;
-
-}
-
-document.getElementById("saleName").textContent=
-activeProduct.name;
-
-document.getElementById("saleQty").value=1;
-
-document.getElementById("saleModal").classList.add("show");
-
-updateSale();
-
-}
-
-document.getElementById("saleQty").addEventListener("input",updateSale);
-
-function updateSale(){
-
-if(!activeProduct)return;
-
-let q=Number(document.getElementById("saleQty").value)||1;
-
-q=Math.max(1,Math.min(q,activeProduct.qty));
-
-document.getElementById("saleQty").value=q;
-
-document.getElementById("saleTotal").textContent=
-money(activeProduct.price*q);
-
-}
-
-function closeSale(){
-
-document.getElementById("saleModal").classList.remove("show");
-
-activeProduct=null;
-
-}
-
-function sellProduct(){
-
-if(!activeProduct)return;
-
-const q=Number(document.getElementById("saleQty").value);
-
-if(q<=0||q>activeProduct.qty){
-
-alert("Недостаточно товара.");
-
-return;
-
-}
-
-const total=activeProduct.price*q;
-
-const profit=(activeProduct.price-activeProduct.cost)*q;
-
-const method=document.getElementById("salePayment").value;
-
-if(method==="Наличные"){
-data.cash+=total;
-}else{
-data.card+=total;
-}
-
-activeProduct.qty-=q;
-activeProduct.sold+=q;
-
-data.barSales.unshift({
-
-id:Date.now(),
-product:activeProduct.name,
-productId:activeProduct.id,
-qty:q,
-total,
-profit,
-method,
-date:new Date().toISOString(),
-cancelled:false
-
-});
-
-save();
-
-closeSale();
-
-renderAll();
-
-}
-
-
-/* ПОПОЛНЕНИЕ */
-
-function addStock(id){
-
-const p=data.products.find(x=>x.id===id);
-
-if(!p)return;
-
-const q=Number(prompt("Количество:","10"));
-
-if(!q||q<=0)return;
-
-const cost=Number(prompt("Цена закупки:",p.cost));
-
-if(isNaN(cost)||cost<0)return;
-
-p.qty+=q;
-p.cost=cost;
-
-data.purchases.unshift({
-
-id:Date.now(),
-product:p.name,
-productId:p.id,
-qty:q,
-cost,
-total:q*cost,
-date:new Date().toISOString()
-
-});
-
-save();
-renderAll();
-
-}
-
-
-/* ЗАКУПКИ */
-
-function updatePurchaseProducts(){
-
-const select=document.getElementById("purchaseProduct");
-
-if(!select)return;
-
-select.innerHTML="";
-
-data.products.forEach(p=>{
-
-const option=document.createElement("option");
-
-option.value=p.id;
-option.textContent=p.name;
-
-select.appendChild(option);
-
-});
-
-}
-
-function makePurchase(){
-
-const id=Number(
-document.getElementById("purchaseProduct").value
-);
-
-const q=Number(
-document.getElementById("purchaseQty").value
-);
-
-const cost=Number(
-document.getElementById("purchaseCost").value
-);
-
-const p=data.products.find(x=>x.id===id);
-
-if(!p||q<=0){
-
-alert("Заполни данные.");
-
-return;
-
-}
-
-p.qty+=q;
-p.cost=cost;
-
-data.purchases.unshift({
-
-id:Date.now(),
-product:p.name,
-productId:p.id,
-qty:q,
-cost,
-total:q*cost,
-date:new Date().toISOString()
-
-});
-
-save();
-
-renderAll();
-
-document.getElementById("purchaseQty").value="";
-document.getElementById("purchaseCost").value="";
-
-}
-
-function renderPurchases(){
-
-const box=document.getElementById("purchaseHistory");
-
-if(!data.purchases.length){
-
-box.innerHTML='<p class="muted">Закупок пока нет</p>';
-
-return;
-
-}
-
-box.innerHTML=data.purchases.map(x=>`
-
-<div class="operation">
-
-<div class="operation-info">
-
-<b>${x.product}</b>
-
-<div class="muted">
-${x.qty} шт. · ${money(x.total)}
-</div>
-
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* РАСХОДЫ */
-
-function addExpense(){
-
-const name=document.getElementById("expenseName").value.trim();
-
-const amount=Number(
-document.getElementById("expenseAmount").value
-);
-
-const method=document.getElementById("expensePayment").value;
-
-if(!name||amount<=0){
-
-alert("Заполни расход.");
-
-return;
-
-}
-
-if(method==="Наличные"){
-data.cash-=amount;
-}else{
-data.card-=amount;
-}
-
-data.expenses.unshift({
-
-id:Date.now(),
-name,
-amount,
-method,
-date:new Date().toISOString(),
-cancelled:false
-
-});
-
-save();
-
-renderAll();
-
-}
-
-function renderExpenses(){
-
-const box=document.getElementById("expenseHistory");
-
-if(!data.expenses.length){
-
-box.innerHTML='<p class="muted">Расходов пока нет</p>';
-
-return;
-
-}
-
-box.innerHTML=data.expenses.map(x=>`
-
-<div class="operation">
-
-<div class="operation-info">
-
-<b>${x.name}</b>
-
-<div class="muted">
-${money(x.amount)} · ${x.method}
-</div>
-
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* КАССА */
-
-function openShift(){
-
-if(data.shift){
-
-alert("Смена уже открыта.");
-
-return;
-
-}
-
-const admin=prompt(
-"Имя администратора:",
-"Администратор"
-);
-
-if(!admin)return;
-
-data.shift=true;
-data.shiftStart=new Date().toISOString();
-data.admin=admin;
-
-save();
-renderCash();
-
-}
-
-function closeShift(){
-
-if(!data.shift){
-
-alert("Смена не открыта.");
-
-return;
-
-}
-
-if(!confirm(
-"Закрыть смену?\nКасса: "+
-money(data.cash+data.card)
-))return;
-
-data.shift=false;
-
-save();
-renderCash();
-
-}
-
-function renderCash(){
-
-const tableRev=data.tableSales
-.filter(x=>!x.cancelled)
-.reduce((a,x)=>a+x.amount,0);
-
-const barRev=data.barSales
-.filter(x=>!x.cancelled)
-.reduce((a,x)=>a+x.total,0);
-
-const expenses=data.expenses
-.filter(x=>!x.cancelled)
-.reduce((a,x)=>a+x.amount,0);
-
-document.getElementById("cashMoney").textContent=
-money(data.cash);
-
-document.getElementById("cardMoney").textContent=
-money(data.card);
-
-document.getElementById("totalRevenue").textContent=
-money(tableRev+barRev);
-
-document.getElementById("totalExpenses").textContent=
-money(expenses);
-
-document.getElementById("cashTotal").textContent=
-money(data.cash+data.card);
-
-document.getElementById("shiftStatus").innerHTML=
-data.shift
-?
-`<p class="green">
-● Смена открыта<br>
-Администратор: <b>${data.admin}</b>
-</p>`
-:
-`<p class="red">● Смена закрыта</p>`;
-
-}
-
-
-/* ОТЧЁТЫ */
+/* =========================
+   REPORTS
+========================= */
 
 function renderReports(){
 
-const tables=data.tableSales
-.filter(x=>!x.cancelled)
-.reduce((a,x)=>a+x.amount,0);
+ let revenue=0;
+ let bar=0;
+ let cost=0;
 
-const bar=data.barSales
-.filter(x=>!x.cancelled)
-.reduce((a,x)=>a+x.total,0);
+ sales.forEach(s=>{
 
-const purchases=data.purchases
-.reduce((a,x)=>a+x.total,0);
+  revenue+=s.total;
+  bar+=s.bar;
+  cost+=s.cost;
 
-const expenses=data.expenses
-.filter(x=>!x.cancelled)
-.reduce((a,x)=>a+x.amount,0);
+ });
 
-const barProfit=data.barSales
-.filter(x=>!x.cancelled)
-.reduce((a,x)=>a+x.profit,0);
+ const sessions=sales.length;
 
-document.getElementById("rTables").textContent=money(tables);
+ const average=
+ sessions
+ ?revenue/sessions
+ :0;
 
-document.getElementById("rBar").textContent=money(bar);
+ const profit=
+ revenue-cost;
 
-document.getElementById("rPurchases").textContent=money(purchases);
+ document
+ .getElementById("reportRevenue")
+ .innerText=money(revenue);
 
-document.getElementById("rExpenses").textContent=money(expenses);
+ document
+ .getElementById("reportSessions")
+ .innerText=sessions;
 
-document.getElementById("netProfit").textContent=
-money(tables+barProfit-purchases-expenses);
+ document
+ .getElementById("reportBar")
+ .innerText=money(bar);
 
-document.getElementById("topProducts").innerHTML=
-data.products
-.sort((a,b)=>b.sold-a.sold)
-.slice(0,10)
-.map((p,i)=>`
+ document
+ .getElementById("reportAverage")
+ .innerText=money(average);
 
-<div class="row"
-style="padding:9px 0;border-bottom:1px solid #293340">
+ document
+ .getElementById("reportCost")
+ .innerText=money(cost);
 
-<div>🏆 ${i+1}. ${p.name}</div>
+ document
+ .getElementById("reportProfit")
+ .innerText=money(profit);
 
-<div>${p.sold} шт.</div>
+ /* загрузка */
 
-</div>
+ let used=0;
 
-`).join("");
+ sales.forEach(s=>{
+  used+=s.duration;
+ });
+
+ const available=
+  5*12*3600;
+
+ const load=
+  Math.min(
+   100,
+   (used/available)*100
+  );
+
+ document
+ .getElementById("reportLoad")
+ .innerText=
+ Math.round(load)+"%";
+
+ /* столы */
+
+ const reports=
+ document.getElementById(
+  "tableReports"
+ );
+
+ reports.innerHTML="";
+
+ tables.forEach(t=>{
+
+  const rows=
+  sales.filter(
+   s=>s.tableId===t.id
+  );
+
+  const amount=
+  rows.reduce(
+   (sum,s)=>sum+s.total,
+   0
+  );
+
+  const time=
+  rows.reduce(
+   (sum,s)=>sum+s.duration,
+   0
+  );
+
+  reports.innerHTML+=`
+
+  <div class="list-item">
+
+  <b>${t.name}</b>
+
+  <br>
+
+  ${t.type}
+
+  <br><br>
+
+  Игр: ${rows.length}
+
+  <br>
+
+  Время: ${timeText(time)}
+
+  <br>
+
+  Выручка:
+  <b>${money(amount)}</b>
+
+  </div>
+
+  `;
+
+ });
+
+ /* история */
+
+ const history=
+ document.getElementById("history");
+
+ history.innerHTML="";
+
+ [...sales].reverse().forEach(s=>{
+
+  history.innerHTML+=`
+
+  <div class="list-item">
+
+  <b>${s.table}</b>
+
+  <br>
+
+  ${s.type}
+
+  <br>
+
+  Игра:
+  ${money(s.game)}
+
+  <br>
+
+  Бар:
+  ${money(s.bar)}
+
+  <br>
+
+  Итого:
+  <b>${money(s.total)}</b>
+
+  <br>
+
+  Оплата:
+  ${s.payment}
+
+  <br>
+
+  Время игры:
+  ${timeText(s.duration)}
+
+  </div>
+
+  `;
+
+ });
 
 }
 
+/* =========================
+   STATISTICS
+========================= */
 
-/* ИСТОРИЯ */
+function renderStats(){
 
-function renderHistory(){
+ const games=sales.length;
 
-const box=document.getElementById("historyList");
+ const totalTime=
+ sales.reduce(
+  (sum,s)=>sum+s.duration,
+  0
+ );
 
-let list=[];
+ const avg=
+ games
+ ?totalTime/games
+ :0;
 
-data.tableSales.forEach(x=>{
+ document
+ .getElementById("statGames")
+ .innerText=games;
 
-list.push({
-date:x.date,
-type:"🎱 Бильярд",
-name:x.table,
-amount:x.amount,
-method:x.method
-});
+ document
+ .getElementById("statTime")
+ .innerText=
+ Math.floor(totalTime/3600)+"ч";
 
-});
+ document
+ .getElementById("statAverageTime")
+ .innerText=
+ Math.round(avg/60)+" мин";
 
-data.barSales.forEach(x=>{
+ let top="—";
+ let max=0;
 
-list.push({
-date:x.date,
-type:"🍫 Бар",
-name:x.product+" · "+x.qty+" шт.",
-amount:x.total,
-method:x.method
-});
+ tables.forEach(t=>{
 
-});
+  const count=
+  sales.filter(
+   s=>s.tableId===t.id
+  ).length;
 
-data.expenses.forEach(x=>{
+  if(count>max){
 
-list.push({
-date:x.date,
-type:"💸 Расход",
-name:x.name,
-amount:-x.amount,
-method:x.method
-});
+   max=count;
+   top=t.name;
 
-});
+  }
 
-list.sort((a,b)=>new Date(b.date)-new Date(a.date));
+ });
 
-if(!list.length){
-
-box.innerHTML='<p class="muted">История пока пустая</p>';
-
-return;
-
-}
-
-box.innerHTML=list.map(x=>`
-
-<div class="operation">
-
-<div class="operation-info">
-
-<b>${x.type}</b>
-
-<div class="muted">
-${x.name}<br>
-${new Date(x.date).toLocaleString("ru-RU")}<br>
-${x.method}
-</div>
-
-<div class="${x.amount>=0?"green":"red"}">
-${x.amount>=0?"+":""}${money(x.amount)}
-</div>
-
-</div>
-
-</div>
-
-`).join("");
+ document
+ .getElementById("statTopTable")
+ .innerText=top;
 
 }
 
+/* =========================
+   BAR
+========================= */
 
-/* НАВИГАЦИЯ */
+function renderBar(){
 
-function page(name,button){
+ let revenue=0;
 
-const pages=[
-"tables",
-"bar",
-"cash",
-"purchases",
-"expenses",
-"reports",
-"history"
-];
+ sales.forEach(
+  s=>revenue+=s.bar
+ );
 
-pages.forEach(x=>{
-document.getElementById(x).classList.add("hidden");
-});
+ document
+ .getElementById("barRevenue")
+ .innerText=money(revenue);
 
-document.getElementById(name).classList.remove("hidden");
+ const box=
+ document.getElementById(
+  "barProducts"
+ );
 
-document.querySelectorAll(".bottom-nav button")
-.forEach(x=>x.classList.remove("active"));
+ box.innerHTML="";
 
-if(button){
-button.classList.add("active");
-}
+ products.forEach(p=>{
 
-closeMore();
+  box.innerHTML+=`
 
-if(name==="tables")renderTables();
+  <div class="product">
 
-if(name==="bar")renderBar();
+  <div>
 
-if(name==="cash")renderCash();
+  <div class="product-name">
+  ${p.name}
+  </div>
 
-if(name==="purchases")renderPurchases();
+  <div class="product-price">
+  Продажа: ${p.price} ₽
+  </div>
 
-if(name==="expenses")renderExpenses();
+  </div>
 
-if(name==="reports")renderReports();
+  </div>
 
-if(name==="history")renderHistory();
+  `;
 
-}
-
-
-/* ЕЩЁ */
-
-function toggleMore(){
-
-document.getElementById("moreMenu")
-.classList.toggle("hidden");
+ });
 
 }
 
-function closeMore(){
+/* =========================
+   HELP
+========================= */
 
-document.getElementById("moreMenu")
-.classList.add("hidden");
+function openHelp(){
+
+ const help=[
+  ["Как открыть смену?",
+   "Раздел Смена → Открыть смену → укажите начальную сумму кассы."],
+
+  ["Как открыть время на стол?",
+   "Столы → свободный стол → Начать."],
+
+  ["Как закрыть стол?",
+   "Откройте стол → Закрыть → проверьте счёт → выберите способ оплаты."],
+
+  ["Как поставить напоминание?",
+   "На карточке играющего стола нажмите Напомнить и укажите время."],
+
+  ["Бар и склад",
+   "В разделе Бар находятся продажи и товары. В полной версии здесь также будет склад."],
+
+  ["Как продать в баре?",
+   "Выберите товар, количество и способ оплаты. Если товар продаётся на стол, добавьте его через карточку стола."],
+
+  ["Как записать товар на стол?",
+   "Откройте стол → Бар / счёт → выберите товар."],
+
+  ["Как сделать приход?",
+   "Бар → Склад → Приход → товар → количество → закупочная цена."],
+
+  ["Как исправить остаток?",
+   "Склад → товар → Исправить остаток → фактическое количество."],
+
+  ["Где посмотреть выручку?",
+   "Отчёты → Выручка за сегодня."],
+
+  ["Есть ли история смен?",
+   "Да. В полной версии будет отдельная история открытых и закрытых смен."],
+
+  ["Уведомления устройства",
+   "Разрешите уведомления Club Manager в настройках устройства."],
+
+  ["Как добавить получателя?",
+   "Настройки → Уведомления → Получатели → Добавить."],
+
+  ["Как подключить принтер чеков?",
+   "Настройки → Принтер чеков → Добавить устройство. Поддержка конкретной модели зависит от используемого способа подключения."],
+
+  ["Как оплатить тариф?",
+   "Настройки → Подписка → выбрать тариф → Оплатить."],
+
+  ["Что будет после окончания подписки?",
+   "Данные аккаунта не должны удаляться. Ограничивается доступ к платным функциям согласно условиям тарифа."],
+
+  ["Работает ли без интернета?",
+   "Основные операции приложения должны продолжать работать офлайн с последующей синхронизацией."],
+
+  ["Потеряются ли данные при выходе?",
+   "Нет. Данные должны быть связаны с аккаунтом и синхронизироваться с сервером."],
+
+  ["Активные устройства",
+   "Настройки → Активные устройства. Там можно просмотреть и завершить активные сессии."]
+ ];
+
+ const box=
+ document.getElementById(
+  "helpContent"
+ );
+
+ box.innerHTML="";
+
+ help.forEach(item=>{
+
+  box.innerHTML+=`
+
+  <div class="help-item">
+
+  <b>${item[0]}</b>
+
+  ${item[1]}
+
+  </div>
+
+  `;
+
+ });
+
+ document
+ .getElementById("helpModal")
+ .classList.add("show");
 
 }
 
+/* =========================
+   PRIVACY
+========================= */
 
-/* ОБЩЕЕ ОБНОВЛЕНИЕ */
+function openPrivacy(){
+
+ document
+ .getElementById("privacyModal")
+ .classList.add("show");
+
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showSection(id,button){
+
+ document
+ .querySelectorAll(".section")
+ .forEach(
+  s=>s.classList.remove("active")
+ );
+
+ document
+ .getElementById(id)
+ .classList.add("active");
+
+ document
+ .querySelectorAll(".nav-btn")
+ .forEach(
+  b=>b.classList.remove("active")
+ );
+
+ button.classList.add("active");
+
+ renderAll();
+
+}
+
+/* =========================
+   THEME
+========================= */
+
+function toggleTheme(){
+
+ document.body.classList.toggle(
+  "light"
+ );
+
+ if(
+  document.body.classList.contains("light")
+ ){
+
+  document.documentElement
+  .style.setProperty(
+   "--bg",
+   "#f3f4f6"
+  );
+
+  document.documentElement
+  .style.setProperty(
+   "--card",
+   "#ffffff"
+  );
+
+  document.documentElement
+  .style.setProperty(
+   "--card2",
+   "#e5e7eb"
+  );
+
+  document.documentElement
+  .style.setProperty(
+   "--text",
+   "#111827"
+  );
+
+ }else{
+
+  document.documentElement
+  .style.setProperty(
+   "--bg",
+   "#0b0f14"
+  );
+
+  document.documentElement
+  .style.setProperty(
+   "--card",
+   "#151b23"
+  );
+
+  document.documentElement
+  .style.setProperty(
+   "--card2",
+   "#1b222c"
+  );
+
+  document.documentElement
+  .style.setProperty(
+   "--text",
+   "#fff"
+  );
+
+ }
+
+}
+
+/* =========================
+   LANGUAGE
+========================= */
+
+function changeLanguage(){
+
+ const language=
+ document.getElementById(
+  "language"
+ ).value;
+
+ if(language!=="ru"){
+
+  alert(
+   "Кыргызский и узбекский языки будут подключены в следующей версии интерфейса."
+  );
+
+ }
+
+}
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+ document
+ .getElementById("app")
+ .classList.add("hidden");
+
+ document
+ .getElementById("loginScreen")
+ .classList.remove("hidden");
+
+}
+
+/* =========================
+   DELETE ACCOUNT
+========================= */
+
+function deleteAccount(){
+
+ if(
+  confirm(
+   "Вы действительно хотите удалить аккаунт?"
+  )
+ ){
+
+  localStorage.clear();
+
+  alert(
+   "Локальные данные удалены."
+  );
+
+  location.reload();
+
+ }
+
+}
+
+/* =========================
+   RENDER ALL
+========================= */
 
 function renderAll(){
 
-renderTables();
-renderBar();
-renderCash();
-renderPurchases();
-renderExpenses();
-renderReports();
-renderHistory();
+ renderTables();
+ renderReports();
+ renderStats();
+ renderBar();
 
 }
 
+/* =========================
+   REAL-TIME TIMER
+========================= */
 
-/* ЗАПУСК */
+setInterval(()=>{
 
-initTables();
+ if(
+  !document
+  .getElementById("app")
+  .classList.contains("hidden")
+ ){
 
-save();
+  renderTables();
 
-renderAll();
+  if(currentTable){
+
+   currentTable=
+   tables.find(
+    t=>t.id===currentTable.id
+   );
+
+   renderModal();
+
+  }
+
+ }
+
+},1000);
 
 </script>
 
