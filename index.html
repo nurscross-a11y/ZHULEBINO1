@@ -7,27 +7,39 @@
 
 <style>
 *{box-sizing:border-box}
-body{
+
+html,body{
     margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+}
+
+body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
     background:#f4f5f7;
     color:#171717;
 }
+
 body.dark{
     background:#101114;
     color:#fff;
 }
+
 button,input,select{
     font:inherit;
 }
+
 button{
     cursor:pointer;
     border:0;
 }
+
 .app{
     min-height:100vh;
     display:flex;
 }
+
 .sidebar{
     width:230px;
     background:#17181c;
@@ -39,11 +51,13 @@ button{
     bottom:0;
     overflow:auto;
 }
+
 .logo{
     font-size:22px;
     font-weight:800;
     padding:10px 12px 25px;
 }
+
 .nav button{
     width:100%;
     background:transparent;
@@ -53,173 +67,241 @@ button{
     margin:3px 0;
     border-radius:10px;
 }
+
 .nav button:hover,
 .nav button.active{
     background:#292b31;
     color:white;
 }
+
 .main{
     margin-left:230px;
     width:calc(100% - 230px);
-    padding:25px;
-    padding-bottom:100px;
+    padding:20px;
+    padding-bottom:30px;
 }
+
 .topbar{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:25px;
+    margin-bottom:15px;
 }
-h1{margin:0}
-.page{display:none}
-.page.active{display:block}
+
+h1{
+    margin:0;
+    font-size:27px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
 
 .cards{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:16px;
-    margin-bottom:20px;
+    gap:12px;
+    margin-bottom:15px;
 }
+
 .card{
     background:white;
-    border-radius:16px;
-    padding:20px;
+    border-radius:14px;
+    padding:15px;
     box-shadow:0 3px 15px rgba(0,0,0,.06);
 }
+
 .dark .card{
     background:#191b20;
 }
-.card-title{
-    color:#777;
-    font-size:14px;
-}
-.big{
-    font-size:28px;
-    font-weight:800;
-    margin-top:8px;
-}
 
-.tables{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
-}
-.table-card{
-    background:white;
-    border-radius:18px;
-    padding:20px;
-    box-shadow:0 3px 15px rgba(0,0,0,.06);
-}
-.dark .table-card{
-    background:#191b20;
-}
-.table-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-.table-name{
-    font-size:20px;
-    font-weight:800;
-}
-.type{
+.card-title{
     color:#777;
     font-size:13px;
 }
+
+.big{
+    font-size:24px;
+    font-weight:800;
+    margin-top:5px;
+}
+
+/* =========================
+   СТОЛЫ
+========================= */
+
+.tables{
+    display:grid;
+
+    /* ВСЕ 5 СТОЛОВ В ОДНУ СТРОКУ */
+    grid-template-columns:repeat(5,minmax(0,1fr));
+
+    gap:10px;
+
+    width:100%;
+}
+
+.table-card{
+    background:white;
+    border-radius:14px;
+    padding:13px;
+    box-shadow:0 3px 15px rgba(0,0,0,.06);
+
+    /* компактная высота */
+    min-width:0;
+}
+
+.dark .table-card{
+    background:#191b20;
+}
+
+.table-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:5px;
+}
+
+.table-name{
+    font-size:17px;
+    font-weight:800;
+}
+
+.type{
+    color:#777;
+    font-size:11px;
+    margin-top:3px;
+}
+
 .status{
     display:inline-block;
-    padding:6px 10px;
-    border-radius:20px;
-    font-size:12px;
+    padding:4px 7px;
+    border-radius:15px;
+    font-size:10px;
     font-weight:700;
+    white-space:nowrap;
 }
+
 .free{
     background:#dff7e5;
     color:#16833c;
 }
+
 .active-status{
     background:#ffe5e5;
     color:#c62828;
 }
+
 .paused{
     background:#fff0cc;
     color:#9b6a00;
 }
+
 .timer{
-    font-size:30px;
+    font-size:23px;
     font-weight:800;
-    margin:18px 0 5px;
+    margin:15px 0 3px;
+    white-space:nowrap;
 }
+
 .price{
     color:#777;
-    font-size:13px;
+    font-size:11px;
 }
+
 .bill{
-    font-size:21px;
+    font-size:17px;
     font-weight:800;
-    margin:15px 0;
+    margin:10px 0;
 }
+
 .actions{
     display:flex;
-    gap:8px;
+    gap:5px;
     flex-wrap:wrap;
 }
+
 .btn{
-    padding:10px 14px;
-    border-radius:9px;
+    padding:8px 9px;
+    border-radius:8px;
     background:#e9eaed;
+    font-size:12px;
 }
+
 .btn.primary{
     background:#111;
     color:white;
 }
+
 .btn.success{
     background:#16833c;
     color:white;
 }
+
 .btn.danger{
     background:#d93025;
     color:white;
 }
+
 .btn.warning{
     background:#e4a900;
     color:white;
 }
 
-.bottom-nav{
-    display:none;
-}
+/* =========================
+   ТАБЛИЦЫ
+========================= */
 
 .table{
     width:100%;
     border-collapse:collapse;
 }
-.table th,.table td{
+
+.table th,
+.table td{
     padding:12px;
     border-bottom:1px solid #ddd;
     text-align:left;
 }
-.dark .table th,.dark .table td{
+
+.dark .table th,
+.dark .table td{
     border-color:#333;
 }
+
+/* =========================
+   ФОРМЫ
+========================= */
 
 .form{
     display:grid;
     gap:12px;
     max-width:600px;
 }
-input,select{
+
+input,
+select{
     width:100%;
     padding:12px;
     border:1px solid #ccc;
     border-radius:9px;
     background:white;
 }
-.dark input,.dark select{
+
+.dark input,
+.dark select{
     background:#22242a;
     color:white;
     border-color:#444;
 }
+
+/* =========================
+   MODAL
+========================= */
 
 .modal-bg{
     position:fixed;
@@ -230,7 +312,11 @@ input,select{
     justify-content:center;
     z-index:100;
 }
-.modal-bg.show{display:flex}
+
+.modal-bg.show{
+    display:flex;
+}
+
 .modal{
     background:white;
     color:#111;
@@ -240,19 +326,26 @@ input,select{
     border-radius:18px;
     padding:25px;
 }
+
 .dark .modal{
     background:#191b20;
     color:white;
 }
+
 .modal-head{
     display:flex;
     justify-content:space-between;
     margin-bottom:20px;
 }
+
 .close{
     background:transparent;
     font-size:25px;
 }
+
+/* =========================
+   НАСТРОЙКИ
+========================= */
 
 .setting{
     background:white;
@@ -262,22 +355,31 @@ input,select{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:15px;
 }
+
 .dark .setting{
     background:#191b20;
 }
+
 .help-item{
     background:white;
     padding:18px;
     margin-bottom:10px;
     border-radius:12px;
 }
+
 .dark .help-item{
     background:#191b20;
 }
+
 .help-item h3{
     margin-top:0;
 }
+
+/* =========================
+   LOGIN
+========================= */
 
 .login{
     min-height:100vh;
@@ -286,6 +388,7 @@ input,select{
     justify-content:center;
     padding:20px;
 }
+
 .login-box{
     background:white;
     width:min(420px,100%);
@@ -293,45 +396,76 @@ input,select{
     border-radius:20px;
     box-shadow:0 10px 40px rgba(0,0,0,.12);
 }
+
 .dark .login-box{
     background:#191b20;
 }
+
 .login-box h1{
     margin-bottom:8px;
 }
+
 .login-box p{
     color:#777;
 }
+
 .login-tabs{
     display:flex;
     gap:8px;
     margin-bottom:20px;
 }
+
 .login-tabs button{
     flex:1;
     padding:11px;
     border-radius:8px;
     background:#eee;
 }
+
 .login-tabs button.active{
     background:#111;
     color:#fff;
 }
 
+/* =========================
+   МОБИЛЬНАЯ ВЕРСИЯ
+========================= */
+
+.bottom-nav{
+    display:none;
+}
+
+/* На небольшом экране карточки могут перейти
+   в несколько рядов, чтобы всё было читаемо */
+@media(max-width:1200px){
+
+    .tables{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+
+}
+
 @media(max-width:900px){
-    .sidebar{display:none}
+
+    .sidebar{
+        display:none;
+    }
+
     .main{
         margin-left:0;
         width:100%;
         padding:15px;
-        padding-bottom:90px;
+        padding-bottom:85px;
     }
+
     .cards{
         grid-template-columns:1fr 1fr;
     }
+
     .tables{
-        grid-template-columns:1fr;
+        grid-template-columns:1fr 1fr;
     }
+
     .bottom-nav{
         display:flex;
         position:fixed;
@@ -343,18 +477,26 @@ input,select{
         z-index:50;
         justify-content:space-around;
     }
+
     .bottom-nav button{
         flex:1;
         background:transparent;
         color:#aaa;
         font-size:11px;
     }
+
     .bottom-nav button.active{
         color:white;
     }
 }
+
 @media(max-width:500px){
+
     .cards{
+        grid-template-columns:1fr;
+    }
+
+    .tables{
         grid-template-columns:1fr;
     }
 }
@@ -363,50 +505,118 @@ input,select{
 
 <body>
 
+<!-- =========================
+     ВХОД
+========================= -->
+
 <div id="loginScreen" class="login">
+
 <div class="login-box">
 
-<h1>Club Manager</h1>
+<h1>🎱 Club Manager</h1>
+
 <p>Управление бильярдным клубом</p>
 
 <div class="login-tabs">
-<button id="loginTab" class="active" onclick="showLogin()">Вход</button>
-<button id="registerTab" onclick="showRegister()">Регистрация</button>
+
+<button id="loginTab"
+class="active"
+onclick="showLogin()">
+Вход
+</button>
+
+<button id="registerTab"
+onclick="showRegister()">
+Регистрация
+</button>
+
 </div>
 
 <form id="authForm" onsubmit="auth(event)">
+
 <div class="form">
 
-<input id="email" type="email" placeholder="Email" required>
-<input id="password" type="password" placeholder="Пароль" required>
+<input
+id="email"
+type="email"
+placeholder="Email"
+required
+>
 
-<button class="btn primary" type="submit" id="authButton">
+<input
+id="password"
+type="password"
+placeholder="Пароль"
+required
+>
+
+<button
+class="btn primary"
+type="submit"
+id="authButton">
 Войти
 </button>
 
-<button type="button" class="btn" onclick="forgotPassword()">
+<button
+type="button"
+class="btn"
+onclick="forgotPassword()">
 Забыли пароль?
 </button>
 
 </div>
+
 </form>
 
 </div>
 </div>
 
 
+<!-- =========================
+     ПРИЛОЖЕНИЕ
+========================= -->
+
 <div id="app" class="app" style="display:none">
 
 <aside class="sidebar">
-<div class="logo">🎱 Club Manager</div>
+
+<div class="logo">
+🎱 Club Manager
+</div>
 
 <div class="nav">
-<button class="active" onclick="page('home',this)">🏠 Столы</button>
-<button onclick="page('bar',this)">🍹 Бар</button>
-<button onclick="page('cash',this)">💰 Касса</button>
-<button onclick="page('reports',this)">📊 Отчёты</button>
-<button onclick="page('stats',this)">📈 Статистика</button>
-<button onclick="page('settings',this)">⚙️ Настройки</button>
+
+<button
+class="active"
+onclick="page('home',this)">
+🏠 Столы
+</button>
+
+<button
+onclick="page('bar',this)">
+🍹 Бар
+</button>
+
+<button
+onclick="page('cash',this)">
+💰 Касса
+</button>
+
+<button
+onclick="page('reports',this)">
+📊 Отчёты
+</button>
+
+<button
+onclick="page('stats',this)">
+📈 Статистика
+</button>
+
+<button
+onclick="page('settings',this)">
+⚙️ Настройки
+</button>
+
 </div>
 </aside>
 
@@ -414,75 +624,163 @@ input,select{
 <main class="main">
 
 <div class="topbar">
+
 <div>
-<h1 id="pageTitle">Столы</h1>
+
+<h1 id="pageTitle">
+Столы
+</h1>
+
 <div id="date"></div>
+
 </div>
 
-<button class="btn" onclick="refreshData()">↻ Обновить</button>
+<button
+class="btn"
+onclick="refreshData()">
+↻ Обновить
+</button>
+
 </div>
 
 
-<!-- ГЛАВНАЯ -->
+<!-- =========================
+     СТОЛЫ
+========================= -->
 
-<section id="home" class="page active">
+<section
+id="home"
+class="page active">
 
 <div class="cards">
 
 <div class="card">
-<div class="card-title">Выручка сегодня</div>
-<div class="big" id="todayRevenue">0 ₽</div>
+
+<div class="card-title">
+Выручка сегодня
 </div>
+
+<div
+class="big"
+id="todayRevenue">
+0 ₽
+</div>
+
+</div>
+
 
 <div class="card">
-<div class="card-title">Активные столы</div>
-<div class="big" id="activeTables">0 / 5</div>
+
+<div class="card-title">
+Активные столы
 </div>
+
+<div
+class="big"
+id="activeTables">
+0 / 5
+</div>
+
+</div>
+
 
 <div class="card">
-<div class="card-title">Бар сегодня</div>
-<div class="big" id="barRevenue">0 ₽</div>
+
+<div class="card-title">
+Бар сегодня
+</div>
+
+<div
+class="big"
+id="barRevenue">
+0 ₽
 </div>
 
 </div>
 
-<div class="tables" id="tables"></div>
+</div>
+
+
+<div
+class="tables"
+id="tables">
+</div>
 
 </section>
 
 
-<!-- БАР -->
+<!-- =========================
+     БАР
+========================= -->
 
-<section id="bar" class="page">
+<section
+id="bar"
+class="page">
 
 <div class="cards">
+
 <div class="card">
-<div class="card-title">Продажи бара</div>
-<div class="big" id="barSales">0 ₽</div>
+
+<div class="card-title">
+Продажи бара
+</div>
+
+<div
+class="big"
+id="barSales">
+0 ₽
+</div>
+
 </div>
 
 <div class="card">
-<div class="card-title">Себестоимость</div>
-<div class="big" id="barCost">0 ₽</div>
+
+<div class="card-title">
+Себестоимость
+</div>
+
+<div
+class="big"
+id="barCost">
+0 ₽
+</div>
+
 </div>
 
 <div class="card">
-<div class="card-title">Прибыль</div>
-<div class="big" id="barProfit">0 ₽</div>
-</div>
+
+<div class="card-title">
+Прибыль
 </div>
 
-<button class="btn primary" onclick="openProductModal()">
+<div
+class="big"
+id="barProfit">
+0 ₽
+</div>
+
+</div>
+
+</div>
+
+
+<button
+class="btn primary"
+onclick="openProductModal()">
 + Добавить товар
 </button>
 
 <br><br>
 
+
 <div class="card">
+
 <h2>Товары</h2>
 
 <table class="table">
+
 <thead>
+
 <tr>
 <th>Название</th>
 <th>Раздел</th>
@@ -492,55 +790,92 @@ input,select{
 <th>Прибыль</th>
 <th></th>
 </tr>
+
 </thead>
 
 <tbody id="products"></tbody>
 
 </table>
+
 </div>
 
 </section>
 
 
-<!-- КАССА -->
+<!-- =========================
+     КАССА
+========================= -->
 
-<section id="cash" class="page">
+<section
+id="cash"
+class="page">
 
 <div class="cards">
 
 <div class="card">
-<div class="card-title">Касса</div>
-<div class="big" id="cashTotal">0 ₽</div>
+
+<div class="card-title">
+Касса
+</div>
+
+<div
+class="big"
+id="cashTotal">
+0 ₽
+</div>
+
 </div>
 
 <div class="card">
-<div class="card-title">Смена</div>
-<div class="big" id="shiftStatus">Закрыта</div>
+
+<div class="card-title">
+Смена
+</div>
+
+<div
+class="big"
+id="shiftStatus">
+Закрыта
 </div>
 
 </div>
+
+</div>
+
 
 <div class="card">
 
-<button class="btn success" onclick="openShift()">
+<button
+class="btn success"
+onclick="openShift()">
 Открыть смену
 </button>
 
-<button class="btn danger" onclick="closeShift()">
+<button
+class="btn danger"
+onclick="closeShift()">
 Закрыть смену
 </button>
 
-<h2>История смен</h2>
+<h2>
+История смен
+</h2>
+
 <table class="table">
+
 <thead>
+
 <tr>
 <th>Дата</th>
 <th>Открытие</th>
 <th>Закрытие</th>
 <th>Выручка</th>
 </tr>
+
 </thead>
+
 <tbody id="shiftHistory"></tbody>
+
 </table>
 
 </div>
@@ -548,53 +883,116 @@ input,select{
 </section>
 
 
-<!-- ОТЧЕТЫ -->
+<!-- =========================
+     ОТЧЕТЫ
+========================= -->
 
-<section id="reports" class="page">
+<section
+id="reports"
+class="page">
 
 <div class="cards">
 
 <div class="card">
-<div class="card-title">Выручка</div>
-<div class="big" id="reportRevenue">0 ₽</div>
+
+<div class="card-title">
+Выручка
 </div>
 
-<div class="card">
-<div class="card-title">Средний чек</div>
-<div class="big" id="averageCheck">0 ₽</div>
-</div>
-
-<div class="card">
-<div class="card-title">Загрузка</div>
-<div class="big" id="occupancy">0%</div>
+<div
+class="big"
+id="reportRevenue">
+0 ₽
 </div>
 
 </div>
 
 <div class="card">
 
-<h2>Отчёт клуба</h2>
+<div class="card-title">
+Средний чек
+</div>
+
+<div
+class="big"
+id="averageCheck">
+0 ₽
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="card-title">
+Загрузка
+</div>
+
+<div
+class="big"
+id="occupancy">
+0%
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Отчёт клуба
+</h2>
 
 <table class="table">
-<tr><td>Продажи игр</td><td id="reportGames">0 ₽</td></tr>
-<tr><td>Продажи бара</td><td id="reportBar">0 ₽</td></tr>
-<tr><td>Количество сессий</td><td id="sessions">0</td></tr>
-<tr><td>Себестоимость бара</td><td id="reportCost">0 ₽</td></tr>
-<tr><td>Чистая прибыль</td><td id="netProfit">0 ₽</td></tr>
+
+<tr>
+<td>Продажи игр</td>
+<td id="reportGames">0 ₽</td>
+</tr>
+
+<tr>
+<td>Продажи бара</td>
+<td id="reportBar">0 ₽</td>
+</tr>
+
+<tr>
+<td>Количество сессий</td>
+<td id="sessions">0</td>
+</tr>
+
+<tr>
+<td>Себестоимость бара</td>
+<td id="reportCost">0 ₽</td>
+</tr>
+
+<tr>
+<td>Чистая прибыль</td>
+<td id="netProfit">0 ₽</td>
+</tr>
+
 </table>
 
-<h2>История игр</h2>
+
+<h2>
+История игр
+</h2>
 
 <table class="table">
+
 <thead>
+
 <tr>
 <th>Стол</th>
 <th>Тип</th>
 <th>Время</th>
 <th>Сумма</th>
 </tr>
+
 </thead>
+
 <tbody id="gameHistory"></tbody>
+
 </table>
 
 </div>
@@ -602,342 +1000,705 @@ input,select{
 </section>
 
 
-<!-- СТАТИСТИКА -->
+<!-- =========================
+     СТАТИСТИКА
+========================= -->
 
-<section id="stats" class="page">
+<section
+id="stats"
+class="page">
 
 <div class="cards">
 
 <div class="card">
-<div class="card-title">Всего игр</div>
-<div class="big" id="statGames">0</div>
+
+<div class="card-title">
+Всего игр
 </div>
 
-<div class="card">
-<div class="card-title">Выручка</div>
-<div class="big" id="statRevenue">0 ₽</div>
-</div>
-
-<div class="card">
-<div class="card-title">Загрузка</div>
-<div class="big" id="statOccupancy">0%</div>
+<div
+class="big"
+id="statGames">
+0
 </div>
 
 </div>
 
 <div class="card">
-<h2>Игра по столам</h2>
+
+<div class="card-title">
+Выручка
+</div>
+
+<div
+class="big"
+id="statRevenue">
+0 ₽
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="card-title">
+Загрузка
+</div>
+
+<div
+class="big"
+id="statOccupancy">
+0%
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Игра по столам
+</h2>
+
 <div id="tableStats"></div>
+
 </div>
 
 </section>
 
 
-<!-- НАСТРОЙКИ -->
+<!-- =========================
+     НАСТРОЙКИ
+========================= -->
 
-<section id="settings" class="page">
+<section
+id="settings"
+class="page">
 
 <div class="setting">
+
 <div>
-<b>Аккаунт</b>
+
+<b>
+Аккаунт
+</b>
+
 <br>
+
 <span id="accountEmail"></span>
-</div>
+
 </div>
 
-<div class="setting">
-<div>
-<b>Подписка</b>
-<br>
-Тариф: Free
 </div>
-<button class="btn" onclick="alert('Раздел подписки будет подключён к оплате после подключения сервера.')">
+
+
+<div class="setting">
+
+<div>
+
+<b>
+Подписка
+</b>
+
+<br>
+
+Тариф: Free
+
+</div>
+
+<button
+class="btn"
+onclick="alert('Раздел подписки будет подключён к оплате после подключения сервера.')">
 Открыть
 </button>
+
 </div>
 
+
 <div class="setting">
+
 <div>
-<b>История платежей</b>
+
+<b>
+История платежей
+</b>
+
 <br>
+
 Пусто
-</div>
+
 </div>
 
+</div>
+
+
 <div class="setting">
+
 <div>
-<b>Синхронизация</b>
+
+<b>
+Синхронизация
+</b>
+
 <br>
+
 Локальная версия
-</div>
-<button class="btn" onclick="syncData()">Синхронизировать</button>
+
 </div>
 
+<button
+class="btn"
+onclick="syncData()">
+Синхронизировать
+</button>
+
+</div>
+
+
 <div class="setting">
+
 <div>
-<b>Активные устройства</b>
+
+<b>
+Активные устройства
+</b>
+
 <br>
+
 Это устройство
+
 </div>
-<button class="btn" onclick="showDevices()">Просмотр</button>
+
+<button
+class="btn"
+onclick="showDevices()">
+Просмотр
+</button>
+
 </div>
+
 
 <div class="setting">
+
 <div>
-<b>Язык</b>
+
+<b>
+Язык
+</b>
+
 <br>
-<span id="languageName">Русский</span>
+
+<span id="languageName">
+Русский
+</span>
+
 </div>
 
-<select onchange="changeLanguage(this.value)">
-<option value="ru">Русский</option>
-<option value="ky">Кыргызский</option>
-<option value="uz">O'zbekcha</option>
+<select
+onchange="changeLanguage(this.value)">
+
+<option value="ru">
+Русский
+</option>
+
+<option value="ky">
+Кыргызча
+</option>
+
+<option value="uz">
+O'zbekcha
+</option>
+
 </select>
+
 </div>
+
 
 <div class="setting">
+
 <div>
-<b>Тема</b>
+
+<b>
+Тема
+</b>
+
 <br>
+
 Темная / светлая
+
 </div>
 
-<button class="btn" onclick="toggleTheme()">
+<button
+class="btn"
+onclick="toggleTheme()">
 Сменить тему
 </button>
+
 </div>
+
 
 <div class="setting">
+
 <div>
-<b>Уведомления</b>
+
+<b>
+Уведомления
+</b>
+
 <br>
+
 Уведомления устройства
+
 </div>
 
-<button class="btn" onclick="enableNotifications()">
+<button
+class="btn"
+onclick="enableNotifications()">
 Включить
 </button>
+
 </div>
 
+
 <div class="setting">
+
 <div>
-<b>Помощь</b>
+
+<b>
+Помощь
+</b>
+
 <br>
+
 Инструкция Club Manager
+
 </div>
 
-<button class="btn" onclick="page('help')">
+<button
+class="btn"
+onclick="page('help')">
 Открыть
 </button>
+
 </div>
 
+
 <div class="setting">
+
 <div>
-<b>Политика конфиденциальности</b>
+
+<b>
+Политика конфиденциальности
+</b>
+
 </div>
-<button class="btn" onclick="page('privacy')">
+
+<button
+class="btn"
+onclick="page('privacy')">
 Открыть
 </button>
+
 </div>
 
+
 <div class="setting">
+
 <div>
-<b>Версия приложения</b>
+
+<b>
+Версия приложения
+</b>
+
 <br>
+
 1.0.0
-</div>
+
 </div>
 
+</div>
+
+
 <div class="setting">
-<button class="btn danger" onclick="logout()">
+
+<button
+class="btn danger"
+onclick="logout()">
 Выйти из аккаунта
 </button>
 
-<button class="btn danger" onclick="deleteAccount()">
+<button
+class="btn danger"
+onclick="deleteAccount()">
 Удалить аккаунт
 </button>
-</div>
-
-</section>
-
-
-<!-- ПОМОЩЬ -->
-
-<section id="help" class="page">
-
-<div class="card">
-
-<h2>Помощь</h2>
-
-<div class="help-item">
-<h3>Как открыть смену?</h3>
-Откройте раздел «Касса» и нажмите «Открыть смену».
-</div>
-
-<div class="help-item">
-<h3>Как открыть время на столе?</h3>
-На главном экране выберите стол и нажмите «Начать».
-</div>
-
-<div class="help-item">
-<h3>Как поставить паузу?</h3>
-Нажмите «Пауза». Время остановится, а сумма больше не будет начисляться.
-</div>
-
-<div class="help-item">
-<h3>Как закрыть стол?</h3>
-Нажмите «Закрыть». Система рассчитает итоговую стоимость и сохранит игру в историю.
-</div>
-
-<div class="help-item">
-<h3>Как поставить напоминание об окончании?</h3>
-В следующей версии можно будет выбрать продолжительность игры и время уведомления.
-</div>
-
-<div class="help-item">
-<h3>Бары и склад</h3>
-В разделе «Бар» добавляются товары, указываются закупочная цена, цена продажи и количество.
-</div>
-
-<div class="help-item">
-<h3>Как продать товар в баре?</h3>
-Нажмите «Продать» возле товара. Количество уменьшится, а выручка увеличится.
-</div>
-
-<div class="help-item">
-<h3>Как записать товар на стол?</h3>
-Откройте нужный стол и добавьте товар к текущей сессии.
-</div>
-
-<div class="help-item">
-<h3>Как сделать приход?</h3>
-Добавьте количество товара на склад через функцию прихода.
-</div>
-
-<div class="help-item">
-<h3>Как исправить остаток?</h3>
-В разделе товара можно изменить количество вручную.
-</div>
-
-<div class="help-item">
-<h3>Где посмотреть выручку?</h3>
-Раздел «Отчёты» показывает выручку, игры, бар, средний чек, загрузку и прибыль.
-</div>
-
-<div class="help-item">
-<h3>Есть ли история смен?</h3>
-Да. История находится в разделе «Касса».
-</div>
-
-<div class="help-item">
-<h3>Уведомления устройства</h3>
-В настройках нажмите «Включить» и разрешите уведомления браузеру.
-</div>
-
-<div class="help-item">
-<h3>Как добавить получателя?</h3>
-Функция получателей уведомлений будет подключена после серверной версии.
-</div>
-
-<div class="help-item">
-<h3>Как подключить принтер чеков?</h3>
-Для реального принтера потребуется подключение устройства и серверная версия Club Manager.
-</div>
-
-<div class="help-item">
-<h3>Как оплатить тариф?</h3>
-Оплата будет подключена через платёжную систему после создания серверной версии.
-</div>
-
-<div class="help-item">
-<h3>Что будет после окончания подписки?</h3>
-Данные сохраняются, но платные функции могут стать недоступны.
-</div>
-
-<div class="help-item">
-<h3>Работает ли без интернета?</h3>
-Эта версия работает локально без интернета. Для синхронизации между устройствами нужен интернет.
-</div>
-
-<div class="help-item">
-<h3>Потеряются ли данные при выходе?</h3>
-Нет. Данные сохраняются в браузере этого устройства.
-</div>
-
-<div class="help-item">
-<h3>Активные устройства</h3>
-В серверной версии здесь будут отображаться устройства, вошедшие в аккаунт.
-</div>
 
 </div>
 
 </section>
 
 
-<!-- ПОЛИТИКА -->
+<!-- =========================
+     ПОМОЩЬ
+========================= -->
 
-<section id="privacy" class="page">
+<section
+id="help"
+class="page">
 
 <div class="card">
 
-<h2>Политика конфиденциальности Club Manager</h2>
+<h2>
+Помощь
+</h2>
 
-<p><b>1. Общие положения</b></p>
+
+<div class="help-item">
+
+<h3>
+Как открыть смену?
+</h3>
+
+Откройте раздел «Касса» и нажмите
+«Открыть смену».
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Как открыть время на столе?
+</h3>
+
+На главном экране выберите стол
+и нажмите «Начать».
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Как поставить паузу?
+</h3>
+
+Нажмите «Пауза».
+Время остановится, а сумма больше
+не будет начисляться.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Как закрыть стол?
+</h3>
+
+Нажмите «Закрыть».
+Система рассчитает итоговую стоимость
+и сохранит игру в историю.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Как поставить напоминание об окончании?
+</h3>
+
+Функция напоминаний будет подключена
+в следующей версии.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Бары и склад
+</h3>
+
+В разделе «Бар» добавляются товары,
+указываются закупочная цена,
+цена продажи и количество.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Как продать товар в баре?
+</h3>
+
+Нажмите «Продать» возле товара.
+Количество уменьшится,
+а выручка увеличится.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Как записать товар на стол?
+</h3>
+
+Нажмите «+ Бар» на нужном столе
+и выберите товар.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Как сделать приход?
+</h3>
+
+Добавьте количество товара
+на склад.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Как исправить остаток?
+</h3>
+
+Количество товара можно изменить
+в разделе склада.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Где посмотреть выручку?
+</h3>
+
+Раздел «Отчёты» показывает
+выручку, игры, бар, средний чек,
+загрузку и прибыль.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Есть ли история смен?
+</h3>
+
+Да. История находится
+в разделе «Касса».
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Уведомления устройства
+</h3>
+
+В настройках нажмите «Включить»
+и разрешите уведомления браузеру.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Как подключить принтер чеков?
+</h3>
+
+Для настоящего принтера потребуется
+подключение устройства и серверная
+версия Club Manager.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Как оплатить тариф?
+</h3>
+
+Оплата будет подключена через
+платёжную систему после создания
+серверной версии.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Что будет после окончания подписки?
+</h3>
+
+Данные сохраняются, но платные
+функции могут стать недоступны.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Работает ли без интернета?
+</h3>
+
+Эта версия работает локально
+без интернета.
+
+Для синхронизации между устройствами
+нужен интернет.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Потеряются ли данные при выходе?
+</h3>
+
+Нет. Данные сохраняются
+в браузере этого устройства.
+
+</div>
+
+
+<div class="help-item">
+
+<h3>
+Активные устройства
+</h3>
+
+В серверной версии здесь будут
+отображаться устройства,
+вошедшие в аккаунт.
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     ПОЛИТИКА
+========================= -->
+
+<section
+id="privacy"
+class="page">
+
+<div class="card">
+
+<h2>
+Политика конфиденциальности Club Manager
+</h2>
 
 <p>
-Club Manager предназначен для управления бильярдным клубом,
-столами, кассой, товарами, продажами и отчётностью.
+<b>1. Общие положения</b>
 </p>
 
-<p><b>2. Данные аккаунта</b></p>
-
 <p>
-При регистрации может использоваться адрес электронной почты.
-Он используется для идентификации пользователя и восстановления доступа.
+Club Manager предназначен для управления
+бильярдным клубом, столами, кассой,
+товарами, продажами и отчётностью.
 </p>
 
-<p><b>3. Данные клуба</b></p>
 
 <p>
-Приложение может хранить информацию о столах, игровых сессиях,
-товарах, продажах, сменах, кассовых операциях и отчётах.
+<b>2. Данные аккаунта</b>
 </p>
 
-<p><b>4. Безопасность</b></p>
-
 <p>
-Мы принимаем разумные меры для защиты информации от
-несанкционированного доступа, изменения или удаления.
+При регистрации может использоваться
+адрес электронной почты.
+Он используется для идентификации
+пользователя и восстановления доступа.
 </p>
 
-<p><b>5. Передача данных</b></p>
 
 <p>
-Персональные данные не должны продаваться третьим лицам.
-Передача данных может осуществляться только в случаях,
-необходимых для работы сервиса или предусмотренных законом.
+<b>3. Данные клуба</b>
 </p>
 
-<p><b>6. Удаление аккаунта</b></p>
-
 <p>
-Пользователь может запросить удаление аккаунта и связанных
-с ним данных в предусмотренном приложением порядке.
+Приложение может хранить информацию
+о столах, игровых сессиях, товарах,
+продажах, сменах, кассовых операциях
+и отчётах.
 </p>
 
-<p><b>7. Изменение политики</b></p>
 
 <p>
-Политика может обновляться при изменении функций приложения,
-законодательства или используемой инфраструктуры.
+<b>4. Безопасность</b>
 </p>
 
-<p><b>8. Контакты</b></p>
+<p>
+Мы принимаем разумные меры для защиты
+информации от несанкционированного доступа,
+изменения или удаления.
+</p>
+
 
 <p>
-Контактный адрес будет указан после создания официальной
-инфраструктуры Club Manager.
+<b>5. Передача данных</b>
+</p>
+
+<p>
+Персональные данные не должны продаваться
+третьим лицам.
+Передача данных может осуществляться
+в случаях, необходимых для работы сервиса
+или предусмотренных законом.
+</p>
+
+
+<p>
+<b>6. Удаление аккаунта</b>
+</p>
+
+<p>
+Пользователь может запросить удаление
+аккаунта и связанных с ним данных.
+</p>
+
+
+<p>
+<b>7. Изменение политики</b>
+</p>
+
+<p>
+Политика может обновляться при изменении
+функций приложения, законодательства
+или используемой инфраструктуры.
+</p>
+
+
+<p>
+<b>8. Контакты</b>
+</p>
+
+<p>
+Контактный адрес будет указан после
+создания официальной инфраструктуры
+Club Manager.
 </p>
 
 </div>
@@ -947,47 +1708,120 @@ Club Manager предназначен для управления бильярд
 </main>
 
 
+<!-- =========================
+     НИЖНЕЕ МЕНЮ
+========================= -->
+
 <div class="bottom-nav">
-<button class="active" onclick="page('home',this)">🎱<br>Столы</button>
-<button onclick="page('reports',this)">📊<br>Отчёты</button>
-<button onclick="page('stats',this)">📈<br>Статистика</button>
-<button onclick="page('bar',this)">🍹<br>Бар</button>
-<button onclick="page('settings',this)">⚙️<br>Настройки</button>
-</div>
+
+<button
+class="active"
+onclick="page('home',this)">
+🎱<br>Столы
+</button>
+
+<button
+onclick="page('reports',this)">
+📊<br>Отчёты
+</button>
+
+<button
+onclick="page('stats',this)">
+📈<br>Статистика
+</button>
+
+<button
+onclick="page('bar',this)">
+🍹<br>Бар
+</button>
+
+<button
+onclick="page('settings',this)">
+⚙️<br>Настройки
+</button>
 
 </div>
 
+</div>
 
-<!-- МОДАЛЬНОЕ ОКНО ТОВАРА -->
 
-<div id="productModal" class="modal-bg">
+<!-- =========================
+     ТОВАР
+========================= -->
+
+<div
+id="productModal"
+class="modal-bg">
 
 <div class="modal">
 
 <div class="modal-head">
-<h2>Добавить товар</h2>
-<button class="close" onclick="closeProductModal()">×</button>
+
+<h2>
+Добавить товар
+</h2>
+
+<button
+class="close"
+onclick="closeProductModal()">
+×
+</button>
+
 </div>
+
 
 <form onsubmit="addProduct(event)">
 
 <div class="form">
 
-<input id="productName" placeholder="Наименование" required>
+<input
+id="productName"
+placeholder="Наименование"
+required
+>
 
-<input id="productQty" type="number" min="0" placeholder="Количество" required>
+<input
+id="productQty"
+type="number"
+min="0"
+placeholder="Количество"
+required
+>
 
-<input id="productCost" type="number" min="0" placeholder="Цена закупа ₽" required>
+<input
+id="productCost"
+type="number"
+min="0"
+placeholder="Цена закупа ₽"
+required
+>
 
-<input id="productPrice" type="number" min="0" placeholder="Цена продажи ₽" required>
+<input
+id="productPrice"
+type="number"
+min="0"
+placeholder="Цена продажи ₽"
+required
+>
 
 <select id="productCategory">
-<option value="Напитки">Напитки</option>
-<option value="Снеки">Снеки</option>
-<option value="Бар">Бар</option>
+
+<option value="Напитки">
+Напитки
+</option>
+
+<option value="Снеки">
+Снеки
+</option>
+
+<option value="Бар">
+Бар
+</option>
+
 </select>
 
-<button class="btn primary">
+<button
+class="btn primary">
 Добавить товар
 </button>
 
@@ -996,120 +1830,312 @@ Club Manager предназначен для управления бильярд
 </form>
 
 </div>
+
 </div>
 
 
 <script>
 
 let tables=[
-{id:1,name:"Стол 1",type:"Русский",rate:600,running:false,paused:false,start:null,elapsed:0,items:[]},
-{id:2,name:"Стол 2",type:"Русский",rate:600,running:false,paused:false,start:null,elapsed:0,items:[]},
-{id:3,name:"Стол 3",type:"Русский",rate:600,running:false,paused:false,start:null,elapsed:0,items:[]},
-{id:4,name:"Стол 4",type:"Русский",rate:600,running:false,paused:false,start:null,elapsed:0,items:[]},
-{id:5,name:"Стол 5",type:"Американа",rate:500,running:false,paused:false,start:null,elapsed:0,items:[]}
+{
+id:1,
+name:"Стол 1",
+type:"Русский",
+rate:600,
+running:false,
+paused:false,
+start:null,
+elapsed:0,
+items:[]
+},
+{
+id:2,
+name:"Стол 2",
+type:"Русский",
+rate:600,
+running:false,
+paused:false,
+start:null,
+elapsed:0,
+items:[]
+},
+{
+id:3,
+name:"Стол 3",
+type:"Русский",
+rate:600,
+running:false,
+paused:false,
+start:null,
+elapsed:0,
+items:[]
+},
+{
+id:4,
+name:"Стол 4",
+type:"Русский",
+rate:600,
+running:false,
+paused:false,
+start:null,
+elapsed:0,
+items:[]
+},
+{
+id:5,
+name:"Стол 5",
+type:"Американа",
+rate:500,
+running:false,
+paused:false,
+start:null,
+elapsed:0,
+items:[]
+}
 ];
 
-let products=JSON.parse(localStorage.getItem("products")||"[]");
-let games=JSON.parse(localStorage.getItem("games")||"[]");
-let shifts=JSON.parse(localStorage.getItem("shifts")||"[]");
 
-let currentShift=JSON.parse(localStorage.getItem("currentShift")||"null");
+let products=
+JSON.parse(
+localStorage.getItem("products")||"[]"
+);
 
-let currentUser=localStorage.getItem("clubUser");
+let games=
+JSON.parse(
+localStorage.getItem("games")||"[]"
+);
+
+let shifts=
+JSON.parse(
+localStorage.getItem("shifts")||"[]"
+);
+
+let currentShift=
+JSON.parse(
+localStorage.getItem("currentShift")||"null"
+);
+
+let currentUser=
+localStorage.getItem("clubUser");
 
 let authMode="login";
 
+
 function money(n){
-return Math.round(n).toLocaleString("ru-RU")+" ₽";
+
+return Math.round(n)
+.toLocaleString("ru-RU")+" ₽";
+
 }
+
 
 function save(){
-localStorage.setItem("products",JSON.stringify(products));
-localStorage.setItem("games",JSON.stringify(games));
-localStorage.setItem("shifts",JSON.stringify(shifts));
-localStorage.setItem("currentShift",JSON.stringify(currentShift));
+
+localStorage.setItem(
+"products",
+JSON.stringify(products)
+);
+
+localStorage.setItem(
+"games",
+JSON.stringify(games)
+);
+
+localStorage.setItem(
+"shifts",
+JSON.stringify(shifts)
+);
+
+localStorage.setItem(
+"currentShift",
+JSON.stringify(currentShift)
+);
+
 }
+
 
 function showLogin(){
+
 authMode="login";
-document.getElementById("loginTab").classList.add("active");
-document.getElementById("registerTab").classList.remove("active");
-document.getElementById("authButton").textContent="Войти";
+
+document
+.getElementById("loginTab")
+.classList.add("active");
+
+document
+.getElementById("registerTab")
+.classList.remove("active");
+
+document
+.getElementById("authButton")
+.textContent="Войти";
+
 }
 
+
 function showRegister(){
+
 authMode="register";
-document.getElementById("registerTab").classList.add("active");
-document.getElementById("loginTab").classList.remove("active");
-document.getElementById("authButton").textContent="Зарегистрироваться";
+
+document
+.getElementById("registerTab")
+.classList.add("active");
+
+document
+.getElementById("loginTab")
+.classList.remove("active");
+
+document
+.getElementById("authButton")
+.textContent="Зарегистрироваться";
+
 }
+
 
 function auth(e){
 
 e.preventDefault();
 
-let email=document.getElementById("email").value;
-let password=document.getElementById("password").value;
+let email=
+document.getElementById("email").value;
+
+let password=
+document.getElementById("password").value;
+
 
 if(authMode==="register"){
-localStorage.setItem("registeredEmail",email);
-localStorage.setItem("registeredPassword",password);
+
+localStorage.setItem(
+"registeredEmail",
+email
+);
+
+localStorage.setItem(
+"registeredPassword",
+password
+);
+
 alert("Аккаунт создан.");
+
 }
 
-let savedEmail=localStorage.getItem("registeredEmail");
-let savedPassword=localStorage.getItem("registeredPassword");
 
-if(email===savedEmail && password===savedPassword){
+let savedEmail=
+localStorage.getItem("registeredEmail");
+
+let savedPassword=
+localStorage.getItem("registeredPassword");
+
+
+if(
+email===savedEmail &&
+password===savedPassword
+){
+
 currentUser=email;
-localStorage.setItem("clubUser",email);
+
+localStorage.setItem(
+"clubUser",
+email
+);
+
 startApp();
+
 }else{
-alert("Неверный email или пароль.");
+
+alert(
+"Неверный email или пароль."
+);
+
 }
+
 }
+
 
 function forgotPassword(){
-alert("Для восстановления настоящего пароля потребуется серверная авторизация.");
+
+alert(
+"Для восстановления настоящего пароля потребуется серверная авторизация."
+);
+
 }
+
 
 function startApp(){
 
-document.getElementById("loginScreen").style.display="none";
-document.getElementById("app").style.display="flex";
+document
+.getElementById("loginScreen")
+.style.display="none";
 
-document.getElementById("accountEmail").textContent=currentUser||"";
+document
+.getElementById("app")
+.style.display="flex";
+
+document
+.getElementById("accountEmail")
+.textContent=
+currentUser||"";
 
 render();
+
 }
 
+
 function logout(){
-localStorage.removeItem("clubUser");
+
+localStorage.removeItem(
+"clubUser"
+);
+
 location.reload();
+
 }
+
 
 function deleteAccount(){
 
-if(confirm("Удалить локальный аккаунт и данные?")){
+if(
+confirm(
+"Удалить локальный аккаунт и все данные?"
+)
+){
+
 localStorage.clear();
+
 location.reload();
+
 }
+
 }
+
 
 function page(id,button){
 
-document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+document
+.querySelectorAll(".page")
+.forEach(x=>
+x.classList.remove("active")
+);
 
-let target=document.getElementById(id);
+let target=
+document.getElementById(id);
 
 if(target){
 target.classList.add("active");
 }
 
-document.querySelectorAll(".nav button,.bottom-nav button")
-.forEach(x=>x.classList.remove("active"));
 
-if(button)button.classList.add("active");
+document
+.querySelectorAll(
+".nav button,.bottom-nav button"
+)
+.forEach(x=>
+x.classList.remove("active")
+);
+
+if(button)
+button.classList.add("active");
+
 
 let titles={
 home:"Столы",
@@ -1122,88 +2148,187 @@ help:"Помощь",
 privacy:"Политика конфиденциальности"
 };
 
-document.getElementById("pageTitle").textContent=titles[id]||"Club Manager";
+document
+.getElementById("pageTitle")
+.textContent=
+titles[id]||"Club Manager";
 
 render();
+
 }
+
 
 function renderTables(){
 
-let box=document.getElementById("tables");
+let box=
+document.getElementById("tables");
+
 box.innerHTML="";
+
 
 tables.forEach(t=>{
 
 let elapsed=t.elapsed;
 
-if(t.running && !t.paused){
-elapsed=Math.floor((Date.now()-t.start)/1000)+t.elapsed;
+
+if(
+t.running &&
+!t.paused
+){
+
+elapsed=
+Math.floor(
+(Date.now()-t.start)/1000
+)+t.elapsed;
+
 }
 
-let hours=elapsed/3600;
-let tableCost=hours*t.rate;
+
+let hours=
+elapsed/3600;
+
+let tableCost=
+hours*t.rate;
+
 
 let status="Свободно";
+
 let statusClass="free";
 
-if(t.running && !t.paused){
+
+if(
+t.running &&
+!t.paused
+){
+
 status="Активно";
+
 statusClass="active-status";
-}else if(t.running && t.paused){
+
+}
+else if(
+t.running &&
+t.paused
+){
+
 status="Пауза";
+
 statusClass="paused";
+
 }
 
-let itemTotal=t.items.reduce((sum,x)=>sum+x.price*x.qty,0);
 
-let total=tableCost+itemTotal;
+let itemTotal=
+t.items.reduce(
+(sum,x)=>
+sum+x.price*x.qty,
+0
+);
 
-let card=document.createElement("div");
-card.className="table-card";
+
+let total=
+tableCost+itemTotal;
+
+
+let card=
+document.createElement("div");
+
+card.className=
+"table-card";
+
 
 card.innerHTML=`
 
 <div class="table-head">
 
 <div>
-<div class="table-name">${t.name}</div>
-<div class="type">${t.type} · ${money(t.rate)}/час</div>
+
+<div class="table-name">
+${t.name}
 </div>
 
-<span class="status ${statusClass}">${status}</span>
+<div class="type">
+${t.type} · ${money(t.rate)}/час
+</div>
 
 </div>
 
-<div class="timer">${formatTime(elapsed)}</div>
+<span class="status ${statusClass}">
+${status}
+</span>
+
+</div>
+
+
+<div class="timer">
+${formatTime(elapsed)}
+</div>
+
 
 <div class="price">
 Стоимость времени: ${money(tableCost)}
 </div>
 
+
 <div class="bill">
 Счёт: ${money(total)}
 </div>
 
+
 <div class="actions">
 
-${!t.running ?
-`<button class="btn success" onclick="startTable(${t.id})">Начать</button>`
-:
-`<button class="btn warning" onclick="pauseTable(${t.id})">
-${t.paused?"Продолжить":"Пауза"}
+${
+!t.running
+
+?
+
+`
+
+<button
+class="btn success"
+onclick="startTable(${t.id})">
+Начать
 </button>
 
-<button class="btn danger" onclick="closeTable(${t.id})">
-Закрыть
-</button>`
+`
+
+:
+
+`
+
+<button
+class="btn warning"
+onclick="pauseTable(${t.id})">
+
+${
+t.paused
+?"Продолжить"
+:"Пауза"
 }
 
-<button class="btn" onclick="addToTable(${t.id})">
+</button>
+
+
+<button
+class="btn danger"
+onclick="closeTable(${t.id})">
+Закрыть
+</button>
+
+`
+}
+
+
+<button
+class="btn"
+onclick="addToTable(${t.id})">
 + Бар
 </button>
 
 </div>
+
 `;
+
 
 box.appendChild(card);
 
@@ -1211,199 +2336,431 @@ box.appendChild(card);
 
 }
 
+
 function formatTime(seconds){
 
-let h=Math.floor(seconds/3600);
-let m=Math.floor((seconds%3600)/60);
-let s=seconds%60;
+let h=
+Math.floor(seconds/3600);
 
-return String(h).padStart(2,"0")+":"+
-String(m).padStart(2,"0")+":"+
-String(s).padStart(2,"0");
+let m=
+Math.floor(
+(seconds%3600)/60
+);
+
+let s=
+seconds%60;
+
+
+return String(h).padStart(2,"0")
++":"
++String(m).padStart(2,"0")
++":"
++String(s).padStart(2,"0");
+
 }
+
 
 function startTable(id){
 
-let t=tables.find(x=>x.id===id);
+let t=
+tables.find(
+x=>x.id===id
+);
 
 if(!t.running){
+
 t.running=true;
+
 t.paused=false;
+
 t.start=Date.now();
+
 t.elapsed=0;
+
 }
 
 render();
+
 }
+
 
 function pauseTable(id){
 
-let t=tables.find(x=>x.id===id);
+let t=
+tables.find(
+x=>x.id===id
+);
 
-if(!t.running)return;
+if(!t.running)
+return;
+
 
 if(!t.paused){
-t.elapsed+=Math.floor((Date.now()-t.start)/1000);
+
+t.elapsed+=
+Math.floor(
+(Date.now()-t.start)/1000
+);
+
 t.paused=true;
+
 }else{
+
 t.start=Date.now();
+
 t.paused=false;
+
 }
 
 render();
+
 }
+
 
 function closeTable(id){
 
-let t=tables.find(x=>x.id===id);
+let t=
+tables.find(
+x=>x.id===id
+);
 
-if(!t.running)return;
+if(!t.running)
+return;
+
 
 let elapsed=t.elapsed;
 
+
 if(!t.paused){
-elapsed+=Math.floor((Date.now()-t.start)/1000);
+
+elapsed+=
+Math.floor(
+(Date.now()-t.start)/1000
+);
+
 }
 
-let total=(elapsed/3600)*t.rate;
 
-let itemTotal=t.items.reduce((sum,x)=>sum+x.price*x.qty,0);
+let total=
+(elapsed/3600)*t.rate;
 
-let finalTotal=total+itemTotal;
+
+let itemTotal=
+t.items.reduce(
+(sum,x)=>
+sum+x.price*x.qty,
+0
+);
+
+
+let finalTotal=
+total+itemTotal;
+
 
 games.push({
+
 table:t.name,
+
 type:t.type,
+
 seconds:elapsed,
+
 amount:finalTotal,
+
 date:new Date().toISOString()
+
 });
 
+
 t.running=false;
+
 t.paused=false;
+
 t.start=null;
+
 t.elapsed=0;
+
 t.items=[];
 
+
 save();
+
 render();
 
-alert("Стол закрыт.\nСчёт: "+money(finalTotal));
+
+alert(
+"Стол закрыт.\nСчёт: "
++
+money(finalTotal)
+);
+
 }
+
 
 function addToTable(id){
 
-let t=tables.find(x=>x.id===id);
+let t=
+tables.find(
+x=>x.id===id
+);
+
 
 if(products.length===0){
-alert("Сначала добавьте товар в Бар.");
+
+alert(
+"Сначала добавьте товар в Бар."
+);
+
 return;
+
 }
 
-let names=products.map((p,i)=>
+
+let names=
+products.map(
+(p,i)=>
 `${i+1}. ${p.name} — ${money(p.price)} (остаток ${p.qty})`
-).join("\n");
+)
+.join("\n");
 
-let choice=prompt("Введите номер товара:\n\n"+names);
 
-let index=parseInt(choice)-1;
+let choice=
+prompt(
+"Введите номер товара:\n\n"
++
+names
+);
 
-if(isNaN(index)||!products[index])return;
 
-let p=products[index];
+let index=
+parseInt(choice)-1;
+
+
+if(
+isNaN(index)||
+!products[index]
+)
+return;
+
+
+let p=
+products[index];
+
 
 if(p.qty<=0){
-alert("Товара нет на складе.");
+
+alert(
+"Товара нет на складе."
+);
+
 return;
+
 }
 
-let qty=parseInt(prompt("Количество:", "1"));
 
-if(!qty||qty<1||qty>p.qty)return;
+let qty=
+parseInt(
+prompt(
+"Количество:",
+"1"
+)
+);
+
+
+if(
+!qty||
+qty<1||
+qty>p.qty
+)
+return;
+
 
 p.qty-=qty;
 
+
 t.items.push({
+
 name:p.name,
+
 price:p.price,
+
 qty:qty
+
 });
 
+
 save();
+
 render();
 
 }
 
+
 function renderProducts(){
 
-let tbody=document.getElementById("products");
+let tbody=
+document.getElementById("products");
+
 tbody.innerHTML="";
 
-products.forEach((p,i)=>{
 
-let profit=(p.price-p.cost)*p.qty;
+products.forEach(
+(p,i)=>{
 
-let tr=document.createElement("tr");
+let profit=
+(p.price-p.cost)*p.qty;
+
+
+let tr=
+document.createElement("tr");
+
 
 tr.innerHTML=`
-<td>${p.name}</td>
-<td>${p.category}</td>
-<td>${p.qty}</td>
-<td>${money(p.cost)}</td>
-<td>${money(p.price)}</td>
-<td>${money(profit)}</td>
+
 <td>
-<button class="btn success" onclick="sellProduct(${i})">
+${p.name}
+</td>
+
+<td>
+${p.category}
+</td>
+
+<td>
+${p.qty}
+</td>
+
+<td>
+${money(p.cost)}
+</td>
+
+<td>
+${money(p.price)}
+</td>
+
+<td>
+${money(profit)}
+</td>
+
+<td>
+
+<button
+class="btn success"
+onclick="sellProduct(${i})">
 Продать
 </button>
+
 </td>
+
 `;
+
 
 tbody.appendChild(tr);
 
 });
 
+
 let sales=0;
+
 let cost=0;
 
+
 products.forEach(p=>{
-sales+=(p.price*p.sold||0);
-cost+=(p.cost*p.sold||0);
+
+sales+=
+p.price*p.sold;
+
+cost+=
+p.cost*p.sold;
+
 });
 
-document.getElementById("barSales").textContent=money(sales);
-document.getElementById("barCost").textContent=money(cost);
-document.getElementById("barProfit").textContent=money(sales-cost);
-document.getElementById("barRevenue").textContent=money(sales);
+
+document
+.getElementById("barSales")
+.textContent=
+money(sales);
+
+
+document
+.getElementById("barCost")
+.textContent=
+money(cost);
+
+
+document
+.getElementById("barProfit")
+.textContent=
+money(sales-cost);
+
+
+document
+.getElementById("barRevenue")
+.textContent=
+money(sales);
 
 }
+
 
 function openProductModal(){
-document.getElementById("productModal").classList.add("show");
+
+document
+.getElementById("productModal")
+.classList.add("show");
+
 }
 
+
 function closeProductModal(){
-document.getElementById("productModal").classList.remove("show");
+
+document
+.getElementById("productModal")
+.classList.remove("show");
+
 }
+
 
 function addProduct(e){
 
 e.preventDefault();
 
+
 let p={
-name:document.getElementById("productName").value,
-qty:Number(document.getElementById("productQty").value),
-cost:Number(document.getElementById("productCost").value),
-price:Number(document.getElementById("productPrice").value),
-category:document.getElementById("productCategory").value,
+
+name:
+document.getElementById("productName").value,
+
+qty:
+Number(
+document.getElementById("productQty").value
+),
+
+cost:
+Number(
+document.getElementById("productCost").value
+),
+
+price:
+Number(
+document.getElementById("productPrice").value
+),
+
+category:
+document.getElementById("productCategory").value,
+
 sold:0
+
 };
+
 
 products.push(p);
 
 save();
 
-document.getElementById("productModal").classList.remove("show");
+
+document
+.getElementById("productModal")
+.classList.remove("show");
+
 
 e.target.reset();
 
@@ -1411,103 +2768,260 @@ render();
 
 }
 
+
 function sellProduct(i){
 
-let p=products[i];
+let p=
+products[i];
+
 
 if(p.qty<=0){
-alert("Товар закончился.");
+
+alert(
+"Товар закончился."
+);
+
 return;
+
 }
 
-let qty=parseInt(prompt("Количество:", "1"));
 
-if(!qty||qty<1||qty>p.qty)return;
+let qty=
+parseInt(
+prompt(
+"Количество:",
+"1"
+)
+);
+
+
+if(
+!qty||
+qty<1||
+qty>p.qty
+)
+return;
+
 
 p.qty-=qty;
+
 p.sold+=qty;
 
+
 save();
+
 render();
 
 }
+
 
 function openShift(){
 
 if(currentShift){
-alert("Смена уже открыта.");
+
+alert(
+"Смена уже открыта."
+);
+
 return;
+
 }
+
 
 currentShift={
-date:new Date().toLocaleDateString("ru-RU"),
-opened:new Date().toLocaleTimeString("ru-RU"),
+
+date:
+new Date()
+.toLocaleDateString("ru-RU"),
+
+opened:
+new Date()
+.toLocaleTimeString("ru-RU"),
+
 closed:null
+
 };
 
+
 save();
+
 render();
 
-alert("Смена открыта.");
+
+alert(
+"Смена открыта."
+);
+
 }
+
 
 function closeShift(){
 
 if(!currentShift){
-alert("Смена не открыта.");
+
+alert(
+"Смена не открыта."
+);
+
 return;
+
 }
 
-currentShift.closed=new Date().toLocaleTimeString("ru-RU");
 
-shifts.push(currentShift);
+currentShift.closed=
+new Date()
+.toLocaleTimeString("ru-RU");
+
+
+shifts.push(
+currentShift
+);
 
 currentShift=null;
 
+
 save();
+
 render();
 
-alert("Смена закрыта.");
+
+alert(
+"Смена закрыта."
+);
+
 }
+
 
 function renderReports(){
 
-let gameRevenue=games.reduce((s,g)=>s+g.amount,0);
+let gameRevenue=
+games.reduce(
+(s,g)=>s+g.amount,
+0
+);
 
-let barSales=products.reduce((s,p)=>s+(p.price*p.sold),0);
 
-let barCost=products.reduce((s,p)=>s+(p.cost*p.sold),0);
+let barSales=
+products.reduce(
+(s,p)=>
+s+p.price*p.sold,
+0
+);
 
-let revenue=gameRevenue+barSales;
 
-let checks=games.length+(barSales>0?1:0);
+let barCost=
+products.reduce(
+(s,p)=>
+s+p.cost*p.sold,
+0
+);
 
-let average=checks?revenue/checks:0;
 
-let occupancy=Math.min(100,(games.length/5)*10);
+let revenue=
+gameRevenue+barSales;
 
-document.getElementById("reportRevenue").textContent=money(revenue);
-document.getElementById("reportGames").textContent=money(gameRevenue);
-document.getElementById("reportBar").textContent=money(barSales);
-document.getElementById("reportCost").textContent=money(barCost);
-document.getElementById("netProfit").textContent=money(revenue-barCost);
-document.getElementById("averageCheck").textContent=money(average);
-document.getElementById("occupancy").textContent=Math.round(occupancy)+"%";
-document.getElementById("sessions").textContent=games.length;
 
-let tbody=document.getElementById("gameHistory");
+let checks=
+games.length+
+(barSales>0?1:0);
+
+
+let average=
+checks?
+revenue/checks:
+0;
+
+
+let occupancy=
+Math.min(
+100,
+(games.length/5)*10
+);
+
+
+document
+.getElementById("reportRevenue")
+.textContent=
+money(revenue);
+
+
+document
+.getElementById("reportGames")
+.textContent=
+money(gameRevenue);
+
+
+document
+.getElementById("reportBar")
+.textContent=
+money(barSales);
+
+
+document
+.getElementById("reportCost")
+.textContent=
+money(barCost);
+
+
+document
+.getElementById("netProfit")
+.textContent=
+money(revenue-barCost);
+
+
+document
+.getElementById("averageCheck")
+.textContent=
+money(average);
+
+
+document
+.getElementById("occupancy")
+.textContent=
+Math.round(occupancy)+"%";
+
+
+document
+.getElementById("sessions")
+.textContent=
+games.length;
+
+
+let tbody=
+document.getElementById("gameHistory");
+
 tbody.innerHTML="";
 
-games.slice().reverse().forEach(g=>{
 
-let tr=document.createElement("tr");
+games
+.slice()
+.reverse()
+.forEach(g=>{
+
+let tr=
+document.createElement("tr");
+
 
 tr.innerHTML=`
-<td>${g.table}</td>
-<td>${g.type}</td>
-<td>${formatTime(g.seconds)}</td>
-<td>${money(g.amount)}</td>
+
+<td>
+${g.table}
+</td>
+
+<td>
+${g.type}
+</td>
+
+<td>
+${formatTime(g.seconds)}
+</td>
+
+<td>
+${money(g.amount)}
+</td>
+
 `;
+
 
 tbody.appendChild(tr);
 
@@ -1515,156 +3029,328 @@ tbody.appendChild(tr);
 
 }
 
+
 function renderStats(){
 
-document.getElementById("statGames").textContent=games.length;
+document
+.getElementById("statGames")
+.textContent=
+games.length;
 
-let revenue=games.reduce((s,g)=>s+g.amount,0)+
-products.reduce((s,p)=>s+p.price*p.sold,0);
 
-document.getElementById("statRevenue").textContent=money(revenue);
+let revenue=
+games.reduce(
+(s,g)=>s+g.amount,
+0
+)
++
+products.reduce(
+(s,p)=>s+p.price*p.sold,
+0
+);
 
-document.getElementById("statOccupancy").textContent=
-Math.min(100,Math.round(games.length*10))+"%";
 
-let box=document.getElementById("tableStats");
+document
+.getElementById("statRevenue")
+.textContent=
+money(revenue);
 
-box.innerHTML=tables.map(t=>{
 
-let count=games.filter(g=>g.table===t.name).length;
+document
+.getElementById("statOccupancy")
+.textContent=
+Math.min(
+100,
+Math.round(games.length*10)
+)
++"%";
+
+
+let box=
+document.getElementById("tableStats");
+
+
+box.innerHTML=
+tables.map(t=>{
+
+let count=
+games.filter(
+g=>g.table===t.name
+).length;
+
 
 return `
-<div style="padding:12px;border-bottom:1px solid #ddd">
-<b>${t.name}</b> — ${count} игр
+
+<div
+style="
+padding:12px;
+border-bottom:1px solid #ddd
+">
+
+<b>
+${t.name}
+</b>
+
+—
+${count} игр
+
 </div>
+
 `;
 
 }).join("");
 
 }
 
+
 function renderShifts(){
 
-let tbody=document.getElementById("shiftHistory");
+let tbody=
+document.getElementById("shiftHistory");
 
 tbody.innerHTML="";
 
-shifts.slice().reverse().forEach(s=>{
 
-let tr=document.createElement("tr");
+shifts
+.slice()
+.reverse()
+.forEach(s=>{
+
+let tr=
+document.createElement("tr");
+
 
 tr.innerHTML=`
-<td>${s.date}</td>
-<td>${s.opened}</td>
-<td>${s.closed||"—"}</td>
-<td>—</td>
+
+<td>
+${s.date}
+</td>
+
+<td>
+${s.opened}
+</td>
+
+<td>
+${s.closed||"—"}
+</td>
+
+<td>
+—
+</td>
+
 `;
+
 
 tbody.appendChild(tr);
 
 });
 
-document.getElementById("shiftStatus").textContent=
-currentShift?"Открыта":"Закрыта";
+
+document
+.getElementById("shiftStatus")
+.textContent=
+currentShift?
+"Открыта":
+"Закрыта";
 
 }
+
 
 function render(){
 
 renderTables();
+
 renderProducts();
+
 renderReports();
+
 renderStats();
+
 renderShifts();
 
-let revenue=games.reduce((s,g)=>s+g.amount,0)+
-products.reduce((s,p)=>s+p.price*p.sold,0);
 
-document.getElementById("todayRevenue").textContent=money(revenue);
+let revenue=
+games.reduce(
+(s,g)=>s+g.amount,
+0
+)
++
+products.reduce(
+(s,p)=>s+p.price*p.sold,
+0
+);
 
-document.getElementById("activeTables").textContent=
-tables.filter(t=>t.running&&!t.paused).length+" / 5";
 
-document.getElementById("cashTotal").textContent=money(revenue);
+document
+.getElementById("todayRevenue")
+.textContent=
+money(revenue);
 
-document.getElementById("date").textContent=
-new Date().toLocaleDateString("ru-RU",{
+
+document
+.getElementById("activeTables")
+.textContent=
+tables.filter(
+t=>t.running&&!t.paused
+).length
++
+" / 5";
+
+
+document
+.getElementById("cashTotal")
+.textContent=
+money(revenue);
+
+
+document
+.getElementById("date")
+.textContent=
+new Date()
+.toLocaleDateString(
+"ru-RU",
+{
 weekday:"long",
 day:"numeric",
 month:"long"
-});
+}
+);
 
 }
+
 
 function refreshData(){
 
 render();
 
-alert("Главный экран обновлён.");
-}
-
-function toggleTheme(){
-
-document.body.classList.toggle("dark");
-
-localStorage.setItem(
-"theme",
-document.body.classList.contains("dark")?"dark":"light"
+alert(
+"Главный экран обновлён."
 );
 
 }
+
+
+function toggleTheme(){
+
+document
+.body
+.classList
+.toggle("dark");
+
+
+localStorage.setItem(
+"theme",
+document.body.classList.contains("dark")
+?"dark"
+:"light"
+);
+
+}
+
 
 function changeLanguage(lang){
 
 let names={
+
 ru:"Русский",
+
 ky:"Кыргызча",
+
 uz:"O'zbekcha"
+
 };
 
-document.getElementById("languageName").textContent=names[lang];
 
-localStorage.setItem("language",lang);
+document
+.getElementById("languageName")
+.textContent=
+names[lang];
+
+
+localStorage.setItem(
+"language",
+lang
+);
+
 
 if(lang!=="ru"){
+
 alert(
 lang==="ky"
-?"Тил кыргыз тилине өзгөртүлдү. Толук котормо кийинки версияда кошулат."
-:"Til o'zbek tiliga o'zgartirildi. To'liq tarjima keyingi versiyada qo'shiladi."
+
+?
+
+"Тил кыргыз тилине өзгөртүлдү."
+
+:
+
+"Til o'zbek tiliga o'zgartirildi."
+
 );
+
 }else{
-alert("Язык изменён на русский.");
+
+alert(
+"Язык изменён на русский."
+);
+
 }
 
 }
+
 
 function enableNotifications(){
 
-if(!("Notification" in window)){
-alert("Этот браузер не поддерживает уведомления.");
+if(
+!("Notification" in window)
+){
+
+alert(
+"Этот браузер не поддерживает уведомления."
+);
+
 return;
+
 }
 
-Notification.requestPermission().then(permission=>{
 
-if(permission==="granted"){
+Notification
+.requestPermission()
+.then(permission=>{
 
-new Notification("Club Manager",{
-body:"Уведомления включены."
-});
+if(
+permission==="granted"
+){
+
+new Notification(
+"Club Manager",
+{
+body:
+"Уведомления включены."
+}
+);
 
 }else{
-alert("Разрешение на уведомления не предоставлено.");
+
+alert(
+"Разрешение на уведомления не предоставлено."
+);
+
 }
 
 });
 
 }
+
 
 function syncData(){
 
-alert("Локальные данные сохранены. Настоящая синхронизация между устройствами появится после подключения серверной базы.");
+alert(
+"Локальные данные сохранены. Настоящая синхронизация между устройствами появится после подключения серверной базы."
+);
+
 }
+
 
 function showDevices(){
 
@@ -1676,21 +3362,40 @@ alert(
 
 }
 
-window.addEventListener("beforeunload",()=>{
+
+window.addEventListener(
+"beforeunload",
+()=>{
 save();
-});
+}
+);
 
-setInterval(()=>{
+
+setInterval(
+()=>{
 renderTables();
-},1000);
+},
+1000
+);
 
 
-if(localStorage.getItem("theme")==="dark"){
-document.body.classList.add("dark");
+if(
+localStorage.getItem("theme")
+==="dark"
+){
+
+document
+.body
+.classList
+.add("dark");
+
 }
 
+
 if(currentUser){
+
 startApp();
+
 }
 
 </script>
