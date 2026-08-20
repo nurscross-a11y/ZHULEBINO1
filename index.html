@@ -1,1085 +1,1699 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Club Manager</title>
 
-    <meta
-        name="theme-color"
-        content="#0b0f14"
-    >
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    background:#f4f5f7;
+    color:#171717;
+}
+body.dark{
+    background:#101114;
+    color:#fff;
+}
+button,input,select{
+    font:inherit;
+}
+button{
+    cursor:pointer;
+    border:0;
+}
+.app{
+    min-height:100vh;
+    display:flex;
+}
+.sidebar{
+    width:230px;
+    background:#17181c;
+    color:white;
+    padding:20px 12px;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    overflow:auto;
+}
+.logo{
+    font-size:22px;
+    font-weight:800;
+    padding:10px 12px 25px;
+}
+.nav button{
+    width:100%;
+    background:transparent;
+    color:#aaa;
+    text-align:left;
+    padding:13px 14px;
+    margin:3px 0;
+    border-radius:10px;
+}
+.nav button:hover,
+.nav button.active{
+    background:#292b31;
+    color:white;
+}
+.main{
+    margin-left:230px;
+    width:calc(100% - 230px);
+    padding:25px;
+    padding-bottom:100px;
+}
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+h1{margin:0}
+.page{display:none}
+.page.active{display:block}
 
-    <title>Club Manager</title>
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-bottom:20px;
+}
+.card{
+    background:white;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.06);
+}
+.dark .card{
+    background:#191b20;
+}
+.card-title{
+    color:#777;
+    font-size:14px;
+}
+.big{
+    font-size:28px;
+    font-weight:800;
+    margin-top:8px;
+}
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+.tables{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+.table-card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 3px 15px rgba(0,0,0,.06);
+}
+.dark .table-card{
+    background:#191b20;
+}
+.table-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.table-name{
+    font-size:20px;
+    font-weight:800;
+}
+.type{
+    color:#777;
+    font-size:13px;
+}
+.status{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+.free{
+    background:#dff7e5;
+    color:#16833c;
+}
+.active-status{
+    background:#ffe5e5;
+    color:#c62828;
+}
+.paused{
+    background:#fff0cc;
+    color:#9b6a00;
+}
+.timer{
+    font-size:30px;
+    font-weight:800;
+    margin:18px 0 5px;
+}
+.price{
+    color:#777;
+    font-size:13px;
+}
+.bill{
+    font-size:21px;
+    font-weight:800;
+    margin:15px 0;
+}
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+.btn{
+    padding:10px 14px;
+    border-radius:9px;
+    background:#e9eaed;
+}
+.btn.primary{
+    background:#111;
+    color:white;
+}
+.btn.success{
+    background:#16833c;
+    color:white;
+}
+.btn.danger{
+    background:#d93025;
+    color:white;
+}
+.btn.warning{
+    background:#e4a900;
+    color:white;
+}
+
+.bottom-nav{
+    display:none;
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+.table th,.table td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+.dark .table th,.dark .table td{
+    border-color:#333;
+}
+
+.form{
+    display:grid;
+    gap:12px;
+    max-width:600px;
+}
+input,select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:9px;
+    background:white;
+}
+.dark input,.dark select{
+    background:#22242a;
+    color:white;
+    border-color:#444;
+}
+
+.modal-bg{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+}
+.modal-bg.show{display:flex}
+.modal{
+    background:white;
+    color:#111;
+    width:min(500px,92%);
+    max-height:90vh;
+    overflow:auto;
+    border-radius:18px;
+    padding:25px;
+}
+.dark .modal{
+    background:#191b20;
+    color:white;
+}
+.modal-head{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+.close{
+    background:transparent;
+    font-size:25px;
+}
+
+.setting{
+    background:white;
+    padding:18px;
+    margin-bottom:10px;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.dark .setting{
+    background:#191b20;
+}
+.help-item{
+    background:white;
+    padding:18px;
+    margin-bottom:10px;
+    border-radius:12px;
+}
+.dark .help-item{
+    background:#191b20;
+}
+.help-item h3{
+    margin-top:0;
+}
+
+.login{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+.login-box{
+    background:white;
+    width:min(420px,100%);
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 40px rgba(0,0,0,.12);
+}
+.dark .login-box{
+    background:#191b20;
+}
+.login-box h1{
+    margin-bottom:8px;
+}
+.login-box p{
+    color:#777;
+}
+.login-tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
+}
+.login-tabs button{
+    flex:1;
+    padding:11px;
+    border-radius:8px;
+    background:#eee;
+}
+.login-tabs button.active{
+    background:#111;
+    color:#fff;
+}
+
+@media(max-width:900px){
+    .sidebar{display:none}
+    .main{
+        margin-left:0;
+        width:100%;
+        padding:15px;
+        padding-bottom:90px;
+    }
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+    .tables{
+        grid-template-columns:1fr;
+    }
+    .bottom-nav{
+        display:flex;
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        height:65px;
+        background:#17181c;
+        z-index:50;
+        justify-content:space-around;
+    }
+    .bottom-nav button{
+        flex:1;
+        background:transparent;
+        color:#aaa;
+        font-size:11px;
+    }
+    .bottom-nav button.active{
+        color:white;
+    }
+}
+@media(max-width:500px){
+    .cards{
+        grid-template-columns:1fr;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<div id="app">
+<div id="loginScreen" class="login">
+<div class="login-box">
 
-    <!-- ==============================
-         AUTHORIZATION
-    =============================== -->
+<h1>Club Manager</h1>
+<p>Управление бильярдным клубом</p>
 
-    <section
-        id="authScreen"
-        class="auth-screen"
-    >
+<div class="login-tabs">
+<button id="loginTab" class="active" onclick="showLogin()">Вход</button>
+<button id="registerTab" onclick="showRegister()">Регистрация</button>
+</div>
 
-        <div class="auth-card">
+<form id="authForm" onsubmit="auth(event)">
+<div class="form">
 
-            <div class="logo-big">
-                🎱
-            </div>
+<input id="email" type="email" placeholder="Email" required>
+<input id="password" type="password" placeholder="Пароль" required>
 
-            <h1>
-                Club Manager
-            </h1>
+<button class="btn primary" type="submit" id="authButton">
+Войти
+</button>
 
-            <p class="muted">
-                Автоматизация бильярдного клуба
-            </p>
+<button type="button" class="btn" onclick="forgotPassword()">
+Забыли пароль?
+</button>
 
-
-            <div class="auth-tabs">
+</div>
+</form>
 
-                <button
-                    class="auth-tab active"
-                    onclick="showAuth('login')"
-                >
-                    Вход
-                </button>
-
-                <button
-                    class="auth-tab"
-                    onclick="showAuth('register')"
-                >
-                    Регистрация
-                </button>
-
-            </div>
-
+</div>
+</div>
 
-            <!-- LOGIN -->
 
-            <div id="loginForm">
+<div id="app" class="app" style="display:none">
 
-                <label>
-                    Email
-                </label>
+<aside class="sidebar">
+<div class="logo">🎱 Club Manager</div>
 
-                <input
-                    id="loginEmail"
-                    type="email"
-                    placeholder="example@mail.com"
-                >
+<div class="nav">
+<button class="active" onclick="page('home',this)">🏠 Столы</button>
+<button onclick="page('bar',this)">🍹 Бар</button>
+<button onclick="page('cash',this)">💰 Касса</button>
+<button onclick="page('reports',this)">📊 Отчёты</button>
+<button onclick="page('stats',this)">📈 Статистика</button>
+<button onclick="page('settings',this)">⚙️ Настройки</button>
+</div>
+</aside>
 
-                <label>
-                    Пароль
-                </label>
 
-                <input
-                    id="loginPassword"
-                    type="password"
-                    placeholder="Пароль"
-                >
+<main class="main">
 
-                <button
-                    class="primary full"
-                    onclick="login()"
-                >
-                    Войти
-                </button>
+<div class="topbar">
+<div>
+<h1 id="pageTitle">Столы</h1>
+<div id="date"></div>
+</div>
 
-                <button
-                    class="text-button"
-                    onclick="forgotPassword()"
-                >
-                    Восстановить пароль
-                </button>
+<button class="btn" onclick="refreshData()">↻ Обновить</button>
+</div>
 
-            </div>
 
+<!-- ГЛАВНАЯ -->
 
-            <!-- REGISTER -->
+<section id="home" class="page active">
 
-            <div
-                id="registerForm"
-                class="hidden"
-            >
+<div class="cards">
 
-                <label>
-                    Имя
-                </label>
+<div class="card">
+<div class="card-title">Выручка сегодня</div>
+<div class="big" id="todayRevenue">0 ₽</div>
+</div>
 
-                <input
-                    id="registerName"
-                    type="text"
-                    placeholder="Ваше имя"
-                >
+<div class="card">
+<div class="card-title">Активные столы</div>
+<div class="big" id="activeTables">0 / 5</div>
+</div>
 
-                <label>
-                    Email
-                </label>
+<div class="card">
+<div class="card-title">Бар сегодня</div>
+<div class="big" id="barRevenue">0 ₽</div>
+</div>
 
-                <input
-                    id="registerEmail"
-                    type="email"
-                    placeholder="example@mail.com"
-                >
+</div>
 
-                <label>
-                    Пароль
-                </label>
+<div class="tables" id="tables"></div>
 
-                <input
-                    id="registerPassword"
-                    type="password"
-                    placeholder="Минимум 6 символов"
-                >
+</section>
 
-                <label>
-                    Название клуба
-                </label>
 
-                <input
-                    id="registerClub"
-                    type="text"
-                    placeholder="Например Club 24"
-                >
+<!-- БАР -->
 
-                <button
-                    class="primary full"
-                    onclick="register()"
-                >
-                    Создать аккаунт
-                </button>
+<section id="bar" class="page">
 
-            </div>
+<div class="cards">
+<div class="card">
+<div class="card-title">Продажи бара</div>
+<div class="big" id="barSales">0 ₽</div>
+</div>
 
-        </div>
+<div class="card">
+<div class="card-title">Себестоимость</div>
+<div class="big" id="barCost">0 ₽</div>
+</div>
 
-    </section>
+<div class="card">
+<div class="card-title">Прибыль</div>
+<div class="big" id="barProfit">0 ₽</div>
+</div>
+</div>
 
+<button class="btn primary" onclick="openProductModal()">
++ Добавить товар
+</button>
 
-    <!-- ==============================
-         MAIN APPLICATION
-    =============================== -->
+<br><br>
 
-    <section
-        id="mainApp"
-        class="hidden"
-    >
+<div class="card">
+<h2>Товары</h2>
 
+<table class="table">
+<thead>
+<tr>
+<th>Название</th>
+<th>Раздел</th>
+<th>Остаток</th>
+<th>Закуп</th>
+<th>Продажа</th>
+<th>Прибыль</th>
+<th></th>
+</tr>
+</thead>
 
-        <!-- TOP BAR -->
+<tbody id="products"></tbody>
 
-        <header class="topbar">
+</table>
+</div>
 
-            <div>
+</section>
 
-                <div class="brand">
-                    🎱 Club Manager
-                </div>
 
-                <div
-                    id="clubName"
-                    class="muted"
-                >
-                    Мой клуб
-                </div>
+<!-- КАССА -->
 
-            </div>
+<section id="cash" class="page">
 
-            <div
-                id="connectionStatus"
-                class="online"
-            >
-                ● Онлайн
-            </div>
+<div class="cards">
 
-        </header>
+<div class="card">
+<div class="card-title">Касса</div>
+<div class="big" id="cashTotal">0 ₽</div>
+</div>
 
+<div class="card">
+<div class="card-title">Смена</div>
+<div class="big" id="shiftStatus">Закрыта</div>
+</div>
 
-        <!-- ==========================
-             MAIN CONTENT
-        =========================== -->
+</div>
 
-        <main>
+<div class="card">
 
+<button class="btn success" onclick="openShift()">
+Открыть смену
+</button>
 
-            <!-- ======================
-                 TABLES
-            ======================= -->
+<button class="btn danger" onclick="closeShift()">
+Закрыть смену
+</button>
 
-            <section
-                id="tablesPage"
-                class="page active"
-            >
+<h2>История смен</h2>
+<table class="table">
+<thead>
+<tr>
+<th>Дата</th>
+<th>Открытие</th>
+<th>Закрытие</th>
+<th>Выручка</th>
+</tr>
+</thead>
+<tbody id="shiftHistory"></tbody>
+</table>
 
-                <div class="page-header">
+</div>
 
-                    <div>
+</section>
 
-                        <h2>
-                            Столы
-                        </h2>
 
-                        <p class="muted">
-                            4 русских · 1 американка
-                        </p>
+<!-- ОТЧЕТЫ -->
 
-                    </div>
+<section id="reports" class="page">
 
-                    <button
-                        class="secondary"
-                        onclick="refreshData()"
-                    >
-                        ↻
-                    </button>
+<div class="cards">
 
-                </div>
+<div class="card">
+<div class="card-title">Выручка</div>
+<div class="big" id="reportRevenue">0 ₽</div>
+</div>
 
+<div class="card">
+<div class="card-title">Средний чек</div>
+<div class="big" id="averageCheck">0 ₽</div>
+</div>
 
-                <div
-                    id="tablesContainer"
-                    class="tables-grid"
-                >
-                </div>
+<div class="card">
+<div class="card-title">Загрузка</div>
+<div class="big" id="occupancy">0%</div>
+</div>
 
-            </section>
+</div>
 
+<div class="card">
 
-            <!-- ======================
-                 BAR
-            ======================= -->
+<h2>Отчёт клуба</h2>
 
-            <section
-                id="barPage"
-                class="page"
-            >
+<table class="table">
+<tr><td>Продажи игр</td><td id="reportGames">0 ₽</td></tr>
+<tr><td>Продажи бара</td><td id="reportBar">0 ₽</td></tr>
+<tr><td>Количество сессий</td><td id="sessions">0</td></tr>
+<tr><td>Себестоимость бара</td><td id="reportCost">0 ₽</td></tr>
+<tr><td>Чистая прибыль</td><td id="netProfit">0 ₽</td></tr>
+</table>
 
-                <div class="page-header">
+<h2>История игр</h2>
+
+<table class="table">
+<thead>
+<tr>
+<th>Стол</th>
+<th>Тип</th>
+<th>Время</th>
+<th>Сумма</th>
+</tr>
+</thead>
+<tbody id="gameHistory"></tbody>
+</table>
+
+</div>
+
+</section>
+
+
+<!-- СТАТИСТИКА -->
+
+<section id="stats" class="page">
+
+<div class="cards">
+
+<div class="card">
+<div class="card-title">Всего игр</div>
+<div class="big" id="statGames">0</div>
+</div>
+
+<div class="card">
+<div class="card-title">Выручка</div>
+<div class="big" id="statRevenue">0 ₽</div>
+</div>
+
+<div class="card">
+<div class="card-title">Загрузка</div>
+<div class="big" id="statOccupancy">0%</div>
+</div>
+
+</div>
+
+<div class="card">
+<h2>Игра по столам</h2>
+<div id="tableStats"></div>
+</div>
+
+</section>
+
+
+<!-- НАСТРОЙКИ -->
+
+<section id="settings" class="page">
+
+<div class="setting">
+<div>
+<b>Аккаунт</b>
+<br>
+<span id="accountEmail"></span>
+</div>
+</div>
+
+<div class="setting">
+<div>
+<b>Подписка</b>
+<br>
+Тариф: Free
+</div>
+<button class="btn" onclick="alert('Раздел подписки будет подключён к оплате после подключения сервера.')">
+Открыть
+</button>
+</div>
+
+<div class="setting">
+<div>
+<b>История платежей</b>
+<br>
+Пусто
+</div>
+</div>
+
+<div class="setting">
+<div>
+<b>Синхронизация</b>
+<br>
+Локальная версия
+</div>
+<button class="btn" onclick="syncData()">Синхронизировать</button>
+</div>
+
+<div class="setting">
+<div>
+<b>Активные устройства</b>
+<br>
+Это устройство
+</div>
+<button class="btn" onclick="showDevices()">Просмотр</button>
+</div>
+
+<div class="setting">
+<div>
+<b>Язык</b>
+<br>
+<span id="languageName">Русский</span>
+</div>
+
+<select onchange="changeLanguage(this.value)">
+<option value="ru">Русский</option>
+<option value="ky">Кыргызский</option>
+<option value="uz">O'zbekcha</option>
+</select>
+</div>
+
+<div class="setting">
+<div>
+<b>Тема</b>
+<br>
+Темная / светлая
+</div>
+
+<button class="btn" onclick="toggleTheme()">
+Сменить тему
+</button>
+</div>
+
+<div class="setting">
+<div>
+<b>Уведомления</b>
+<br>
+Уведомления устройства
+</div>
+
+<button class="btn" onclick="enableNotifications()">
+Включить
+</button>
+</div>
+
+<div class="setting">
+<div>
+<b>Помощь</b>
+<br>
+Инструкция Club Manager
+</div>
+
+<button class="btn" onclick="page('help')">
+Открыть
+</button>
+</div>
+
+<div class="setting">
+<div>
+<b>Политика конфиденциальности</b>
+</div>
+<button class="btn" onclick="page('privacy')">
+Открыть
+</button>
+</div>
+
+<div class="setting">
+<div>
+<b>Версия приложения</b>
+<br>
+1.0.0
+</div>
+</div>
+
+<div class="setting">
+<button class="btn danger" onclick="logout()">
+Выйти из аккаунта
+</button>
+
+<button class="btn danger" onclick="deleteAccount()">
+Удалить аккаунт
+</button>
+</div>
+
+</section>
+
+
+<!-- ПОМОЩЬ -->
+
+<section id="help" class="page">
+
+<div class="card">
+
+<h2>Помощь</h2>
+
+<div class="help-item">
+<h3>Как открыть смену?</h3>
+Откройте раздел «Касса» и нажмите «Открыть смену».
+</div>
+
+<div class="help-item">
+<h3>Как открыть время на столе?</h3>
+На главном экране выберите стол и нажмите «Начать».
+</div>
+
+<div class="help-item">
+<h3>Как поставить паузу?</h3>
+Нажмите «Пауза». Время остановится, а сумма больше не будет начисляться.
+</div>
+
+<div class="help-item">
+<h3>Как закрыть стол?</h3>
+Нажмите «Закрыть». Система рассчитает итоговую стоимость и сохранит игру в историю.
+</div>
+
+<div class="help-item">
+<h3>Как поставить напоминание об окончании?</h3>
+В следующей версии можно будет выбрать продолжительность игры и время уведомления.
+</div>
+
+<div class="help-item">
+<h3>Бары и склад</h3>
+В разделе «Бар» добавляются товары, указываются закупочная цена, цена продажи и количество.
+</div>
+
+<div class="help-item">
+<h3>Как продать товар в баре?</h3>
+Нажмите «Продать» возле товара. Количество уменьшится, а выручка увеличится.
+</div>
+
+<div class="help-item">
+<h3>Как записать товар на стол?</h3>
+Откройте нужный стол и добавьте товар к текущей сессии.
+</div>
+
+<div class="help-item">
+<h3>Как сделать приход?</h3>
+Добавьте количество товара на склад через функцию прихода.
+</div>
+
+<div class="help-item">
+<h3>Как исправить остаток?</h3>
+В разделе товара можно изменить количество вручную.
+</div>
+
+<div class="help-item">
+<h3>Где посмотреть выручку?</h3>
+Раздел «Отчёты» показывает выручку, игры, бар, средний чек, загрузку и прибыль.
+</div>
+
+<div class="help-item">
+<h3>Есть ли история смен?</h3>
+Да. История находится в разделе «Касса».
+</div>
+
+<div class="help-item">
+<h3>Уведомления устройства</h3>
+В настройках нажмите «Включить» и разрешите уведомления браузеру.
+</div>
+
+<div class="help-item">
+<h3>Как добавить получателя?</h3>
+Функция получателей уведомлений будет подключена после серверной версии.
+</div>
+
+<div class="help-item">
+<h3>Как подключить принтер чеков?</h3>
+Для реального принтера потребуется подключение устройства и серверная версия Club Manager.
+</div>
+
+<div class="help-item">
+<h3>Как оплатить тариф?</h3>
+Оплата будет подключена через платёжную систему после создания серверной версии.
+</div>
+
+<div class="help-item">
+<h3>Что будет после окончания подписки?</h3>
+Данные сохраняются, но платные функции могут стать недоступны.
+</div>
+
+<div class="help-item">
+<h3>Работает ли без интернета?</h3>
+Эта версия работает локально без интернета. Для синхронизации между устройствами нужен интернет.
+</div>
+
+<div class="help-item">
+<h3>Потеряются ли данные при выходе?</h3>
+Нет. Данные сохраняются в браузере этого устройства.
+</div>
 
-                    <div>
+<div class="help-item">
+<h3>Активные устройства</h3>
+В серверной версии здесь будут отображаться устройства, вошедшие в аккаунт.
+</div>
 
-                        <h2>
-                            🍹 Бар
-                        </h2>
+</div>
 
-                        <p class="muted">
-                            Товары и склад
-                        </p>
+</section>
 
-                    </div>
 
-                    <button
-                        class="primary"
-                        onclick="openAddProduct()"
-                    >
-                        + Добавить
-                    </button>
+<!-- ПОЛИТИКА -->
 
-                </div>
+<section id="privacy" class="page">
 
+<div class="card">
 
-                <div class="bar-tabs">
+<h2>Политика конфиденциальности Club Manager</h2>
 
-                    <button
-                        class="active"
-                        onclick="filterBar('all', this)"
-                    >
-                        Все
-                    </button>
+<p><b>1. Общие положения</b></p>
 
-                    <button
-                        onclick="filterBar('drinks', this)"
-                    >
-                        Напитки
-                    </button>
+<p>
+Club Manager предназначен для управления бильярдным клубом,
+столами, кассой, товарами, продажами и отчётностью.
+</p>
 
-                    <button
-                        onclick="filterBar('snacks', this)"
-                    >
-                        Снеки
-                    </button>
+<p><b>2. Данные аккаунта</b></p>
 
-                    <button
-                        onclick="filterBar('bar', this)"
-                    >
-                        Бар
-                    </button>
+<p>
+При регистрации может использоваться адрес электронной почты.
+Он используется для идентификации пользователя и восстановления доступа.
+</p>
 
-                </div>
+<p><b>3. Данные клуба</b></p>
 
+<p>
+Приложение может хранить информацию о столах, игровых сессиях,
+товарах, продажах, сменах, кассовых операциях и отчётах.
+</p>
 
-                <div
-                    id="productsContainer"
-                >
-                </div>
+<p><b>4. Безопасность</b></p>
 
-            </section>
+<p>
+Мы принимаем разумные меры для защиты информации от
+несанкционированного доступа, изменения или удаления.
+</p>
 
+<p><b>5. Передача данных</b></p>
 
-            <!-- ======================
-                 CASH
-            ======================= -->
+<p>
+Персональные данные не должны продаваться третьим лицам.
+Передача данных может осуществляться только в случаях,
+необходимых для работы сервиса или предусмотренных законом.
+</p>
 
-            <section
-                id="cashPage"
-                class="page"
-            >
+<p><b>6. Удаление аккаунта</b></p>
 
-                <div class="page-header">
+<p>
+Пользователь может запросить удаление аккаунта и связанных
+с ним данных в предусмотренном приложением порядке.
+</p>
 
-                    <div>
+<p><b>7. Изменение политики</b></p>
 
-                        <h2>
-                            💰 Касса
-                        </h2>
+<p>
+Политика может обновляться при изменении функций приложения,
+законодательства или используемой инфраструктуры.
+</p>
 
-                        <p
-                            id="shiftStatus"
-                            class="muted"
-                        >
-                            Смена закрыта
-                        </p>
+<p><b>8. Контакты</b></p>
 
-                    </div>
+<p>
+Контактный адрес будет указан после создания официальной
+инфраструктуры Club Manager.
+</p>
 
-                </div>
+</div>
 
+</section>
 
-                <div class="cash-summary">
+</main>
 
-                    <div class="cash-card">
 
-                        <span>
-                            В кассе
-                        </span>
+<div class="bottom-nav">
+<button class="active" onclick="page('home',this)">🎱<br>Столы</button>
+<button onclick="page('reports',this)">📊<br>Отчёты</button>
+<button onclick="page('stats',this)">📈<br>Статистика</button>
+<button onclick="page('bar',this)">🍹<br>Бар</button>
+<button onclick="page('settings',this)">⚙️<br>Настройки</button>
+</div>
 
-                        <strong
-                            id="cashBalance"
-                        >
-                            0 ₽
-                        </strong>
+</div>
 
-                    </div>
 
-                    <div class="cash-card">
+<!-- МОДАЛЬНОЕ ОКНО ТОВАРА -->
 
-                        <span>
-                            Продажи
-                        </span>
+<div id="productModal" class="modal-bg">
 
-                        <strong
-                            id="cashSales"
-                        >
-                            0 ₽
-                        </strong>
+<div class="modal">
 
-                    </div>
+<div class="modal-head">
+<h2>Добавить товар</h2>
+<button class="close" onclick="closeProductModal()">×</button>
+</div>
 
-                    <div class="cash-card">
+<form onsubmit="addProduct(event)">
 
-                        <span>
-                            Расходы
-                        </span>
+<div class="form">
 
-                        <strong
-                            id="cashExpenses"
-                        >
-                            0 ₽
-                        </strong>
+<input id="productName" placeholder="Наименование" required>
 
-                    </div>
+<input id="productQty" type="number" min="0" placeholder="Количество" required>
 
-                </div>
+<input id="productCost" type="number" min="0" placeholder="Цена закупа ₽" required>
 
+<input id="productPrice" type="number" min="0" placeholder="Цена продажи ₽" required>
 
-                <div class="cash-actions">
+<select id="productCategory">
+<option value="Напитки">Напитки</option>
+<option value="Снеки">Снеки</option>
+<option value="Бар">Бар</option>
+</select>
 
-                    <button
-                        class="primary"
-                        onclick="openShift()"
-                    >
-                        🔓 Открыть смену
-                    </button>
+<button class="btn primary">
+Добавить товар
+</button>
 
-                    <button
-                        class="secondary"
-                        onclick="addExpense()"
-                    >
-                        − Расход
-                    </button>
+</div>
 
-                    <button
-                        class="danger"
-                        onclick="closeShift()"
-                    >
-                        🔒 Закрыть смену
-                    </button>
+</form>
 
-                </div>
+</div>
+</div>
 
-            </section>
 
+<script>
 
-            <!-- ======================
-                 REPORTS
-            ======================= -->
+let tables=[
+{id:1,name:"Стол 1",type:"Русский",rate:600,running:false,paused:false,start:null,elapsed:0,items:[]},
+{id:2,name:"Стол 2",type:"Русский",rate:600,running:false,paused:false,start:null,elapsed:0,items:[]},
+{id:3,name:"Стол 3",type:"Русский",rate:600,running:false,paused:false,start:null,elapsed:0,items:[]},
+{id:4,name:"Стол 4",type:"Русский",rate:600,running:false,paused:false,start:null,elapsed:0,items:[]},
+{id:5,name:"Стол 5",type:"Американа",rate:500,running:false,paused:false,start:null,elapsed:0,items:[]}
+];
 
-            <section
-                id="reportsPage"
-                class="page"
-            >
+let products=JSON.parse(localStorage.getItem("products")||"[]");
+let games=JSON.parse(localStorage.getItem("games")||"[]");
+let shifts=JSON.parse(localStorage.getItem("shifts")||"[]");
 
-                <h2>
-                    📊 Отчёты
-                </h2>
+let currentShift=JSON.parse(localStorage.getItem("currentShift")||"null");
 
-                <div class="report-grid">
+let currentUser=localStorage.getItem("clubUser");
 
-                    <div class="report-card">
+let authMode="login";
 
-                        <span>
-                            Выручка
-                        </span>
+function money(n){
+return Math.round(n).toLocaleString("ru-RU")+" ₽";
+}
 
-                        <strong
-                            id="reportRevenue"
-                        >
-                            0 ₽
-                        </strong>
+function save(){
+localStorage.setItem("products",JSON.stringify(products));
+localStorage.setItem("games",JSON.stringify(games));
+localStorage.setItem("shifts",JSON.stringify(shifts));
+localStorage.setItem("currentShift",JSON.stringify(currentShift));
+}
 
-                    </div>
+function showLogin(){
+authMode="login";
+document.getElementById("loginTab").classList.add("active");
+document.getElementById("registerTab").classList.remove("active");
+document.getElementById("authButton").textContent="Войти";
+}
 
-                    <div class="report-card">
+function showRegister(){
+authMode="register";
+document.getElementById("registerTab").classList.add("active");
+document.getElementById("loginTab").classList.remove("active");
+document.getElementById("authButton").textContent="Зарегистрироваться";
+}
 
-                        <span>
-                            Игры
-                        </span>
+function auth(e){
 
-                        <strong
-                            id="reportGames"
-                        >
-                            0
-                        </strong>
+e.preventDefault();
 
-                    </div>
+let email=document.getElementById("email").value;
+let password=document.getElementById("password").value;
 
-                    <div class="report-card">
+if(authMode==="register"){
+localStorage.setItem("registeredEmail",email);
+localStorage.setItem("registeredPassword",password);
+alert("Аккаунт создан.");
+}
 
-                        <span>
-                            Бар
-                        </span>
+let savedEmail=localStorage.getItem("registeredEmail");
+let savedPassword=localStorage.getItem("registeredPassword");
 
-                        <strong
-                            id="reportBar"
-                        >
-                            0 ₽
-                        </strong>
+if(email===savedEmail && password===savedPassword){
+currentUser=email;
+localStorage.setItem("clubUser",email);
+startApp();
+}else{
+alert("Неверный email или пароль.");
+}
+}
 
-                    </div>
+function forgotPassword(){
+alert("Для восстановления настоящего пароля потребуется серверная авторизация.");
+}
 
-                    <div class="report-card">
+function startApp(){
 
-                        <span>
-                            Средний чек
-                        </span>
+document.getElementById("loginScreen").style.display="none";
+document.getElementById("app").style.display="flex";
 
-                        <strong
-                            id="reportAverage"
-                        >
-                            0 ₽
-                        </strong>
+document.getElementById("accountEmail").textContent=currentUser||"";
 
-                    </div>
+render();
+}
 
-                    <div class="report-card">
+function logout(){
+localStorage.removeItem("clubUser");
+location.reload();
+}
 
-                        <span>
-                            Загрузка
-                        </span>
+function deleteAccount(){
 
-                        <strong
-                            id="reportOccupancy"
-                        >
-                            0%
-                        </strong>
+if(confirm("Удалить локальный аккаунт и данные?")){
+localStorage.clear();
+location.reload();
+}
+}
 
-                    </div>
+function page(id,button){
 
-                    <div class="report-card">
+document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
 
-                        <span>
-                            Себестоимость
-                        </span>
+let target=document.getElementById(id);
 
-                        <strong
-                            id="reportCost"
-                        >
-                            0 ₽
-                        </strong>
+if(target){
+target.classList.add("active");
+}
 
-                    </div>
+document.querySelectorAll(".nav button,.bottom-nav button")
+.forEach(x=>x.classList.remove("active"));
 
-                    <div class="report-card">
+if(button)button.classList.add("active");
 
-                        <span>
-                            Чистая прибыль
-                        </span>
+let titles={
+home:"Столы",
+bar:"Бар",
+cash:"Касса",
+reports:"Отчёты",
+stats:"Статистика",
+settings:"Настройки",
+help:"Помощь",
+privacy:"Политика конфиденциальности"
+};
 
-                        <strong
-                            id="reportProfit"
-                        >
-                            0 ₽
-                        </strong>
+document.getElementById("pageTitle").textContent=titles[id]||"Club Manager";
 
-                    </div>
+render();
+}
 
-                </div>
+function renderTables(){
 
+let box=document.getElementById("tables");
+box.innerHTML="";
 
-                <h3>
-                    Почасовая выручка
-                </h3>
+tables.forEach(t=>{
 
-                <div
-                    id="hourlyReport"
-                >
-                    <div class="empty">
-                        Нет данных
-                    </div>
-                </div>
+let elapsed=t.elapsed;
 
+if(t.running && !t.paused){
+elapsed=Math.floor((Date.now()-t.start)/1000)+t.elapsed;
+}
 
-                <h3>
-                    История игр
-                </h3>
+let hours=elapsed/3600;
+let tableCost=hours*t.rate;
 
-                <div
-                    id="gamesHistory"
-                >
-                    <div class="empty">
-                        История пуста
-                    </div>
-                </div>
+let status="Свободно";
+let statusClass="free";
 
-            </section>
+if(t.running && !t.paused){
+status="Активно";
+statusClass="active-status";
+}else if(t.running && t.paused){
+status="Пауза";
+statusClass="paused";
+}
 
+let itemTotal=t.items.reduce((sum,x)=>sum+x.price*x.qty,0);
 
-            <!-- ======================
-                 STATISTICS
-            ======================= -->
+let total=tableCost+itemTotal;
 
-            <section
-                id="statisticsPage"
-                class="page"
-            >
+let card=document.createElement("div");
+card.className="table-card";
 
-                <h2>
-                    📈 Статистика
-                </h2>
+card.innerHTML=`
 
-                <div class="report-grid">
+<div class="table-head">
 
-                    <div class="report-card">
+<div>
+<div class="table-name">${t.name}</div>
+<div class="type">${t.type} · ${money(t.rate)}/час</div>
+</div>
 
-                        <span>
-                            Всего игр
-                        </span>
+<span class="status ${statusClass}">${status}</span>
 
-                        <strong
-                            id="statGames"
-                        >
-                            0
-                        </strong>
+</div>
 
-                    </div>
+<div class="timer">${formatTime(elapsed)}</div>
 
-                    <div class="report-card">
+<div class="price">
+Стоимость времени: ${money(tableCost)}
+</div>
 
-                        <span>
-                            Общее время
-                        </span>
+<div class="bill">
+Счёт: ${money(total)}
+</div>
 
-                        <strong
-                            id="statTime"
-                        >
-                            0 ч
-                        </strong>
+<div class="actions">
 
-                    </div>
+${!t.running ?
+`<button class="btn success" onclick="startTable(${t.id})">Начать</button>`
+:
+`<button class="btn warning" onclick="pauseTable(${t.id})">
+${t.paused?"Продолжить":"Пауза"}
+</button>
 
-                    <div class="report-card">
+<button class="btn danger" onclick="closeTable(${t.id})">
+Закрыть
+</button>`
+}
 
-                        <span>
-                            Средняя игра
-                        </span>
+<button class="btn" onclick="addToTable(${t.id})">
++ Бар
+</button>
 
-                        <strong
-                            id="statAverage"
-                        >
-                            0 мин
-                        </strong>
+</div>
+`;
 
-                    </div>
+box.appendChild(card);
 
-                    <div class="report-card">
+});
 
-                        <span>
-                            Лучший стол
-                        </span>
+}
 
-                        <strong
-                            id="statBestTable"
-                        >
-                            —
-                        </strong>
+function formatTime(seconds){
 
-                    </div>
+let h=Math.floor(seconds/3600);
+let m=Math.floor((seconds%3600)/60);
+let s=seconds%60;
 
-                </div>
+return String(h).padStart(2,"0")+":"+
+String(m).padStart(2,"0")+":"+
+String(s).padStart(2,"0");
+}
 
-            </section>
+function startTable(id){
 
+let t=tables.find(x=>x.id===id);
 
-            <!-- ======================
-                 SETTINGS
-            ======================= -->
+if(!t.running){
+t.running=true;
+t.paused=false;
+t.start=Date.now();
+t.elapsed=0;
+}
 
-            <section
-                id="settingsPage"
-                class="page"
-            >
+render();
+}
 
-                <h2>
-                    ⚙️ Настройки
-                </h2>
+function pauseTable(id){
 
+let t=tables.find(x=>x.id===id);
 
-                <div class="settings-list">
+if(!t.running)return;
 
-                    <button
-                        onclick="settingsAccount()"
-                    >
-                        <span>
-                            👤 Аккаунт
-                        </span>
+if(!t.paused){
+t.elapsed+=Math.floor((Date.now()-t.start)/1000);
+t.paused=true;
+}else{
+t.start=Date.now();
+t.paused=false;
+}
 
-                        <b>›</b>
-                    </button>
+render();
+}
 
+function closeTable(id){
 
-                    <button
-                        onclick="settingsEmployees()"
-                    >
-                        <span>
-                            👥 Сотрудники
-                        </span>
+let t=tables.find(x=>x.id===id);
 
-                        <b>›</b>
-                    </button>
+if(!t.running)return;
 
+let elapsed=t.elapsed;
 
-                    <button
-                        onclick="settingsSubscription()"
-                    >
-                        <span>
-                            💳 Подписка
-                        </span>
+if(!t.paused){
+elapsed+=Math.floor((Date.now()-t.start)/1000);
+}
 
-                        <b>›</b>
-                    </button>
+let total=(elapsed/3600)*t.rate;
 
+let itemTotal=t.items.reduce((sum,x)=>sum+x.price*x.qty,0);
 
-                    <button
-                        onclick="settingsPayments()"
-                    >
-                        <span>
-                            💰 История платежей
-                        </span>
+let finalTotal=total+itemTotal;
 
-                        <b>›</b>
-                    </button>
+games.push({
+table:t.name,
+type:t.type,
+seconds:elapsed,
+amount:finalTotal,
+date:new Date().toISOString()
+});
 
+t.running=false;
+t.paused=false;
+t.start=null;
+t.elapsed=0;
+t.items=[];
 
-                    <button
-                        onclick="settingsSync()"
-                    >
-                        <span>
-                            🔄 Синхронизация
-                        </span>
+save();
+render();
 
-                        <b>›</b>
-                    </button>
+alert("Стол закрыт.\nСчёт: "+money(finalTotal));
+}
 
+function addToTable(id){
 
-                    <button
-                        onclick="settingsDevices()"
-                    >
-                        <span>
-                            📱 Активные устройства
-                        </span>
+let t=tables.find(x=>x.id===id);
 
-                        <b>›</b>
-                    </button>
+if(products.length===0){
+alert("Сначала добавьте товар в Бар.");
+return;
+}
 
+let names=products.map((p,i)=>
+`${i+1}. ${p.name} — ${money(p.price)} (остаток ${p.qty})`
+).join("\n");
 
-                    <button
-                        onclick="settingsLanguage()"
-                    >
-                        <span>
-                            🌍 Язык
-                        </span>
+let choice=prompt("Введите номер товара:\n\n"+names);
 
-                        <b id="languageValue">
-                            Русский
-                        </b>
-                    </button>
+let index=parseInt(choice)-1;
 
+if(isNaN(index)||!products[index])return;
 
-                    <button
-                        onclick="settingsTheme()"
-                    >
-                        <span>
-                            🎨 Тема
-                        </span>
+let p=products[index];
 
-                        <b id="themeValue">
-                            Тёмная
-                        </b>
-                    </button>
+if(p.qty<=0){
+alert("Товара нет на складе.");
+return;
+}
 
+let qty=parseInt(prompt("Количество:", "1"));
 
-                    <button
-                        onclick="settingsNotifications()"
-                    >
-                        <span>
-                            🔔 Уведомления
-                        </span>
+if(!qty||qty<1||qty>p.qty)return;
 
-                        <b>›</b>
-                    </button>
+p.qty-=qty;
 
+t.items.push({
+name:p.name,
+price:p.price,
+qty:qty
+});
 
-                    <button
-                        onclick="settingsHelp()"
-                    >
-                        <span>
-                            ❓ Помощь
-                        </span>
+save();
+render();
 
-                        <b>›</b>
-                    </button>
+}
 
+function renderProducts(){
 
-                    <button
-                        onclick="settingsPrivacy()"
-                    >
-                        <span>
-                            🔐 Политика конфиденциальности
-                        </span>
+let tbody=document.getElementById("products");
+tbody.innerHTML="";
 
-                        <b>›</b>
-                    </button>
+products.forEach((p,i)=>{
 
-                </div>
+let profit=(p.price-p.cost)*p.qty;
 
+let tr=document.createElement("tr");
 
-                <button
-                    class="logout-button"
-                    onclick="logout()"
-                >
-                    Выйти из аккаунта
-                </button>
+tr.innerHTML=`
+<td>${p.name}</td>
+<td>${p.category}</td>
+<td>${p.qty}</td>
+<td>${money(p.cost)}</td>
+<td>${money(p.price)}</td>
+<td>${money(profit)}</td>
+<td>
+<button class="btn success" onclick="sellProduct(${i})">
+Продать
+</button>
+</td>
+`;
 
+tbody.appendChild(tr);
 
-                <button
-                    class="delete-account"
-                    onclick="deleteAccount()"
-                >
-                    Удалить аккаунт
-                </button>
+});
 
+let sales=0;
+let cost=0;
 
-                <div class="version">
-                    Club Manager · версия 1.0.0
-                </div>
+products.forEach(p=>{
+sales+=(p.price*p.sold||0);
+cost+=(p.cost*p.sold||0);
+});
 
-            </section>
+document.getElementById("barSales").textContent=money(sales);
+document.getElementById("barCost").textContent=money(cost);
+document.getElementById("barProfit").textContent=money(sales-cost);
+document.getElementById("barRevenue").textContent=money(sales);
 
-        </main>
+}
 
+function openProductModal(){
+document.getElementById("productModal").classList.add("show");
+}
 
-        <!-- ==========================
-             BOTTOM NAVIGATION
-        =========================== -->
+function closeProductModal(){
+document.getElementById("productModal").classList.remove("show");
+}
 
-        <nav class="bottom-nav">
+function addProduct(e){
 
-            <button
-                onclick="navigate('reportsPage', this)"
-            >
+e.preventDefault();
 
-                <span>
-                    📊
-                </span>
+let p={
+name:document.getElementById("productName").value,
+qty:Number(document.getElementById("productQty").value),
+cost:Number(document.getElementById("productCost").value),
+price:Number(document.getElementById("productPrice").value),
+category:document.getElementById("productCategory").value,
+sold:0
+};
 
-                <small>
-                    Отчёты
-                </small>
+products.push(p);
 
-            </button>
+save();
 
+document.getElementById("productModal").classList.remove("show");
 
-            <button
-                class="active"
-                onclick="navigate('tablesPage', this)"
-            >
+e.target.reset();
 
-                <span>
-                    🎱
-                </span>
+render();
 
-                <small>
-                    Столы
-                </small>
+}
 
-            </button>
+function sellProduct(i){
 
+let p=products[i];
 
-            <button
-                onclick="navigate('statisticsPage', this)"
-            >
+if(p.qty<=0){
+alert("Товар закончился.");
+return;
+}
 
-                <span>
-                    📈
-                </span>
+let qty=parseInt(prompt("Количество:", "1"));
 
-                <small>
-                    Статистика
-                </small>
+if(!qty||qty<1||qty>p.qty)return;
 
-            </button>
+p.qty-=qty;
+p.sold+=qty;
 
+save();
+render();
 
-            <button
-                onclick="navigate('barPage', this)"
-            >
+}
 
-                <span>
-                    🍹
-                </span>
+function openShift(){
 
-                <small>
-                    Бар
-                </small>
+if(currentShift){
+alert("Смена уже открыта.");
+return;
+}
 
-            </button>
+currentShift={
+date:new Date().toLocaleDateString("ru-RU"),
+opened:new Date().toLocaleTimeString("ru-RU"),
+closed:null
+};
 
+save();
+render();
 
-            <button
-                onclick="navigate('settingsPage', this)"
-            >
+alert("Смена открыта.");
+}
 
-                <span>
-                    ⚙️
-                </span>
+function closeShift(){
 
-                <small>
-                    Настройки
-                </small>
+if(!currentShift){
+alert("Смена не открыта.");
+return;
+}
 
-            </button>
+currentShift.closed=new Date().toLocaleTimeString("ru-RU");
 
-        </nav>
+shifts.push(currentShift);
 
-    </section>
+currentShift=null;
 
+save();
+render();
 
-    <!-- ==============================
-         TABLE MODAL
-    =============================== -->
+alert("Смена закрыта.");
+}
 
-    <div
-        id="tableModal"
-        class="modal"
-    >
+function renderReports(){
 
-        <div class="modal-content">
+let gameRevenue=games.reduce((s,g)=>s+g.amount,0);
 
-            <button
-                class="modal-close"
-                onclick="closeModal('tableModal')"
-            >
-                ×
-            </button>
+let barSales=products.reduce((s,p)=>s+(p.price*p.sold),0);
 
-            <h2
-                id="tableModalTitle"
-            >
-                Стол
-            </h2>
+let barCost=products.reduce((s,p)=>s+(p.cost*p.sold),0);
 
-            <div
-                id="tableModalBody"
-            >
-            </div>
+let revenue=gameRevenue+barSales;
 
-        </div>
+let checks=games.length+(barSales>0?1:0);
 
-    </div>
+let average=checks?revenue/checks:0;
 
+let occupancy=Math.min(100,(games.length/5)*10);
 
-    <!-- ==============================
-         PRODUCT MODAL
-    =============================== -->
+document.getElementById("reportRevenue").textContent=money(revenue);
+document.getElementById("reportGames").textContent=money(gameRevenue);
+document.getElementById("reportBar").textContent=money(barSales);
+document.getElementById("reportCost").textContent=money(barCost);
+document.getElementById("netProfit").textContent=money(revenue-barCost);
+document.getElementById("averageCheck").textContent=money(average);
+document.getElementById("occupancy").textContent=Math.round(occupancy)+"%";
+document.getElementById("sessions").textContent=games.length;
 
-    <div
-        id="productModal"
-        class="modal"
-    >
+let tbody=document.getElementById("gameHistory");
+tbody.innerHTML="";
 
-        <div class="modal-content">
+games.slice().reverse().forEach(g=>{
 
-            <button
-                class="modal-close"
-                onclick="closeModal('productModal')"
-            >
-                ×
-            </button>
+let tr=document.createElement("tr");
 
-            <h2>
-                Добавить товар
-            </h2>
+tr.innerHTML=`
+<td>${g.table}</td>
+<td>${g.type}</td>
+<td>${formatTime(g.seconds)}</td>
+<td>${money(g.amount)}</td>
+`;
 
+tbody.appendChild(tr);
 
-            <label>
-                Наименование
-            </label>
+});
 
-            <input
-                id="productName"
-                type="text"
-                placeholder="Например Coca-Cola"
-            >
+}
 
+function renderStats(){
 
-            <label>
-                Категория
-            </label>
+document.getElementById("statGames").textContent=games.length;
 
-            <select
-                id="productCategory"
-            >
+let revenue=games.reduce((s,g)=>s+g.amount,0)+
+products.reduce((s,p)=>s+p.price*p.sold,0);
 
-                <option value="drinks">
-                    Напитки
-                </option>
+document.getElementById("statRevenue").textContent=money(revenue);
 
-                <option value="snacks">
-                    Снеки
-                </option>
+document.getElementById("statOccupancy").textContent=
+Math.min(100,Math.round(games.length*10))+"%";
 
-                <option value="bar">
-                    Бар
-                </option>
+let box=document.getElementById("tableStats");
 
-            </select>
+box.innerHTML=tables.map(t=>{
 
+let count=games.filter(g=>g.table===t.name).length;
 
-            <label>
-                Количество
-            </label>
+return `
+<div style="padding:12px;border-bottom:1px solid #ddd">
+<b>${t.name}</b> — ${count} игр
+</div>
+`;
 
-            <input
-                id="productQuantity"
-                type="number"
-                min="0"
-                value="1"
-            >
+}).join("");
 
+}
 
-            <label>
-                Цена закупки
-            </label>
+function renderShifts(){
 
-            <input
-                id="productCost"
-                type="number"
-                min="0"
-                placeholder="0"
-            >
+let tbody=document.getElementById("shiftHistory");
 
+tbody.innerHTML="";
 
-            <label>
-                Цена продажи
-            </label>
+shifts.slice().reverse().forEach(s=>{
 
-            <input
-                id="productPrice"
-                type="number"
-                min="0"
-                placeholder="0"
-            >
+let tr=document.createElement("tr");
 
+tr.innerHTML=`
+<td>${s.date}</td>
+<td>${s.opened}</td>
+<td>${s.closed||"—"}</td>
+<td>—</td>
+`;
 
-            <button
-                class="primary full"
-                onclick="addProduct()"
-            >
-                Добавить товар
-            </button>
+tbody.appendChild(tr);
 
-        </div>
+});
 
-    </div>
+document.getElementById("shiftStatus").textContent=
+currentShift?"Открыта":"Закрыта";
 
+}
 
-    <!-- ==============================
-         INFO MODAL
-    =============================== -->
+function render(){
 
-    <div
-        id="infoModal"
-        class="modal"
-    >
+renderTables();
+renderProducts();
+renderReports();
+renderStats();
+renderShifts();
 
-        <div class="modal-content">
+let revenue=games.reduce((s,g)=>s+g.amount,0)+
+products.reduce((s,p)=>s+p.price*p.sold,0);
 
-            <button
-                class="modal-close"
-                onclick="closeModal('infoModal')"
-            >
-                ×
-            </button>
+document.getElementById("todayRevenue").textContent=money(revenue);
 
-            <h2
-                id="infoTitle"
-            >
-                Информация
-            </h2>
+document.getElementById("activeTables").textContent=
+tables.filter(t=>t.running&&!t.paused).length+" / 5";
 
-            <div
-                id="infoBody"
-            >
-            </div>
+document.getElementById("cashTotal").textContent=money(revenue);
 
-        </div>
+document.getElementById("date").textContent=
+new Date().toLocaleDateString("ru-RU",{
+weekday:"long",
+day:"numeric",
+month:"long"
+});
 
-    </div>
+}
 
+function refreshData(){
 
-    <script src="app.js"></script>
+render();
+
+alert("Главный экран обновлён.");
+}
+
+function toggleTheme(){
+
+document.body.classList.toggle("dark");
+
+localStorage.setItem(
+"theme",
+document.body.classList.contains("dark")?"dark":"light"
+);
+
+}
+
+function changeLanguage(lang){
+
+let names={
+ru:"Русский",
+ky:"Кыргызча",
+uz:"O'zbekcha"
+};
+
+document.getElementById("languageName").textContent=names[lang];
+
+localStorage.setItem("language",lang);
+
+if(lang!=="ru"){
+alert(
+lang==="ky"
+?"Тил кыргыз тилине өзгөртүлдү. Толук котормо кийинки версияда кошулат."
+:"Til o'zbek tiliga o'zgartirildi. To'liq tarjima keyingi versiyada qo'shiladi."
+);
+}else{
+alert("Язык изменён на русский.");
+}
+
+}
+
+function enableNotifications(){
+
+if(!("Notification" in window)){
+alert("Этот браузер не поддерживает уведомления.");
+return;
+}
+
+Notification.requestPermission().then(permission=>{
+
+if(permission==="granted"){
+
+new Notification("Club Manager",{
+body:"Уведомления включены."
+});
+
+}else{
+alert("Разрешение на уведомления не предоставлено.");
+}
+
+});
+
+}
+
+function syncData(){
+
+alert("Локальные данные сохранены. Настоящая синхронизация между устройствами появится после подключения серверной базы.");
+}
+
+function showDevices(){
+
+alert(
+"Активные устройства:\n\n"+
+"• Текущее устройство\n"+
+"Статус: активно"
+);
+
+}
+
+window.addEventListener("beforeunload",()=>{
+save();
+});
+
+setInterval(()=>{
+renderTables();
+},1000);
+
+
+if(localStorage.getItem("theme")==="dark"){
+document.body.classList.add("dark");
+}
+
+if(currentUser){
+startApp();
+}
+
+</script>
 
 </body>
 </html>
